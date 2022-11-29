@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Tamzen';
+  src: url('src/assets/fonts/Tamzen10x20r.ttf') format('truetype'),
+       url('src/assets/fonts/Tamzen10x20r.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* --- scrollbar --- */
+html {
+  -ms-overflow-style: none;  /* ie & edge */
+  scrollbar-width: none;  /* firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
