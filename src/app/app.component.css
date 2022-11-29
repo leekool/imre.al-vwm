@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Tamzen';
+  src: url('src/assets/fonts/Tamzen10x20r.ttf') format('truetype'),
+       url('src/assets/fonts/Tamzen10x20r.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}

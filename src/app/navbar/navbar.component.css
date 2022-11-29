@@ -1,0 +1,45 @@
+header {
+    height: 25px;
+    width: calc(100% - 8px);
+    top: 4px;
+    background-repeat: repeat;
+    background-image: url('src/assets/images/pixmaps/navbar-tile.png');
+    left: 50%;
+    margin-left: calc(-50% + 4px);
+    position: fixed;
+    box-shadow: 0 -1px 0 0 #5c6057 inset;
+    z-index: 8;
+    display: flex;
+    justify-content: flex-end;
+    /* gap: 40px; */
+}
+
+.title-text {
+    font-family: 'Tamzen', monospace;
+    font-size: 15px;
+    color: #e4e3d5;
+    display: flex;
+    align-items: center;
+    height: 28px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    user-select: none;
+}
+
+.title-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+}
+
+.title-buttons img {
+  cursor: pointer;
+  max-height: 31%;
+  padding: 8px;
+}
+
+.title-buttons img:hover {
+    opacity: 0.3;
+}
