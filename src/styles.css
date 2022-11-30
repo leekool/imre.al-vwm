@@ -15,3 +15,7 @@ html {
 html::-webkit-scrollbar {
   display: none;
 }
+
+body {
+  margin: 0;
+}

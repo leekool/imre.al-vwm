@@ -10,10 +10,15 @@ export class WindowComponent {
   @Input() title: string = '';
 
   minimised: boolean = false;
+  maximised: boolean = true;
 
   constructor() {}
 
   minimiseWindow() {
     this.minimised = !this.minimised;
+  }
+
+  toggleResize() {
+    this.maximised = !this.maximised;
   }
 }
