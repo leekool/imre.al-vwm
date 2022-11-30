@@ -9,5 +9,11 @@ import { Component, Input } from '@angular/core';
 export class WindowComponent {
   @Input() title: string = '';
 
-  constructor() { }
+  minimised: boolean = false;
+
+  constructor() {}
+
+  minimiseWindow() {
+    this.minimised = !this.minimised;
+  }
 }
