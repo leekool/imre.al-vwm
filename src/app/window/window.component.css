@@ -1,86 +1,64 @@
 .main {
   display: flex;
-  height: calc(100vh - 35px); /* 35px to account for taskbar */
-  margin: auto;
   position: relative;
+  height: calc(100vh - 35px); /* 35px to account for taskbar */
+  margin: 0;
   flex-direction: column;
   font-family: 'Tamzen', sans-serif;
 }
 
-.border {
-  margin: 1px;
-  border: 2px solid #32302c;
-  box-shadow: 0 0 0 2px #222020 inset,
-              0 0 0 1px #222020;
+.main-item {
+  position: relative;
+  height: 25px;
+  width: calc(100% - 8px);
+  top: 4px;
+  left: 50%;
+  margin-left: calc(-50% + 4px);
 }
 
-/* --- full page window border --- */
-/* .border { */
-/*   height: 100vh; */
-/* } */
-
-/* div.border::before { */
-/*   content: ''; */
-/*   position: fixed; */
-/*   inset: 1px; /\* for some reason leaves tiny gap on firefox if 2px *\/ */
-/*   border: 2px solid #32302c; */
-/*   box-shadow: 0 0 0 2px #222020 inset, */
-/*               0 0 0 1px #222020; */
-/*   z-index: 9; */
-/*   pointer-events: none; */
-/*   max-height: calc(100% - 35px); /\* 35px to account for taskbar *\/ */
-/* } */
-
-/* .border-small { */
-/*   border: 2px solid #32302c; */
-/*   box-shadow: 0 0 0 2px #222020 inset, */
-/*               0 0 0 1px #222020; */
-/*   z-index: 9; */
-/* } */
+.border {
+  box-shadow: 0 0 0 1px #222020 inset,
+              0 0 0 3px #32302c inset,
+              0 0 0 5px #222020 inset;
+}
 
 .navbar {
-    display: flex;
-    height: 25px;
-    width: calc(100% - 8px);
-    top: 4px;
-    left: 50%;
-    margin-left: calc(-50% + 4px);
-    justify-content: flex-end;
-    position: fixed;
-    background-repeat: repeat;
-    background-image: url('src/assets/images/pixmaps/navbar-tile.png');
-    box-shadow: 0 -1px 0 0 #5c6057 inset;
-    z-index: 10;
-    /* gap: 40px; */
+  display: flex;
+  justify-content: flex-end;
+  background-repeat: repeat;
+  background-image: url('src/assets/images/pixmaps/navbar-tile.png');
+  box-shadow: 0 -1px 0 0 #5c6057 inset;
+  z-index: 10;
+  /* gap: 40px; */
 }
 
 .navbar-text {
-    display: flex;
-    height: 28px;
-    left: 50%;
-    font-size: 15px;
-    color: #e4e3d5;
-    align-items: center;
-    position: absolute;
-    transform: translate(-50%);
-    user-select: none;
+  display: flex;
+  height: 28px;
+  left: 50%;
+  font-size: 15px;
+  color: #e4e3d5;
+  align-items: center;
+  position: absolute;
+  transform: translate(-50%);
+  user-select: none;
 }
 
 .navbar-buttons {
-    display: flex;
-    width: 90px;
-    align-items: ctgenter;
-    justify-content: center;
+  display: flex;
+  width: 90px;
+  align-items: center;
+  justify-content: center;
 }
 
-.navbar-buttons img {
-    max-height: 31%;
-    padding: 8px;
-    cursor: pointer;
+.navbar-buttons input {
+  max-height: 31%;
+  padding: 8px;
+  cursor: pointer;
 }
 
-.navbar-buttons img:hover {
-    opacity: 0.3;
+.navbar-buttons input:hover {
+  opacity: 0.3;
 }
 
 .content {

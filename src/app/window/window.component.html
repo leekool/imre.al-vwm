@@ -1,20 +1,21 @@
 <div *ngIf="!minimised"
      class="main border"
      [ngClass]="{'border': maximised,
-                 'border-small': !maximised}">
-  <div class="navbar">
-    <div class="navbar-text">{{ title }}</div>
-    <div class="navbar-buttons">
-      <img src="assets/icons/tb-minimise.png"
-           (click)="minimiseWindow()"
-           class="">
-      <img src="assets/icons/tb-maximise.png"
-           (click)="toggleResize()"
-           class="">
-      <img src="assets/icons/tb-close.png" class="">
+            'border-small': !maximised}">
+    <div class="navbar main-item">
+        <div class="navbar-text">{{ title }}</div>
+        <div class="navbar-buttons">
+            <input type="image"
+                   src="assets/icons/tb-minimise.png"
+                   (click)="minimiseWindow()">
+            <input type="image"
+                   src="assets/icons/tb-maximise.png"
+                   (click)="toggleResize()">
+            <input type="image"
+                   src="assets/icons/tb-close.png">
+        </div>
     </div>
-  </div>
-  <div class="content">
-
-  </div>
+    <div class="content main-item">
+        <p>test</p>
+    </div>
 </div>
