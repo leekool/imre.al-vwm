@@ -6,14 +6,14 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
-  @Input() content: string = 'i am\ncool\ncool test\ncool\ntest';
+  @Input() content: string = '';
 
   lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);
     if (!lineCount) return [1];
 
     let lines: number[] = [];
-    for (let i = 1; i - 2 < lineCount!.length; i++) lines.push(i);
+    for (let i = 1; i - 2 < lineCount.length; i++) lines.push(i);
     return lines;
   }
 
