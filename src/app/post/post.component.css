@@ -1,7 +1,14 @@
 .main {
-    height: 100;
-    padding: 10px 0 10px 0;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+}
+
+.body {
+    padding: 10px 0 10px 0;
+    height: 100;
+    display: flex;
+    flex: 1 1 auto;
     position: relative;
     font-family: 'Tamzen', sans-serif;
     background-color: #1d1f21;

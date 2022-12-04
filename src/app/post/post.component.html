@@ -1,4 +1,5 @@
 <div class="main">
+<div class="body">
     <div class="lines">
         <p *ngFor="let x of lineCount()">{{ x }}</p>
     </div>
@@ -15,4 +16,5 @@
     <span class="word-count">
         {{ lineCount()[lineCount().length - 1] }}:{{ wordCount() }}
     </span>
+</div>
 </div>

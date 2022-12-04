@@ -11,9 +11,7 @@ export class PostComponent {
   lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);
     let lines: number[] = [];
-    for (let i = 1; i - 2 < lineCount!.length; i++) {
-      lines.push(i);
-    }
+    for (let i = 1; i - 2 < lineCount!.length; i++) lines.push(i);
     return lines;
   }
 
