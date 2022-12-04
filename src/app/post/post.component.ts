@@ -10,14 +10,16 @@ export class PostComponent {
 
   lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);
+    if (!lineCount) return [1];
+
     let lines: number[] = [];
     for (let i = 1; i - 2 < lineCount!.length; i++) lines.push(i);
     return lines;
   }
 
-  wordCount() {
+  wordCount(): number {
     let wordCount = this.content.match(/\n| /g);
-    return wordCount!.length;
+    return wordCount ? wordCount.length : 1;
   }
 
 }
