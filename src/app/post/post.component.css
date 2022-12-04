@@ -52,3 +52,7 @@
 .word-count {
     margin-left: 10px;
 }
+
+p {
+    margin: 0;
+}

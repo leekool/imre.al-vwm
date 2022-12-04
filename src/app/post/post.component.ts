@@ -8,13 +8,18 @@ import { Component, Input } from '@angular/core';
 export class PostComponent {
   @Input() content: string = 'i am\ncool\ncool test\ncool\ntest';
 
-  lineCount() {
+  lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);
-    let lines: string = '';
+    let lines: number[] = [];
     for (let i = 1; i - 2 < lineCount!.length; i++) {
-      lines += `${i}\n`;
+      lines.push(i);
     }
     return lines;
+  }
+
+  wordCount() {
+    let wordCount = this.content.match(/\n| /g);
+    return wordCount!.length;
   }
 
 }
