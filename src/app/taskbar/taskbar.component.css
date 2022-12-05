@@ -1,0 +1,77 @@
+.taskbar {
+    height: 29px;
+    color: #222020;
+    background-image: url('src/assets/images/pixmaps/menu-tile.png');
+    background-repeat: repeat;
+    bottom: 0;
+    left: 50%;
+    margin-left: -50%;
+    width: 100%;
+    position: fixed;
+    border-top: 1px solid #222020;
+    box-shadow: 1px 1px #fffefe inset,
+                -1px -1px #948c79 inset;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Tamzen', sans-serif;
+    font-size: 15px;
+}
+
+.taskbar span {
+    margin-top: 3px;
+}
+
+.start-button {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    background-color: #1C00ff00;
+    user-select: none;
+    outline: none;
+    box-shadow: -1px -1px #948c79 inset,
+                -1px 0 0 0 #fffefe inset;
+}
+
+.start-menu {
+    position: relative;
+    display: flex;
+}
+
+.iconman {
+    display: flex;
+    width: 100%;
+    box-shadow: -1px -1px #948c79 inset,
+                1px 1px #fffefe inset;
+}
+
+.iconman-button {
+    cursor: pointer;
+    display: flex;
+    width: 360px;
+    margin: 5px 0 5px 5px;
+    align-items: center;
+    user-select: none;
+}
+
+.iconman-button img {
+    max-height: 13px;
+    margin: 4px;
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+.iconman-button-inactive {
+    color: #000;
+    background-image: none;
+    box-shadow: none;
+}
+
+.iconman-button-active {
+    color: #fffefe;
+    background-image: url('src/assets/images/pixmaps/menu_hover-tile.png');
+    box-shadow: -1px -1px #92998b inset,
+                1px 1px #5c6057 inset;
+}
