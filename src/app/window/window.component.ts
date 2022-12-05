@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, Output } from '@angular/core';
 
 @Component({
   selector: 'window',
@@ -11,8 +11,6 @@ export class WindowComponent {
 
   minimised: boolean = false;
   maximised: boolean = true;
-
-  constructor() {}
 
   minimiseWindow() {
     this.minimised = !this.minimised;
