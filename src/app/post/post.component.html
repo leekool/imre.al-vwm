@@ -1,10 +1,10 @@
 <div class="main">
 <div class="body">
     <div class="lines">
-        <p *ngFor="let x of lineCount()">{{ x }}</p>
+        <p *ngFor="let x of lineCount()">{{x}}</p>
     </div>
     <div class="content">
-        {{ content }}
+        {{content}}
     </div>
 </div>
 
@@ -12,9 +12,9 @@
     <span class="circle"></span>
     <span class="file-size"></span>
     <span style="color: #acbc68; margin-left: 10px;">imre.al/</span>
-    <span class="file-name"></span>
+    <span class="file-name">{{title}}</span>
     <span class="word-count">
-        {{ lineCount()[lineCount().length - 1] }}:{{ wordCount() }}
+        {{lineCount()[lineCount().length - 1]}}:{{wordCount()}}
     </span>
 </div>
 </div>

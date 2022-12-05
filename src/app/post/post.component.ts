@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class PostComponent {
   @Input() content: string = '';
+  @Input() title: string = '';
 
   lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);

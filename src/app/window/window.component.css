@@ -1,7 +1,7 @@
 .main {
   display: flex;
   position: relative;
-  height: calc(100vh - 35px); /* 35px to account for taskbar */
+  height: calc(100vh - 29.5px); /* 30px to account for taskbar */
   margin: 0;
   flex-direction: column;
   font-family: 'Tamzen', sans-serif;
