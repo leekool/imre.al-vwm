@@ -6,9 +6,10 @@
     </div>
 
     <div class="iconman">
-        <div class="iconman-button iconman-button-active">
-            <img src="src/assets/images/taskbar-icon.png">
-            <span>imre.al</span>
+        <div *ngFor="let window of windowList"
+             class="iconman-button iconman-button-active">
+            <img [src]="window.icon">
+            <span>{{window.title}}</span>
         </div>
     </div>
 </div>
