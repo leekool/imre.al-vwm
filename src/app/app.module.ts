@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { WindowComponent } from './window/window.component';
 import { PostComponent } from './post/post.component';
 import { TaskbarComponent } from './taskbar/taskbar.component';
-import { WindowListService } from './window-list.service';
+import { WindowService } from './window.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { WindowListService } from './window-list.service';
     AppRoutingModule
   ],
   providers: [
-  WindowListService
+    WindowService
   ],
   bootstrap: [AppComponent]
 })
