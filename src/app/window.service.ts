@@ -7,7 +7,6 @@ import { Window } from './window/window';
 })
 export class WindowService {
   windows: QueryList<WindowComponent>;
-  windowList: Window[] = [];
 
   public setWindows(value: QueryList<WindowComponent>) {
     this.windows = value;
@@ -15,17 +14,16 @@ export class WindowService {
 
   public getWindows() {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(this.windows));
+      setTimeout(() => {
+        let windows = this.windows;
+        let windowList: Window[] = [];
+        windows.forEach(x => {
+          windowList.push({'title': x.title,
+                           'icon': `assets/icons/${x['title']}-icon.png`});
+        });
+        resolve(windowList);
+      });
     });
-  }
-
-  showWindowList = () => {
-    for (let x of this.windows) this.windowList.push({
-      title: x['title'],
-      icon: `assets/icons/${x['title']}-icon.png`
-    });
-    console.log(this.windowList);
-    return this.windowList;
   }
 
   constructor() { }

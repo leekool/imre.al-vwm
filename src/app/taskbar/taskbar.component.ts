@@ -7,15 +7,11 @@ import { WindowService } from '../window.service';
   styleUrls: ['./taskbar.component.css']
 })
 export class TaskbarComponent implements AfterViewInit {
-  // @Input() windowList: Window[];
+  windows: any = this.windowService.getWindows();
+
   constructor(public windowService: WindowService) { }
 
-  async readWindows() {
-    const windows = await this.windowService.getWindows();
-    return windows;
-  }
-
-  async ngAfterViewInit() {
-    console.log(await this.readWindows());
+  ngAfterViewInit() {
+    console.log(this.windows)
   }
 }

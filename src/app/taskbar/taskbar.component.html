@@ -6,10 +6,10 @@
     </div>
 
     <div class="iconman">
-        <!-- <div *ngFor="let window of windowList"
+        <div *ngFor="let window of windows | async"
              class="iconman-button iconman-button-active">
-             <img [src]="window.icon">
-             <span>{{window.title}}</span>
-             </div> -->
+            <img [src]="window.icon">
+            <span>{{window.title}}</span>
+        </div>
     </div>
 </div>
