@@ -12,6 +12,5 @@ export class TaskbarComponent implements AfterViewInit {
   constructor(public windowService: WindowService) { }
 
   ngAfterViewInit() {
-    console.log(this.windows)
   }
 }

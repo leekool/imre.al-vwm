@@ -1,4 +1,5 @@
-import { Component, Input, OnDestroy, Output } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, Output } from '@angular/core';
+import { WindowService } from '../window.service';
 
 @Component({
   selector: 'window',
@@ -12,6 +13,9 @@ export class WindowComponent {
   minimised: boolean = false;
   maximised: boolean = true;
 
+  constructor(public windowService: WindowService,
+              private host: ElementRef<HTMLElement>) {}
+
   minimiseWindow() {
     this.minimised = !this.minimised;
   }
@@ -19,4 +23,10 @@ export class WindowComponent {
   toggleResize() {
     this.maximised = !this.maximised;
   }
+
+  destroyWindow() {
+    this.host.nativeElement.remove();
+  }
+
+
 }
