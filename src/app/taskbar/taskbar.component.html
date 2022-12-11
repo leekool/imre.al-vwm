@@ -6,10 +6,12 @@
     </div>
 
     <div class="iconman">
-        <div *ngFor="let window of windows | async"
-             class="iconman-button iconman-button-active">
-            <img [src]="window.icon">
-            <span>{{window.title}}</span>
+        <div *ngFor="let window of windowList">
+            <div *ngIf="!window.closed"
+                 class="iconman-button iconman-button-active">
+                <img [src]="'assets/icons/' + window.title + '-icon.png'">
+                <span>{{window.title}}</span>
+            </div>
         </div>
     </div>
 </div>

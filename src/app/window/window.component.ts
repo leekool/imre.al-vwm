@@ -9,12 +9,14 @@ import { WindowService } from '../window.service';
 
 export class WindowComponent {
   @Input() title: string = '';
+  icon: string = `assets/icons/${this.title}-icon.png`
 
   minimised: boolean = false;
   maximised: boolean = true;
+  closed: boolean = false;
 
   constructor(public windowService: WindowService,
-              private host: ElementRef<HTMLElement>) {}
+              ) {}
 
   minimiseWindow() {
     this.minimised = !this.minimised;
@@ -24,8 +26,8 @@ export class WindowComponent {
     this.maximised = !this.maximised;
   }
 
-  destroyWindow() {
-    this.host.nativeElement.remove();
+  closeWindow() {
+    this.closed = true;
   }
 
 

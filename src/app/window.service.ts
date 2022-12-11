@@ -1,6 +1,7 @@
 import { Injectable, QueryList } from '@angular/core';
 import { WindowComponent } from './window/window.component';
 import { Window } from './window/window';
+import { from, Observable, startWith, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +9,13 @@ import { Window } from './window/window';
 export class WindowService {
   windows: QueryList<WindowComponent>;
 
-  public setWindows(value: QueryList<WindowComponent>) {
-    this.windows = value;
-  }
+  updateWindows$ = Observable.create((observer: any) => {
+    observer.next(this.windows);
+  });
 
-  public getWindows() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        let windows = this.windows;
-        let windowList: Window[] = [];
-        windows.forEach(x => {
-          windowList.push({'title': x.title,
-                           'icon': `assets/icons/${x['title']}-icon.png`});
-        });
-        resolve(windowList);
-      });
-    });
-  }
+  windows$ = new Subject();
+
+
 
   constructor() { }
 }
