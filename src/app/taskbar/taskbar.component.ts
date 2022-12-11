@@ -2,7 +2,7 @@ import { AfterViewInit, Component, DoCheck, OnChanges, OnInit, QueryList, } from
 import { WindowService } from '../window.service';
 import { Window } from '../window/window';
 import { map, subscribeOn } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { from, Observable, Observer, Subscriber } from 'rxjs';
 import { WindowComponent } from '../window/window.component';
 
 @Component({
@@ -17,8 +17,8 @@ export class TaskbarComponent implements OnInit {
   constructor(public windowService: WindowService) { }
 
   ngOnInit() {
-    this.windowService.windows$.subscribe((data: any) => {
-      this.windowList = data;
+    this.windowService.windows$.subscribe((response: any) => {
+      this.windowList = response;
       console.log(this.windowList)
     });
   }
