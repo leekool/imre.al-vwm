@@ -8,7 +8,8 @@
     <div class="iconman">
         <div *ngFor="let window of windowList">
             <div *ngIf="!window.closed"
-                 class="iconman-button iconman-button-active">
+                 [ngClass]="{'iconman-button': window,
+                             'iconman-button-active': !window.minimised}">
                 <img [src]="'assets/icons/' + window.title + '-icon.png'">
                 <span>{{window.title}}</span>
             </div>
