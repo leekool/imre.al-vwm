@@ -9,7 +9,11 @@ import { from, Observable, startWith, Subject } from 'rxjs';
 export class WindowService {
   windows: QueryList<WindowComponent>;
 
-  updateWindows$ = Observable.create((observer: any) => {
+
+  // updateWindows$ = Observable.create((observer) => {
+  //   observer.next(this.windows);
+  // });
+  updateWindows$ = new Observable((observer) => {
     observer.next(this.windows);
   });
 
