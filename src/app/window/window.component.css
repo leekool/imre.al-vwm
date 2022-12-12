@@ -23,6 +23,7 @@
 
 .navbar {
   display: flex;
+  position: relative;
   height: 25px;
   justify-content: flex-end;
   background-repeat: repeat;
@@ -63,4 +64,13 @@
 
 .content {
   height: calc(100% - 34px);
+}
+
+.main-small {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 840px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 0;
 }

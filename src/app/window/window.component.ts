@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { WindowService } from '../window.service';
 
 @Component({
@@ -9,14 +9,13 @@ import { WindowService } from '../window.service';
 
 export class WindowComponent {
   @Input() title: string = '';
-  icon: string = `assets/icons/${this.title}-icon.png`
+  @Input() maximised: boolean = true;
 
   minimised: boolean = false;
-  maximised: boolean = true;
   closed: boolean = false;
 
-  constructor(public windowService: WindowService,
-              ) {}
+  constructor(public windowService: WindowService) {}
+
 
   minimiseWindow() {
     this.minimised = !this.minimised;
@@ -29,6 +28,10 @@ export class WindowComponent {
   closeWindow() {
     this.closed = true;
   }
+
+  // toggleClose() {
+  //   this.closed = !this.closed;
+  // }
 
 
 }

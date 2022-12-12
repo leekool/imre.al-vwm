@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DoCheck, OnChanges, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, DoCheck, QueryList, ViewChildren } from '@angular/core';
 import { WindowComponent } from './window/window.component';
 import { WindowService } from './window.service';
 
@@ -8,7 +8,6 @@ import { WindowService } from './window.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements DoCheck {
-  title = 'imre.al';
 
   constructor(public windowService: WindowService) { }
 
