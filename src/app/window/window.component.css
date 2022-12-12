@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex: 1 1 auto;
-  padding: 4px 0px 0px 4px;
+  padding: 5px 0px 0px 5px;
   flex-direction: column;
   font-family: 'Tamzen', sans-serif;
 }
@@ -16,13 +16,13 @@
 
 .main-item {
   position: sticky;
-  width: calc(100% - 4px);
+  width: calc(100% - 5px);
 }
 
 .border {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 29.5px); /* 30px to account for taskbar */
+  height: calc(100vh - 30px); /* 30px to account for taskbar */
   box-shadow: 0 0 0 1px #222020 inset,
               0 0 0 3px #32302c inset,
               0 0 0 5px #222020 inset;
