@@ -1,12 +1,17 @@
-.main {
-    height: 100%;
+:host {
     display: flex;
+    flex: 1 1 auto;
+}
+
+.main {
+    display: flex;
+    flex: 1 1 auto;
+    height: 100%;
     flex-direction: column;
 }
 
 .body {
     padding: 10px 0 10px 0;
-    height: 100;
     display: flex;
     flex: 1 1 auto;
     position: relative;
