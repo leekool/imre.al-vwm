@@ -1,21 +1,28 @@
 .main {
   display: flex;
-  position: relative;
-  height: calc(100vh - 29.5px); /* 30px to account for taskbar */
-  margin: 0;
+  flex: 1 1 auto;
+  padding: 4px 0px 0px 4px;
   flex-direction: column;
   font-family: 'Tamzen', sans-serif;
 }
 
+/* .main-item { */
+/*   position: relative; */
+/*   width: calc(100% - 8px); */
+/*   top: 4px; */
+/*   left: 50%; */
+/*   margin-left: calc(-50% + 4px); */
+/* } */
+
 .main-item {
-  position: relative;
-  width: calc(100% - 8px);
-  top: 4px;
-  left: 50%;
-  margin-left: calc(-50% + 4px);
+  position: sticky;
+  width: calc(100% - 4px);
 }
 
 .border {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 29.5px); /* 30px to account for taskbar */
   box-shadow: 0 0 0 1px #222020 inset,
               0 0 0 3px #32302c inset,
               0 0 0 5px #222020 inset;
@@ -64,8 +71,7 @@
 .content {
   display: flex;
   flex: 1 1 auto;
-  position: relative;
-  max-height: calc(100% - 34px);
+  max-height: calc(100% - 29.5px);
 }
 
 .main-small {
