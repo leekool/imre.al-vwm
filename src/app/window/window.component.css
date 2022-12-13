@@ -75,11 +75,17 @@
 }
 
 .main-small {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  height: 840px;
-  width: 60%;
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -52.5%);
+  transform: translate(-50%, -52.5%);
+  height: 80%;
+  width: 80%;
+
+
+  /* height: 840px; */
+  /* max-width: 60%; */
+  /* margin: auto; */
 }

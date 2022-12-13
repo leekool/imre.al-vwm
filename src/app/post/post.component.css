@@ -11,7 +11,7 @@
 }
 
 .body {
-    padding: 10px 0 10px 0;
+    padding: 15px 0 10px 0;
     display: flex;
     flex: 1 1 auto;
     position: relative;
@@ -22,11 +22,12 @@
 }
 
 .lines {
-    width: 30px;
+    width: 25px;
     height: 100%;
     color: #3f4040;
     text-align: right;
     white-space: pre-line;
+    user-select: none;
 }
 
 .content {
@@ -47,12 +48,13 @@
     height: 22px;
     background-color: #0f1011;
     box-shadow: 8px 0 0 0 #81a2be inset;
+    user-select: none;
 }
 
 .circle {
     height: 12px;
     width: 12px;
-    margin: 0 5px 2px 20px;
+    margin: 1px 5px 2px 20px;
     background-color: #b294bb;
     border-radius: 50%;
 }
