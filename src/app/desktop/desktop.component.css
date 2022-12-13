@@ -1,23 +1,20 @@
 :host {
-    position: absolute;
     display: flex;
-    width: 100%;
+    position: absolute;
     height: 100%;
+    width: 100%;
     z-index: -1;
-}
-
-* {
     font-family: 'Tamzen', sans-serif;
 }
 
 .desktop {
-    width: 100%;
     display: flex;
+    width: 100%;
     background-image: url('src/assets/images/sunset-tile.png');
-    background-color: #7f84a3;
     background-repeat: repeat-x;
-    background-attachment: fixed;
     background-size: auto;
+    background-attachment: fixed;
+    background-color: #7f84a3;
 }
 
 .icon-container {
@@ -31,16 +28,22 @@
 
 .desktop-icon {
     display: flex;
-    max-width: 80%;
-}
-
-.desktop-icon-image {
-    content: url('src/assets/images/leather_desktop.png');
-}
-
-.desktop-icon-text {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     font-size: 16px;
     text-shadow: 1px 1px #fffefe;
     text-align: center;
     user-select: none;
 }
+
+.desktop-icon img {
+    max-width: 80%;
+}
+
+/* .desktop-icon span { */
+/*     font-size: 16px; */
+/*     text-shadow: 1px 1px #fffefe; */
+/*     text-align: center; */
+/*     user-select: none; */
+/* } */
