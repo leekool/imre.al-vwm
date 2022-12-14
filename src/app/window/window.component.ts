@@ -17,7 +17,7 @@ export class WindowComponent {
   constructor(public windowService: WindowService) {}
 
 
-  minimiseWindow() {
+  toggleMinimise() {
     this.minimised = !this.minimised;
   }
 
@@ -25,8 +25,8 @@ export class WindowComponent {
     this.maximised = !this.maximised;
   }
 
-  closeWindow() {
-    this.closed = true;
+  toggleClose() {
+    this.closed = !this.closed;
   }
 
   // toggleClose() {

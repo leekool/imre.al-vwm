@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowService } from '../window.service';
 import { Window } from '../window.model'
+import { WindowComponent } from '../window/window.component';
 
 @Component({
   selector: 'desktop',
@@ -14,11 +15,12 @@ export class DesktopComponent implements OnInit {
   imreal: Window = new Window('imre.al');
 
   doubleClick(w: Window) {
-    let window: any;
+    let window: WindowComponent;
     for (let x of this.windowList) {
       if (w.title = x.title) window = x;
     }
-    console.log(window);
+    if (window!.minimised) window!.toggleMinimise();
+    if (window!.closed) window!.toggleClose();
   }
 
   constructor(public windowService: WindowService) { }
