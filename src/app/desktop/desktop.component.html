@@ -1,7 +1,8 @@
 <div class="desktop hide">
     <div class="icon-container">
         <div class="desktop-icon"
-             (click)="imreal.toggleHighlight()">
+             (click)="imreal.toggleHighlight()"
+             (dblclick)="doubleClick(imreal)">
             <img [src]="imreal.desktopIcon">
             <span>{{imreal.title}}</span>
         </div>

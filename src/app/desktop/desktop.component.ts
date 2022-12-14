@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowService } from '../window.service';
-import { Window } from '../window/window'
+import { Window } from '../window.model'
 
 @Component({
   selector: 'desktop',
@@ -11,12 +11,15 @@ import { Window } from '../window/window'
 export class DesktopComponent implements OnInit {
   windowList: any;
 
-  desktopIcons = [{
-    title: 'imre.al',
-    highlight: false,
-  }]
-
   imreal: Window = new Window('imre.al');
+
+  doubleClick(w: Window) {
+    let window: any;
+    for (let x of this.windowList) {
+      if (w.title = x.title) window = x;
+    }
+    console.log(window);
+  }
 
   constructor(public windowService: WindowService) { }
 
