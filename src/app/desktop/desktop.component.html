@@ -1,11 +1,9 @@
 <div class="desktop hide">
     <div class="icon-container">
-        <div class="desktop-icon">
-            <img src="assets/images/leather-desktop.png">
-            <span>imre.al</span>
+        <div class="desktop-icon"
+             (click)="imreal.toggleHighlight()">
+            <img [src]="imreal.desktopIcon">
+            <span>{{imreal.title}}</span>
         </div>
-        <!-- <img class="desktop-icon"
-             src="assets/images/leather-desktop.png">
-             <span class="desktop-icon">imre.al</span> -->
     </div>
 </div>
