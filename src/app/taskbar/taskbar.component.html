@@ -10,7 +10,7 @@
             <div *ngIf="!window.closed"
                  [ngClass]="{'iconman-button': window,
                              'iconman-button-active': !window.minimised}"
-                 (click)="window.minimiseWindow()">
+                 (click)="window.toggleMinimise()">
                 <img [src]="'assets/icons/' + window.title + '-icon.png'">
                 <span>{{window.title}}</span>
             </div>
