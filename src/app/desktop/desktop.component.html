@@ -1,10 +1,14 @@
-<div class="desktop hide">
-    <div class="icon-container">
+<div class="desktop"
+     (click)="unhighlight()">
+    <div class="icon-container"
+         (click)="$event.stopPropagation()">
         <div class="desktop-icon"
              (click)="imreal.toggleHighlight()"
              (dblclick)="doubleClick(imreal)">
             <img [src]="imreal.desktopIcon">
-            <span>{{imreal.title}}</span>
+            <span [ngClass]="{'desktop-icon-highlight': imreal.highlight}">
+                {{imreal.title}}
+            </span>
         </div>
     </div>
 </div>

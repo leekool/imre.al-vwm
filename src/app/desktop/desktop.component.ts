@@ -23,6 +23,10 @@ export class DesktopComponent implements OnInit {
     if (window!.closed) window!.toggleClose();
   }
 
+  unhighlight() {
+    if (this.imreal.highlight) this.imreal.toggleHighlight();
+  }
+
   constructor(public windowService: WindowService) { }
 
   ngOnInit() {
