@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowService } from '../window.service';
-import { Window } from '../window.model'
 import { WindowComponent } from '../window/window.component';
 
 @Component({
@@ -12,22 +11,16 @@ import { WindowComponent } from '../window/window.component';
 export class DesktopComponent implements OnInit {
   windowList: any;
 
-  imreal: Window = new Window('imre.al');
-
-  doubleClick(w: Window) {
-    let window: WindowComponent;
-    for (let x of this.windowList) {
-      if (w.title = x.title) window = x;
-    }
-    if (window!.minimised) window!.toggleMinimise();
-    if (window!.closed) window!.toggleClose();
-  }
-
-  unhighlight() {
-    if (this.imreal.highlight) this.imreal.toggleHighlight();
-  }
-
   constructor(public windowService: WindowService) { }
+
+  clearHighlight() {
+    for (let window of this.windowList) if (window.highlight) window.toggleHighlight();
+  }
+
+  doubleClick(window: WindowComponent) {
+    if (window.minimised) window.toggleMinimise();
+    if (window.closed) window.toggleClose();
+  }
 
   ngOnInit() {
     this.windowService.windows$.subscribe((response: any) => {

@@ -8,13 +8,22 @@ import { WindowService } from '../window.service';
 })
 
 export class WindowComponent {
-  @Input() title: string = '';
+  @Input() set title(input: string) {
+    this._title = input;
+    this.taskbarIcon = `assets/icons/${this._title}-icon.png`
+    this.setDesktopIcon()
+  }
+
+  @Input() minimised: boolean = false;
   @Input() maximised: boolean = true;
+  @Input() closed: boolean = false;
 
-  minimised: boolean = false;
-  closed: boolean = false;
+  _title: string = ''
+  highlight: boolean = false;
+  desktopIcon: string = '';
+  taskbarIcon: string = '';
 
-  constructor(public windowService: WindowService) {}
+  constructor(public windowService: WindowService) { }
 
 
   toggleMinimise() {
@@ -29,23 +38,14 @@ export class WindowComponent {
     this.closed = !this.closed;
   }
 
-  // title: string = '';
-  // highlight: boolean = false;
-  // desktopIcon: string = '';
-  //
-  // constructor(title: string) {
-  //     this.title = title;
-  //     this.setDesktopIcon();
-  // }
-  //
-  // setDesktopIcon() {
-  //     this.desktopIcon = this.highlight
-  //         ? `assets/icons/${this.title}-desktop-icon-highlight.png`
-  //         : `assets/icons/${this.title}-desktop-icon.png`;
-  // }
-  //
-  // toggleHighlight() {
-  //     this.highlight = !this.highlight;
-  //     this.setDesktopIcon();
-  // }
+  toggleHighlight() {
+    this.highlight = !this.highlight;
+    this.setDesktopIcon();
+  }
+
+  setDesktopIcon() {
+    this.desktopIcon = this.highlight
+      ? `assets/icons/${this._title}-desktop-icon-highlight.png`
+      : `assets/icons/${this._title}-desktop-icon.png`;
+  }
 }

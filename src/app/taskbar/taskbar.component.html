@@ -11,8 +11,8 @@
                  class="iconman-button"
                  [ngClass]="{'iconman-button-active': !window.minimised}"
                  (click)="window.toggleMinimise()">
-                <img [src]="'assets/icons/' + window.title + '-icon.png'">
-                <span>{{window.title}}</span>
+                <img [src]="window.taskbarIcon">
+                <span>{{window._title}}</span>
             </div>
         </div>
     </div>
