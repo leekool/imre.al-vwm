@@ -74,7 +74,7 @@
   max-height: calc(100% - 29.5px);
 }
 
-.main-small {
+.position-centre {
   margin: 0;
   position: absolute;
   top: 50%;
@@ -83,9 +83,4 @@
   transform: translate(-50%, -52.5%);
   height: 80%;
   width: 80%;
-
-
-  /* height: 840px; */
-  /* max-width: 60%; */
-  /* margin: auto; */
 }

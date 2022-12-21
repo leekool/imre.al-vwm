@@ -1,6 +1,6 @@
 <div *ngIf="!minimised && !closed"
      class="border"
-     [ngClass]="{'main-small': !maximised}">
+     [ngClass]="!maximised ? _position : ''">
     <div class="main">
     <div class="navbar main-item">
         <div class="navbar-text">{{_title}}</div>

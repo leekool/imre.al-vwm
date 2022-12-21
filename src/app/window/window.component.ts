@@ -10,7 +10,7 @@ import { WindowService } from '../window.service';
 export class WindowComponent {
   @Input() set position(input: Position) {
     const isValid = positionClassList.includes(input);
-    this._position = 'position-' + isValid ? input : 'centre';
+    this._position = 'position-' + (isValid ? input : 'centre');
   }
 
   @Input() set title(input: string) {
@@ -23,7 +23,7 @@ export class WindowComponent {
   @Input() maximised: boolean = true;
   @Input() closed: boolean = false;
 
-  _position: string = '';
+  _position: string = 'position-centre';
   _title: string = ''
   highlight: boolean = false;
   desktopIcon: string = '';
