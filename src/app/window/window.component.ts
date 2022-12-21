@@ -56,5 +56,5 @@ export class WindowComponent {
   }
 }
 
-type Position = 'centre' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-const positionClassList: Array<Position> = ['centre', 'top-left', 'top-right', 'bottom-left', 'bottom-right'];
+type Position = 'centre' | 'left' | 'right' | 'top' | 'bottom';
+const positionClassList: Array<Position> = ['centre', 'left', 'right', 'top', 'bottom'];
