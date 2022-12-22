@@ -8,6 +8,7 @@ import { PostComponent } from './post/post.component';
 import { TaskbarComponent } from './taskbar/taskbar.component';
 import { WindowService } from './window.service';
 import { DesktopComponent } from './desktop/desktop.component';
+import { TerminalComponent } from './terminal/terminal.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DesktopComponent } from './desktop/desktop.component';
     WindowComponent,
     PostComponent,
     TaskbarComponent,
-    DesktopComponent
+    DesktopComponent,
+    TerminalComponent
   ],
   imports: [
     BrowserModule,
