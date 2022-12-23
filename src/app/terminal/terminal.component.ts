@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-terminal',
+  selector: 'terminal',
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.css']
 })
