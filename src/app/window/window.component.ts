@@ -26,11 +26,11 @@ export class WindowComponent {
   _position: string = 'position-centre';
   _title: string = ''
   highlight: boolean = false;
+  focus: boolean = false;
   desktopIcon: string = '';
   taskbarIcon: string = '';
 
   constructor(public windowService: WindowService) { }
-
 
   toggleMinimise() {
     this.minimised = !this.minimised;
@@ -42,6 +42,10 @@ export class WindowComponent {
 
   toggleClose() {
     this.closed = !this.closed;
+  }
+
+  grabFocus() {
+    this.focus = true;
   }
 
   toggleHighlight() {

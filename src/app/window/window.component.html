@@ -1,6 +1,9 @@
 <div *ngIf="!minimised && !closed"
      class="border"
-     [ngClass]="!maximised ? _position : ''">
+     [ngClass]="{'position-centre': !maximised && _position == 'position-centre',
+                 'position-right': !maximised && _position == 'position-right',
+                 'focus': focus}"
+     (click)="grabFocus()">
     <div class="main">
     <div class="navbar main-item">
         <div class="navbar-text">{{_title}}</div>

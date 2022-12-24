@@ -28,6 +28,10 @@
               0 0 0 6px #222020 inset;
 }
 
+.focus {
+  z-index: 10;
+}
+
 .navbar {
   display: flex;
   height: 25px;
