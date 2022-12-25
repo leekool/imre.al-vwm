@@ -26,6 +26,7 @@ export class DesktopComponent implements OnInit {
     this.windowService.windows$.subscribe((response: any) => {
       this.windowList = response;
     });
+    this.windowService.oneFocus();
   }
 
 }
