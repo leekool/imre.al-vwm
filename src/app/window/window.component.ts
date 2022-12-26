@@ -45,7 +45,7 @@ export class WindowComponent {
   }
 
   grabFocus() {
-    this.focus = true;
+    this.windowService.oneFocus(this)
   }
 
   toggleHighlight() {

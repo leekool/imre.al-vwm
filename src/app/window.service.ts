@@ -1,6 +1,6 @@
 import { Injectable, QueryList } from '@angular/core';
 import { WindowComponent } from './window/window.component';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,11 @@ export class WindowService {
 
   windows$ = new Subject();
 
-  oneFocus() {
-
+  oneFocus(window: WindowComponent) {
+    window.focus = true;
+    for (let x of this.windows) {
+      if (window._title !== x._title) x.focus = false;
+    }
   }
 
   constructor() { }
