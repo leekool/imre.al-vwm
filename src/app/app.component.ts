@@ -1,4 +1,4 @@
-import { Component, DoCheck, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, Component, QueryList, ViewChildren } from '@angular/core';
 import { WindowComponent } from './window/window.component';
 import { WindowService } from './window.service';
 
@@ -7,13 +7,13 @@ import { WindowService } from './window.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements AfterViewChecked {
 
   constructor(public windowService: WindowService) { }
 
   @ViewChildren(WindowComponent) windows: QueryList<WindowComponent>;
 
-  ngDoCheck() {
+  ngAfterViewChecked(): void {
     this.windowService.windows = this.windows;
     this.windowService.updateWindows$.subscribe(this.windowService.windows$);
   }
