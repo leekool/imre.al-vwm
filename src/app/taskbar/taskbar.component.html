@@ -10,7 +10,7 @@
             <div *ngIf="!window.closed"
                  class="iconman-button"
                  [ngClass]="{'iconman-button-active': !window.minimised && window.focus}"
-                 (click)="window.toggleMinimise()">
+                 (click)="iconmanPress(window)">
                 <img [src]="window.taskbarIcon">
                 <span>{{window._title}}</span>
             </div>

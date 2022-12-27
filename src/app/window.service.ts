@@ -14,21 +14,28 @@ export class WindowService {
 
   windows$ = new Subject();
 
-  oneFocus(window: WindowComponent) {
-    if (!window.focus) {
-      window.focus = true;
-      for (let x of this.windows) {
-        if (window._title !== x._title) x.focus = false;
-      }
-    } else {
-      window.focus = false;
-      for (let x of this.windows) {
-        if (window._title !== x._title) {
-          x.focus = true;
-          break;
-        }
+  toggleFocus(window: WindowComponent) {
+    window.focus = !window.focus;
+    for (let x of this.windows) {
+      if (!window.focus && window._title !== x._title) {
+        if (!x.minimised) x.focus = true;
+        break;
+      } else if (window.focus && window._title !== x._title) {
+        x.focus = false;
       }
     }
+    // if (window.focus) {
+    //   for (let x of this.windows) {
+    //     if (window._title !== x._title) x.focus = false;
+    //   }
+    // } else {
+    //   for (let x of this.windows) {
+    //     if (window._title !== x._title) {
+    //       x.focus = true;
+    //       break;
+    //     }
+    //   }
+    // }
   }
 
   constructor() { }

@@ -34,8 +34,7 @@ export class WindowComponent {
 
   toggleMinimise() {
     this.minimised = !this.minimised;
-    if (this.focus) this.windowService.oneFocus(this);
-    if (!this.minimised) this.windowService.oneFocus(this);
+    if (this.focus || !this.minimised) this.windowService.toggleFocus(this);
   }
 
   toggleResize() {
@@ -46,8 +45,8 @@ export class WindowComponent {
     this.closed = !this.closed;
   }
 
-  grabFocus() {
-    if (!this.focus) this.windowService.oneFocus(this);
+  getFocus() {
+    if (!this.focus) this.windowService.toggleFocus(this);
   }
 
   toggleHighlight() {
