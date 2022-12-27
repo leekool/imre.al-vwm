@@ -15,9 +15,19 @@ export class WindowService {
   windows$ = new Subject();
 
   oneFocus(window: WindowComponent) {
-    window.focus = true;
-    for (let x of this.windows) {
-      if (window._title !== x._title) x.focus = false;
+    if (!window.focus) {
+      window.focus = true;
+      for (let x of this.windows) {
+        if (window._title !== x._title) x.focus = false;
+      }
+    } else {
+      window.focus = false;
+      for (let x of this.windows) {
+        if (window._title !== x._title) {
+          x.focus = true;
+          break;
+        }
+      }
     }
   }
 
