@@ -9,12 +9,14 @@ import { WindowComponent } from '../window/window.component';
 })
 
 export class DesktopComponent implements OnInit {
-  windowList: any;
+  windowList: WindowComponent[];
 
   constructor(public windowService: WindowService) { }
 
   clearHighlight() {
-    for (let window of this.windowList) if (window.highlight) window.toggleHighlight();
+    this.windowList.forEach((window: WindowComponent) => {
+      if (window.highlight) window.toggleHighlight();
+    })
   }
 
   doubleClick(window: WindowComponent) {

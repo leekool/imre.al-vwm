@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowService } from '../window.service';
+import { WindowComponent } from '../window/window.component';
 
 @Component({
   selector: 'taskbar',
@@ -7,7 +8,7 @@ import { WindowService } from '../window.service';
   styleUrls: ['./taskbar.component.css']
 })
 export class TaskbarComponent implements OnInit {
-  windowList: any
+  windowList: WindowComponent[];
 
   constructor(public windowService: WindowService) { }
 

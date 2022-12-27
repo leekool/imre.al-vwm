@@ -22,11 +22,11 @@ export class WindowComponent {
   @Input() minimised: boolean = false;
   @Input() maximised: boolean = true;
   @Input() closed: boolean = false;
+  @Input() focus: boolean = false;
 
   _position: string = 'position-centre';
   _title: string = ''
   highlight: boolean = false;
-  focus: boolean = false;
   desktopIcon: string = '';
   taskbarIcon: string = '';
 
@@ -45,7 +45,7 @@ export class WindowComponent {
   }
 
   grabFocus() {
-    this.windowService.oneFocus(this)
+    this.windowService.oneFocus(this);
   }
 
   toggleHighlight() {
