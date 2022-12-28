@@ -43,6 +43,7 @@ export class WindowComponent {
 
   toggleClose() {
     this.closed = !this.closed;
+    if (this.focus || !this.closed) this.windowService.toggleFocus(this);
   }
 
   getFocus() {

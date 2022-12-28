@@ -16,16 +16,8 @@ export class TaskbarComponent implements OnInit {
     if (!window.focus && !window.minimised) {
       this.windowService.toggleFocus(window);
     } else {
-      window.minimised = !window.minimised;
-      this.windowService.toggleFocus(window);
+      window.toggleMinimise();
     }
-    // if (window.focus && !window.minimised) {
-    //   window.toggleMinimise();
-    // } else if (!window.focus && !window.minimised) {
-    //   this.windowService.toggleFocus(window);
-    // } else if (window.minimised) {
-    //   window.toggleMinimise();
-    // }
   }
 
   ngOnInit() {

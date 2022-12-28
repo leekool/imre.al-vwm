@@ -17,8 +17,8 @@ export class WindowService {
   toggleFocus(window: WindowComponent) {
     window.focus = !window.focus;
     for (let x of this.windows) {
-      if (!window.focus && window._title !== x._title) {
-        if (!x.minimised) x.focus = true;
+      if (!window.focus && window._title !== x._title && !x.minimised) {
+        x.focus = true;
         break;
       } else if (window.focus && window._title !== x._title) {
         x.focus = false;
