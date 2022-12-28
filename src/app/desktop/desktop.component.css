@@ -23,11 +23,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
 }
 
 .desktop-icon {
     display: flex;
+    height: 102px;
     flex-direction: column;
     align-items: center;
     gap: 4px;
