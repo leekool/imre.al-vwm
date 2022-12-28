@@ -6,14 +6,6 @@
   font-family: 'Tamzen', sans-serif;
 }
 
-/* .main-item { */
-/*   position: relative; */
-/*   width: calc(100% - 8px); */
-/*   top: 4px; */
-/*   left: 50%; */
-/*   margin-left: calc(-50% + 4px); */
-/* } */
-
 .main-item {
   position: sticky;
   width: calc(100% - 5px);
@@ -21,6 +13,8 @@
 
 .border {
   display: flex;
+  position: absolute;
+  width: 100%;
   flex-direction: column;
   height: calc(100vh - 30px); /* 30px to account for taskbar */
   box-shadow: 0 0 0 1px #494b46 inset,
