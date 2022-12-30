@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'navbar-buttons';
+  src:
+    url('navbar-buttons.ttf?9z6ryd') format('truetype'),
+    url('navbar-buttons.woff?9z6ryd') format('woff'),
+    url('navbar-buttons.svg?9z6ryd#navbar-buttons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="nb-"], [class*=" nb-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'navbar-buttons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nb-minimise:before {
+  content: "\e900";
+}
+.nb-maximise:before {
+  content: "\e901";
+}
+.nb-close:before {
+  content: "\e902";
+}

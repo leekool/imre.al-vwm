@@ -8,15 +8,15 @@
     <div class="navbar main-item">
         <div class="navbar-text">{{_title}}</div>
         <div class="navbar-buttons">
-            <input type="image"
-                   src="assets/icons/nb-minimise.png"
-                   (click)="toggleMinimise()">
-            <input type="image"
-                   src="assets/icons/nb-maximise.png"
-                   (click)="toggleResize()">
-            <input type="image"
-                   src="assets/icons/nb-close.png"
-                   (click)="toggleClose()">
+            <span class="nb-minimise"
+                  (click)="toggleMinimise()">
+            </span>
+            <span class="nb-maximise"
+                  (click)="toggleResize()">
+            </span>
+            <span class="nb-close"
+                  (click)="toggleClose()">
+            </span>
         </div>
     </div>
     <div class="content main-item">

@@ -1,3 +1,5 @@
+@import url("src/assets/fonts/navbar-buttons.css");
+
 .main {
   display: flex;
   flex: 1 1 auto;
@@ -34,6 +36,7 @@
 .navbar {
   display: flex;
   height: 25px;
+  color: #e4e3d5;
   justify-content: flex-end;
   background-repeat: repeat;
   background-image: url('src/assets/images/pixmaps/navbar-tile.png');
@@ -47,7 +50,6 @@
   height: 28px;
   left: 50%;
   font-size: 15px;
-  color: #e4e3d5;
   align-items: center;
   position: absolute;
   transform: translate(-50%);
@@ -58,14 +60,16 @@
   max-width: 90px;
   align-items: center;
   justify-content: center;
+  margin-right: 2px;
 }
 
-.navbar-buttons input {
+.navbar-buttons span {
+  font-size: 8px;
   padding: 8px;
   cursor: pointer;
 }
 
-.navbar-buttons input:hover {
+.navbar-buttons span:hover {
   opacity: 0.4;
 }
 
