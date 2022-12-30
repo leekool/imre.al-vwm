@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class TerminalComponent {
 
+  onEnter(command: any) {
+    console.log(command);
+    command.value = '';
+  }
+
 }

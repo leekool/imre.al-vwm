@@ -1,5 +1,11 @@
 <div class="main">
     <div class="body">
-
+        <div class="command-line">
+            <span>></span>
+            <input #command
+                   type="text"
+                   size="0"
+                   (keyup.enter)="onEnter(command)">
+        </div>
     </div>
 </div>

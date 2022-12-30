@@ -11,12 +11,34 @@
 }
 
 .body {
-    padding: 15px 0 10px 0;
+    padding: 15px;
     display: flex;
     flex: 1 1 auto;
     position: relative;
-    font-family: 'Tamzen', sans-serif;
     background-color: rgba(40, 40, 40, 0.8);
     -ms-overflow-style: none;  /* ie & edge */
     scrollbar-width: none;  /* firefox */
+}
+
+.command-line {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.command-line span {
+    color: #928796;
+    text-shadow: -1px 0 0 #928796;
+    padding-right: 4px;
+}
+
+.command-line input {
+    max-height: 16px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Tamzen', sans-serif;
+    font-size: 15px;
+    caret-color: #efefe7;
+    color: #a7b4a9;
 }
