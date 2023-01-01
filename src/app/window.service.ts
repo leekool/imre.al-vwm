@@ -1,6 +1,6 @@
 import { Injectable, QueryList } from '@angular/core';
 import { WindowComponent } from './window/window.component';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,18 +24,6 @@ export class WindowService {
         x.focus = false;
       }
     }
-    // if (window.focus) {
-    //   for (let x of this.windows) {
-    //     if (window._title !== x._title) x.focus = false;
-    //   }
-    // } else {
-    //   for (let x of this.windows) {
-    //     if (window._title !== x._title) {
-    //       x.focus = true;
-    //       break;
-    //     }
-    //   }
-    // }
   }
 
   constructor() { }

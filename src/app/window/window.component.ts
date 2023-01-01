@@ -60,6 +60,7 @@ export class WindowComponent {
       ? `assets/icons/${this._title}-desktop-icon-highlight.png`
       : `assets/icons/${this._title}-desktop-icon.png`;
   }
+
 }
 
 type Position = 'centre' | 'left' | 'right' | 'top' | 'bottom';
