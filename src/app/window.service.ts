@@ -14,6 +14,8 @@ export class WindowService {
 
   windows$ = new Subject();
 
+  focusElement: any;
+
   toggleFocus(window: WindowComponent) {
     window.focus = !window.focus;
     for (let x of this.windows) {

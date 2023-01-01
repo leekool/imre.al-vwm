@@ -20,6 +20,7 @@ export class DesktopComponent implements OnInit {
   }
 
   doubleClick(window: WindowComponent) {
+    window.focusElement.focus();
     if (window.minimised) window.toggleMinimise();
     if (window.closed) window.toggleClose();
     if (!window.closed) window.getFocus();

@@ -17,6 +17,9 @@ export class TerminalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.windowService.focusElement = this.commandLineInput;
+    });
   }
 
 }
