@@ -1,11 +1,22 @@
 <div class="main">
     <div class="body">
-        <div class="command-line">
-            <span>></span>
-            <input #command
-                   type="text"
-                   size="0"
-                   (keyup.enter)="onEnter(command)">
+        <div class="cli-body" #cliBody>
+            <div *ngFor="let line of lines"
+                 class="cli-command">
+                <span class="arrow"></span>
+                <span>{{line}}</span>
+            </div>
+
+        </div>
+        <div class="cli-input">
+            <span class="arrow"></span>
+            <span #cliInput
+                  class="input"
+                  role="textbox"
+                  contenteditable
+                  (keyup.enter)="onEnter(cliInput)">
+            </span>
+            <span class="caret"></span>
         </div>
     </div>
 </div>

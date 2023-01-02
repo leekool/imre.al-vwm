@@ -1,44 +1,67 @@
 :host {
     display: flex;
-    flex: 1 1 auto;
+    flex: 1 1 0;
+    max-height: 100%;
 }
 
 .main {
     display: flex;
-    flex: 1 1 auto;
-    height: 100%;
+    flex: 1 1 0;
     flex-direction: column;
 }
 
 .body {
-    padding: 15px;
     display: flex;
-    flex: 1 1 auto;
+    flex: 1 1 0;
+    padding: 12px;
+    flex-direction: column;
     position: relative;
     background-color: rgba(40, 40, 40, 0.8);
     -ms-overflow-style: none;  /* ie & edge */
     scrollbar-width: none;  /* firefox */
+    overflow: hidden;
 }
 
-.command-line {
+.cli-body {
+    max-height: 100%;
+    font-size: 15px;
+    overflow: auto;
+    -ms-overflow-style: none;  /* ie & edge */
+    scrollbar-width: none;  /* firefox */
+}
+
+.cli-command {
+    color: #a7b4a9;
+}
+
+.cli-input {
     display: flex;
-    flex: 1 1 auto;
 }
 
-.command-line span {
+.arrow::before {
     color: #928796;
     text-shadow: -1px 0 0 #928796;
     padding-right: 4px;
+    content: '>';
 }
 
-.command-line input {
+.input {
     max-height: 16px;
-    width: 100%;
+    overflow: hidden;
+    overflow-wrap: anywhere;
     background: transparent;
     border: none;
     outline: none;
     font-family: 'Tamzen', sans-serif;
     font-size: 15px;
-    caret-color: #efefe7;
+    caret-color: transparent;
     color: #a7b4a9;
+    -webkit-line-clamp: 1;
+}
+
+.caret {
+    margin: 1px 2px 0 2px;
+    height: 14px;
+    width: 7px;
+    background-color: #efefe7;
 }

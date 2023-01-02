@@ -8,18 +8,24 @@ import { WindowComponent } from '../window/window.component';
   styleUrls: ['./terminal.component.css']
 })
 export class TerminalComponent implements AfterViewInit {
-  @ViewChild('command') commandLineInput: ElementRef;
+  @ViewChild('cliBody') cliBody: ElementRef;
+  @ViewChild('cliInput') cliInput: ElementRef;
+
+  lines: string[] = [];
 
   constructor(private windowService: WindowService,
               private _parent: WindowComponent) { }
 
-  onEnter(command: HTMLInputElement) {
-    console.log(command);
-    command.value = '';
+  onEnter(cliInput: HTMLSpanElement) {
+    if (cliInput.textContent) this.lines.push(cliInput.textContent);
+
+    this.cliBody.nativeElement.scrollTop = this.cliBody.nativeElement.scrollHeight - this.cliBody.nativeElement.clientHeight;
+
+    cliInput.textContent = '';
   }
 
   ngAfterViewInit(): void {
-    this.windowService.pushFocusElement(this._parent, this.commandLineInput)
+    this.windowService.pushFocusElement(this._parent, this.cliInput)
   }
 
 }
