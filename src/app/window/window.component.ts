@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input } from '@angular/core';
 import { WindowService } from '../window.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { WindowService } from '../window.service';
   styleUrls: ['./window.component.css']
 })
 
-export class WindowComponent implements AfterContentInit {
+export class WindowComponent implements AfterViewInit {
   @Input() set position(input: Position) {
     const isValid = positionClassList.includes(input);
     this._position = 'position-' + (isValid ? input : 'centre');
@@ -15,8 +15,8 @@ export class WindowComponent implements AfterContentInit {
 
   @Input() set title(input: string) {
     this._title = input;
-    this.taskbarIcon = `assets/icons/${this._title}-icon.png`
-    this.setDesktopIcon()
+    this.taskbarIcon = `assets/icons/${this._title}-icon.png`;
+    this.setDesktopIcon();
   }
 
   @Input() minimised: boolean = false;
@@ -32,6 +32,10 @@ export class WindowComponent implements AfterContentInit {
   focusElement: any;
 
   constructor(public windowService: WindowService) { }
+
+  getFocus() {
+    this.windowService.getFocus(this);
+  }
 
   toggleMinimise() {
     this.minimised = !this.minimised;
@@ -51,10 +55,6 @@ export class WindowComponent implements AfterContentInit {
     else this.windowService.dropFocus(this);
   }
 
-  getFocus() {
-    this.windowService.getFocus(this);
-  }
-
   toggleHighlight() {
     this.highlight = !this.highlight;
     this.setDesktopIcon();
@@ -66,10 +66,8 @@ export class WindowComponent implements AfterContentInit {
       : `assets/icons/${this._title}-desktop-icon.png`;
   }
 
-  ngAfterContentInit(): void {
-    setTimeout(() => {
-      this.focusElement = this.windowService.focusElement.nativeElement;
-    })
+  ngAfterViewInit(): void {
+    this.windowService.getFocusElement(this);
   }
 
 }

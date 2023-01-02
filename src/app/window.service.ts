@@ -1,4 +1,4 @@
-import { Injectable, QueryList } from '@angular/core';
+import { ElementRef, Injectable, QueryList } from '@angular/core';
 import { WindowComponent } from './window/window.component';
 import { Observable, Subject } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class WindowService {
 
   windows$ = new Subject();
 
-  focusElement: any;
+  focusElements: focusElement[] = [];
 
   getFocus(window: WindowComponent) {
     window.focus = true;
@@ -33,5 +33,23 @@ export class WindowService {
     }
   }
 
+  pushFocusElement(window: WindowComponent, element: ElementRef) {
+    this.focusElements.push({
+      window: window._title,
+      element: element
+    });
+  }
+
+  getFocusElement(window: WindowComponent) {
+    for (let x of this.focusElements) {
+      if (window._title == x.window) window.focusElement = x.element;
+    }
+  }
+
   constructor() { }
+}
+
+interface focusElement {
+  window: string;
+  element: ElementRef;
 }
