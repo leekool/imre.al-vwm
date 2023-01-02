@@ -19,19 +19,18 @@ export class WindowService {
   getFocus(window: WindowComponent) {
     window.focus = true;
 
+    for (let x of this.windows) {
+      if (window._title !== x._title) x.focus = false;
+    }
+
     setTimeout(() => {
       if (window.focusElement) window.focusElement.nativeElement.focus();
-    })
-
-    for (let x of this.windows) {
-      if (window._title !== x._title) {
-        x.focus = false;
-      }
-    }
+    });
   }
 
   dropFocus(window: WindowComponent) {
     window.focus = false;
+
     for (let x of this.windows) {
       if (window._title !== x._title && !x.minimised) {
         x.focus = true;
