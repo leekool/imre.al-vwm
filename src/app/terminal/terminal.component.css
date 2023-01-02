@@ -34,7 +34,7 @@
     color: #a7b4a9;
 }
 
-.cli-input {
+.cli-input-line {
     display: flex;
 }
 
@@ -46,7 +46,6 @@
 }
 
 .input {
-    max-height: 16px;
     overflow: hidden;
     overflow-wrap: anywhere;
     background: transparent;

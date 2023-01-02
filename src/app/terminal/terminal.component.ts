@@ -17,9 +17,16 @@ export class TerminalComponent implements AfterViewInit {
               private _parent: WindowComponent) { }
 
   onEnter(cliInput: HTMLSpanElement) {
-    if (cliInput.textContent) this.lines.push(cliInput.textContent);
+    if (!cliInput.textContent) return;
 
+    this.lines.push(cliInput.textContent);
     this.cliBody.nativeElement.scrollTop = this.cliBody.nativeElement.scrollHeight - this.cliBody.nativeElement.clientHeight;
+
+    switch (cliInput.textContent) {
+      case 'clear':
+        this.lines = [];
+        break;
+    }
 
     cliInput.textContent = '';
   }
