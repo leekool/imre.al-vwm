@@ -16,14 +16,19 @@ export class WindowService {
 
   focusElement: any;
 
-  toggleFocus(window: WindowComponent) {
-    window.focus = !window.focus;
+  getFocus(window: WindowComponent) {
+    window.focus = true;
     for (let x of this.windows) {
-      if (!window.focus && window._title !== x._title && !x.minimised) {
+      if (window._title !== x._title) x.focus = false;
+    }
+  }
+
+  dropFocus(window: WindowComponent) {
+    window.focus = false;
+    for (let x of this.windows) {
+      if (window._title !== x._title && !x.minimised) {
         x.focus = true;
         break;
-      } else if (window.focus && window._title !== x._title) {
-        x.focus = false;
       }
     }
   }

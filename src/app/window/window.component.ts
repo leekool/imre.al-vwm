@@ -35,7 +35,9 @@ export class WindowComponent implements AfterContentInit {
 
   toggleMinimise() {
     this.minimised = !this.minimised;
-    if (this.focus || !this.minimised) this.windowService.toggleFocus(this);
+
+    if (!this.minimised) this.windowService.getFocus(this);
+    else this.windowService.dropFocus(this);
   }
 
   toggleResize() {
@@ -44,11 +46,13 @@ export class WindowComponent implements AfterContentInit {
 
   toggleClose() {
     this.closed = !this.closed;
-    if (this.focus || !this.closed) this.windowService.toggleFocus(this);
+
+    if (!this.closed) this.windowService.getFocus(this);
+    else this.windowService.dropFocus(this);
   }
 
   getFocus() {
-    if (!this.focus) this.windowService.toggleFocus(this);
+    this.windowService.getFocus(this);
   }
 
   toggleHighlight() {

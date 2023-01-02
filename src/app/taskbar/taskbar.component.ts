@@ -14,7 +14,7 @@ export class TaskbarComponent implements OnInit {
 
   iconmanPress(window: WindowComponent) {
     if (!window.focus && !window.minimised) {
-      this.windowService.toggleFocus(window);
+      this.windowService.getFocus(window);
     } else {
       window.toggleMinimise();
     }
