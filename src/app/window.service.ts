@@ -18,8 +18,15 @@ export class WindowService {
 
   getFocus(window: WindowComponent) {
     window.focus = true;
+
+    setTimeout(() => {
+      if (window.focusElement) window.focusElement.nativeElement.focus();
+    })
+
     for (let x of this.windows) {
-      if (window._title !== x._title) x.focus = false;
+      if (window._title !== x._title) {
+        x.focus = false;
+      }
     }
   }
 

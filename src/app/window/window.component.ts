@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, Input } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 import { WindowService } from '../window.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class WindowComponent implements AfterViewInit {
   highlight: boolean = false;
   desktopIcon: string = '';
   taskbarIcon: string = '';
-  focusElement: any;
+  focusElement: ElementRef;
 
   constructor(public windowService: WindowService) { }
 
