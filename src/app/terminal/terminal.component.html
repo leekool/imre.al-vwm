@@ -3,15 +3,19 @@
         <div class="cli-body" #cliBody>
             <div *ngFor="let line of lines"
                  class="cli-command">
-                <span class="arrow ri-terminal-arrow"></span>
-                <span>{{line}}</span>
+                <span class="arrow"
+                      [ngClass]="{'ri-terminal-arrow': commandList.includes(line),
+                                  'ri-terminal-x': !commandList.includes(line)}">
+                </span>
+
+                <span class="command">{{line}}</span>
             </div>
 
         </div>
         <div class="cli-input-line">
             <span class="arrow ri-terminal-arrow"></span>
             <span #cliInput
-                  class="input"
+                  class="input command"
                   role="textbox"
                   contenteditable
                   (keydown.enter)="onEnter(cliInput)">

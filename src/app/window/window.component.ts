@@ -73,4 +73,4 @@ export class WindowComponent implements AfterViewInit {
 }
 
 type Position = 'centre' | 'left' | 'right' | 'top' | 'bottom';
-const positionClassList: Array<Position> = ['centre', 'left', 'right', 'top', 'bottom'];
+const positionClassList: Position[] = ['centre', 'left', 'right', 'top', 'bottom'];

@@ -11,6 +11,8 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('cliBody') cliBody: ElementRef;
   @ViewChild('cliInput') cliInput: ElementRef;
 
+  commandList: string[] = ['clear', 'echo'];
+
   lines: string[] = [];
 
   constructor(private windowService: WindowService,
@@ -21,6 +23,8 @@ export class TerminalComponent implements AfterViewInit {
 
     this.lines.push(cliInput.textContent);
     this.cliBody.nativeElement.scrollTop = this.cliBody.nativeElement.scrollHeight - this.cliBody.nativeElement.clientHeight;
+
+    // if (!commandList.includes(cliInput.textContent as Command)) return;
 
     switch (cliInput.textContent) {
       case 'clear':
@@ -34,5 +38,12 @@ export class TerminalComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.cliInput)
   }
-
 }
+
+// type Command = 'clear';
+// const commandList: Command[] = ['clear'];
+
+//   @Input() set position(input: Position) {
+//     const isValid = positionClassList.includes(input);
+//     this._position = 'position-' + (isValid ? input : 'centre');
+//   }
