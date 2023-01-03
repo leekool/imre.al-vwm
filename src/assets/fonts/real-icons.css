@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'navbar-buttons';
+  font-family: 'real-icons';
   src:
-    url('navbar-buttons.ttf?9z6ryd') format('truetype'),
-    url('navbar-buttons.woff?9z6ryd') format('woff'),
-    url('navbar-buttons.svg?9z6ryd#navbar-buttons') format('svg');
+    url('real-icons.ttf?9gvj4s') format('truetype'),
+    url('real-icons.woff?9gvj4s') format('woff'),
+    url('real-icons.svg?9gvj4s#real-icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="nb-"], [class*=" nb-"] {
+[class^="ri-"], [class*=" ri-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'navbar-buttons' !important;
+  font-family: 'real-icons' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -24,12 +24,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.nb-minimise:before {
+.ri-terminal-arrow:before {
+  content: "\e903";
+}
+.ri-terminal-x:before {
+  content: "\e904";
+}
+.ri-minimise:before {
   content: "\e900";
 }
-.nb-maximise:before {
+.ri-maximise:before {
   content: "\e901";
 }
-.nb-close:before {
+.ri-close:before {
   content: "\e902";
 }
