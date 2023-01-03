@@ -19,19 +19,19 @@ export class TerminalComponent implements AfterViewInit {
               private _parent: WindowComponent) { }
 
   onEnter(cliInput: HTMLSpanElement) {
+    // prevents contenteditable adding <div> on chrome
     document.execCommand('insertLineBreak');
     event?.preventDefault();
 
     let last: any = cliInput;
     if (cliInput.children.length > 0) last = cliInput.children[cliInput.children.length - 1];
+    console.log(last.tagName)
     if (last.tagName == 'BR') last.remove();
 
     if (!cliInput.textContent) return;
 
     this.lines.push(cliInput.textContent);
     this.cliBody.nativeElement.scrollTop = this.cliBody.nativeElement.scrollHeight - this.cliBody.nativeElement.clientHeight;
-
-    // if (!commandList.includes(cliInput.textContent as Command)) return;
 
     switch (cliInput.textContent) {
       case 'clear':
