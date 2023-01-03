@@ -24,11 +24,11 @@
     overflow: hidden;
 }
 
-.cli-body::-webkit-scrollbar {
+.cli-line-container::-webkit-scrollbar {
     display: none;
 }
 
-.cli-body {
+.cli-line-container {
     font-size: 15px;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -41,12 +41,22 @@
     align-items: center;
 }
 
+.directory {
+    margin-top: 3px;
+    padding-right: 8px;
+    color: #c2999c;
+}
+
 .ri-terminal-arrow, .ri-terminal-x {
     display: flex;
     padding: 0 6px 0 1px;
     color: #928796;
     font-size: 10px;
     text-shadow: -1px 0 0 #928796;
+}
+
+.ri-terminal-x {
+    color: #a2676b;
 }
 
 .command {

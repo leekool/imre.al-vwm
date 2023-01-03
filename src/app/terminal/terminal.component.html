@@ -1,22 +1,24 @@
 <div class="main">
     <div class="body">
-        <div class="cli-body" #cliBody>
-            <div *ngFor="let line of lines"
+        <div class="cli-line-container" #cli>
+            <div *ngFor="let command of inputCommands"
                  class="cli-line">
-                <span [ngClass]="{'ri-terminal-arrow': commandList.includes(line),
-                                  'ri-terminal-x': !commandList.includes(line)}">
+              <!-- <span class="directory">{{directory}}</span> -->
+                <span [ngClass]="{'ri-terminal-arrow': commands.includes(command),
+                                  'ri-terminal-x': !commands.includes(command)}">
                 </span>
-                <span class="command">{{line}}</span>
+                <span class="command">{{command}}</span>
             </div>
 
         </div>
         <div class="cli-line">
+          <!-- <span class="directory">{{directory}}</span> -->
             <span class="ri-terminal-arrow"></span>
-            <span #cliInput
+            <span #input
                   class="input command"
                   role="textbox"
                   contenteditable
-                  (keydown.enter)="onEnter(cliInput)">
+                  (keydown.enter)="onEnter(input)">
             </span>
             <span class="caret"></span>
         </div>

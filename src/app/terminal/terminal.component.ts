@@ -8,49 +8,40 @@ import { WindowComponent } from '../window/window.component';
   styleUrls: ['./terminal.component.css']
 })
 export class TerminalComponent implements AfterViewInit {
-  @ViewChild('cliBody') cliBody: ElementRef;
-  @ViewChild('cliInput') cliInput: ElementRef;
+  @ViewChild('cli') cli: ElementRef;
+  @ViewChild('input') input: ElementRef;
 
-  commandList: string[] = ['clear', 'echo'];
+  commands: string[] = ['clear', 'echo'];
 
-  lines: string[] = [];
+  directory: string = '~';
+  inputCommands: string[] = [];
 
   constructor(private windowService: WindowService,
               private _parent: WindowComponent) { }
 
-  onEnter(cliInput: HTMLSpanElement) {
-    // prevents contenteditable adding <div> on chrome
+  onEnter(input: HTMLSpanElement) {
+    // prevent contenteditable adding <div> on chrome
     document.execCommand('insertLineBreak');
     event?.preventDefault();
 
-    let last: any = cliInput;
-    if (cliInput.children.length > 0) last = cliInput.children[cliInput.children.length - 1];
-    console.log(last.tagName)
-    if (last.tagName == 'BR') last.remove();
+    // remove <br> created by contenteditable
+    if (input.children[input.children.length - 1].tagName == 'BR') input.children[input.children.length - 1].remove();
 
-    if (!cliInput.textContent) return;
+    if (!input.textContent) return;
 
-    this.lines.push(cliInput.textContent);
-    this.cliBody.nativeElement.scrollTop = this.cliBody.nativeElement.scrollHeight - this.cliBody.nativeElement.clientHeight;
+    this.inputCommands.push(input.textContent);
+    this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
 
-    switch (cliInput.textContent) {
+    switch (input.textContent) {
       case 'clear':
-        this.lines = [];
+        this.inputCommands = [];
         break;
     }
 
-    cliInput.textContent = '';
+    input.textContent = '';
   }
 
   ngAfterViewInit(): void {
-    this.windowService.pushFocusElement(this._parent, this.cliInput)
+    this.windowService.pushFocusElement(this._parent, this.input)
   }
 }
-
-// type Command = 'clear';
-// const commandList: Command[] = ['clear'];
-
-//   @Input() set position(input: Position) {
-//     const isValid = positionClassList.includes(input);
-//     this._position = 'position-' + (isValid ? input : 'centre');
-//   }
