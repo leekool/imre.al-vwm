@@ -19,6 +19,13 @@ export class TerminalComponent implements AfterViewInit {
               private _parent: WindowComponent) { }
 
   onEnter(cliInput: HTMLSpanElement) {
+    document.execCommand('insertLineBreak');
+    event?.preventDefault();
+
+    let last: any = cliInput;
+    if (cliInput.children.length > 0) last = cliInput.children[cliInput.children.length - 1];
+    if (last.tagName == 'BR') last.remove();
+
     if (!cliInput.textContent) return;
 
     this.lines.push(cliInput.textContent);
