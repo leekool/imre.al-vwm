@@ -11,13 +11,16 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('cli') cli: ElementRef;
   @ViewChild('input') input: ElementRef;
 
-  commands: string[] = ['clear', 'echo'];
-
   directory: string = '~';
+  commands: string[] = ['clear'];
   inputCommands: string[] = [];
 
   constructor(private windowService: WindowService,
               private _parent: WindowComponent) { }
+
+  validCommand(input: string): boolean {
+    return this.commands.includes(input);
+  }
 
   onEnter(input: HTMLSpanElement) {
     // prevent contenteditable adding <div> on chrome

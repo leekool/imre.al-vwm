@@ -29,7 +29,6 @@
 }
 
 .cli-line-container {
-    font-size: 15px;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -53,7 +52,6 @@
     padding: 0 6px 0 1px;
     color: #928796;
     font-size: 10px;
-    text-shadow: -1px 0 0 #928796;
 }
 
 .ri-terminal-x {

@@ -1,18 +1,24 @@
 <div class="main">
     <div class="body">
-        <div class="cli-line-container" #cli>
-            <div *ngFor="let command of inputCommands"
-                 class="cli-line">
-              <!-- <span class="directory">{{directory}}</span> -->
-                <span [ngClass]="{'ri-terminal-arrow': commands.includes(command),
-                                  'ri-terminal-x': !commands.includes(command)}">
-                </span>
-                <span class="command">{{command}}</span>
-            </div>
 
+        <div class="cli-line-container" #cli>
+            <div *ngFor="let command of inputCommands">
+                <div class="cli-line">
+                    <span [ngClass]="{'ri-terminal-arrow': validCommand(command),
+                                     'ri-terminal-x': !validCommand(command)}">
+                    </span>
+                    <span class="command">{{command}}</span>
+                </div>
+
+                <div *ngIf="!validCommand(command)"
+                     class="cli-line command"
+                     style="color: #efefe7;">
+                     {{command}}: command not found
+                </div>
+            </div>
         </div>
+
         <div class="cli-line">
-          <!-- <span class="directory">{{directory}}</span> -->
             <span class="ri-terminal-arrow"></span>
             <span #input
                   class="input command"
@@ -22,5 +28,6 @@
             </span>
             <span class="caret"></span>
         </div>
+
     </div>
 </div>
