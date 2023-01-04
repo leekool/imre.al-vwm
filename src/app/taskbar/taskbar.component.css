@@ -1,21 +1,21 @@
 .taskbar {
+    display: flex;
+    position: fixed;
     height: 29px;
+    width: 100%;
+    justify-content: space-between;
+    left: 50%;
+    bottom: 0;
+    margin-left: -50%;
+    font-family: 'Tamzen', sans-serif;
+    font-size: 15px;
     color: #222020;
     background-image: url('src/assets/images/pixmaps/menu-tile.png');
     background-repeat: repeat;
-    bottom: 0;
-    left: 50%;
-    margin-left: -50%;
-    width: 100%;
-    position: fixed;
     border-top: 1px solid #222020;
     box-shadow: 1px 1px #fffefe inset,
                 -1px -1px #948c79 inset;
     z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Tamzen', sans-serif;
-    font-size: 15px;
 }
 
 .taskbar span {
@@ -48,11 +48,11 @@
 }
 
 .iconman-button {
-    cursor: pointer;
     display: flex;
+    align-items: center;
     width: 270px;
     margin: 4px 0 5px 5px;
-    align-items: center;
+    cursor: pointer;
     user-select: none;
 }
 
@@ -78,7 +78,19 @@
 }
 
 @media screen and ( max-width: 700px ) {
+    .iconman {
+        padding-right: 5px;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .iconman::-webkit-scrollbar {
+        display: none;
+    }
+
     .iconman-button {
-        width: 150px;
+        width: 130px;
     }
 }

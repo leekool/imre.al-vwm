@@ -24,13 +24,13 @@
     overflow: hidden;
 }
 
-.cli-line-container::-webkit-scrollbar {
-    display: none;
-}
-
 .cli-line-container {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+.cli-line-container::-webkit-scrollbar {
+    display: none;
 }
 
 .cli-line {
@@ -39,6 +39,7 @@
     width: 0px;
     min-width: 100%;
     font-size: 15px;
+    white-space: nowrap;
 }
 
 .directory {
