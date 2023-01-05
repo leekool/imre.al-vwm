@@ -3,12 +3,19 @@
             <span>></span>
             <div class="start-menu-container">
                 <div class="start-menu" #startMenu>
-                    <div *ngFor="let window of windowList">
-                        <div class="start-menu-item"
-                             (click)="startMenuPress(window)">
-                            <img [src]="window.taskbarIcon">
-                            <span>{{window._title}}</span>
-                        </div>
+                    <div *ngFor="let window of windowList"
+                         class="start-menu-item"
+                         (click)="startMenuPress(window)">
+                        <img [src]="window.taskbarIcon">
+                        <span>{{window._title}}</span>
+                    </div>
+                    <div class="start-menu-item">
+                        <img src="../assets/icons/help-icon-small.png">
+                        <span>help</span>
+                    </div>
+                    <div class="start-menu-item">
+                        <img src="../assets/icons/shutdown-icon-small.png">
+                        <span>shutdown</span>
                     </div>
                 </div>
             </div>

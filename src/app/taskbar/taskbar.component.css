@@ -33,7 +33,8 @@
                 -1px 0 0 0 #fffefe inset;
 }
 
-.start-button:hover {
+.start-button:hover,
+.start-button:focus {
 
 }
 
@@ -41,7 +42,6 @@
     display: none;
     position: absolute;
     left: 0;
-    bottom: 70px;
     padding: 10px 10px 10px 0;
 }
 
@@ -49,6 +49,7 @@
     position: absolute;
     flex-direction: column;
     gap: 4px;
+    bottom: 25px;
     padding: 4px;
     min-width: 10%;
     background-image: url('src/assets/images/pixmaps/menu-tile.png');
@@ -67,7 +68,7 @@
 }
 
 .start-menu-item span {
-    padding-right: 4px;
+    padding-right: 5px;
 }
 
 .start-menu-item:hover,
