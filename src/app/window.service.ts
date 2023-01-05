@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class WindowService {
   windows: QueryList<WindowComponent>;
+  isMobile: boolean = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   updateWindows$ = new Observable<QueryList<WindowComponent>>((observer) => {
     observer.next(this.windows);
@@ -22,6 +23,8 @@ export class WindowService {
     for (let x of this.windows) {
       if (window._title !== x._title) x.focus = false;
     }
+
+    if (this.isMobile) return; // only want element to focus on click on mobile
 
     setTimeout(() => {
       if (window.focusElement) window.focusElement.nativeElement.focus();

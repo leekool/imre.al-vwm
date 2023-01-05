@@ -35,6 +35,10 @@ export class WindowComponent implements AfterViewInit {
 
   getFocus() {
     this.windowService.getFocus(this);
+
+    setTimeout(() => {
+      if (this.focusElement) this.focusElement.nativeElement.focus();
+    });
   }
 
   toggleMinimise() {
