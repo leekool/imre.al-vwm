@@ -1,12 +1,14 @@
 <div class="taskbar">
         <div class="start-button">
             <span>></span>
-            <div class="start-menu" #startMenu>
-                <div *ngFor="let window of windowList">
-                    <div class="start-menu-item"
-                         (click)="startMenuPress(window)">
-                        <img [src]="window.taskbarIcon">
-                        <span>{{window._title}}</span>
+            <div class="start-menu-container">
+                <div class="start-menu" #startMenu>
+                    <div *ngFor="let window of windowList">
+                        <div class="start-menu-item"
+                             (click)="startMenuPress(window)">
+                            <img [src]="window.taskbarIcon">
+                            <span>{{window._title}}</span>
+                        </div>
                     </div>
                 </div>
             </div>

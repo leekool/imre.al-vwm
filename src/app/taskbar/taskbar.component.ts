@@ -25,7 +25,6 @@ export class TaskbarComponent implements OnInit {
     if (window.minimised) window.toggleMinimise();
     if (window.closed) window.toggleClose();
     if (!window.closed) window.getFocus();
-    this.startMenu.nativeElement.setAttribute('style', 'display: none');
   }
 
   ngOnInit() {
