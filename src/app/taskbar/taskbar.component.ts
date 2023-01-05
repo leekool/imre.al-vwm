@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { WindowService } from '../window.service';
 import { WindowComponent } from '../window/window.component';
 
@@ -9,6 +9,7 @@ import { WindowComponent } from '../window/window.component';
 })
 export class TaskbarComponent implements OnInit {
   windowList: WindowComponent[];
+  @ViewChild('startMenu') startMenu: ElementRef;
 
   constructor(public windowService: WindowService) { }
 
@@ -18,6 +19,13 @@ export class TaskbarComponent implements OnInit {
     } else {
       window.toggleMinimise();
     }
+  }
+
+  startMenuPress(window: WindowComponent) {
+    if (window.minimised) window.toggleMinimise();
+    if (window.closed) window.toggleClose();
+    if (!window.closed) window.getFocus();
+    this.startMenu.nativeElement.setAttribute('style', 'display: none');
   }
 
   ngOnInit() {

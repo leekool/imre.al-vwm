@@ -36,8 +36,35 @@
 }
 
 .start-menu {
-    position: relative;
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    bottom: 30px;
+    left: 0;
+    min-width: 10%;
+    background-image: url('src/assets/images/pixmaps/menu-tile.png');
+    background-repeat: repeat;
+    box-shadow: 1px 1px #fffefe inset,
+                -1px -1px #948c79 inset;
+    outline: 1px solid #222020;
+}
+
+.start-button:hover .start-menu {
     display: flex;
+}
+
+.start-menu-item {
+    display: flex;
+}
+
+.start-menu-item:hover {
+    background: rgba(4, 4, 252, 0.3);
+    color: #fffefe;
+    outline: 1px dotted rgba(255, 254, 254, 0.5);
+    text-shadow: none;
+
 }
 
 .iconman {
@@ -56,7 +83,8 @@
     user-select: none;
 }
 
-.iconman-button img {
+.iconman-button img,
+.start-menu-item img {
     max-height: 13px;
     margin: 4px;
     background-repeat: repeat;

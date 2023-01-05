@@ -15,7 +15,7 @@ export class WindowComponent implements AfterViewInit {
 
   @Input() set title(input: string) {
     this._title = input;
-    this.taskbarIcon = `assets/icons/${this._title}-icon.png`;
+    this.taskbarIcon = `assets/icons/${this._title}-icon-small.png`;
     this.setDesktopIcon();
   }
 
@@ -62,8 +62,8 @@ export class WindowComponent implements AfterViewInit {
 
   setDesktopIcon() {
     this.desktopIcon = this.highlight
-      ? `assets/icons/${this._title}-desktop-icon-highlight.png`
-      : `assets/icons/${this._title}-desktop-icon.png`;
+      ? `assets/icons/${this._title}-icon-desktop-highlight.png`
+      : `assets/icons/${this._title}-icon-desktop.png`;
   }
 
   ngAfterViewInit(): void {

@@ -49,6 +49,6 @@
 .desktop-icon-highlight {
     background: rgba(4, 4, 252, 0.3);
     color: #fffefe;
-    border: 1px dotted rgba(255, 254, 254, 0.5);
+    outline: 1px dotted rgba(255, 254, 254, 0.5);
     text-shadow: none;
 }
