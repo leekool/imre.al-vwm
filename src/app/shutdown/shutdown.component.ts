@@ -1,32 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {trigger, transition, style, animate, query, stagger} from '@angular/animations';
+import { AfterContentInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'shutdown',
   templateUrl: './shutdown.component.html',
   styleUrls: ['./shutdown.component.css'],
-  animations: [
-    trigger('listAnimation', [
-      transition('* => *', [
-
-        query(':leave', [
-          stagger(500, [
-            animate(1000, style({ opacity: 0 }))
-          ])
-        ], { optional: true }),
-        query(':enter', [
-          style({ opacity: 0 }),
-          stagger(500, [
-            animate(1000, style({ opacity: 1 }))
-          ])
-        ], { optional: true })
-      ])
-    ])
-  ]
 })
 
-export class ShutdownComponent implements OnInit {
-  commandList = new CommandList;
+export class ShutdownComponent implements AfterContentInit {
   commands: Command[] = [
     {text: 'Stopped target Remote File System.'},
     {text: 'Stopping Network Manager...', ok: false},
@@ -96,32 +76,54 @@ export class ShutdownComponent implements OnInit {
     {text: 'Reached target System Power Off.'},
   ];
 
-  constructor() {
-    this.commandList.newCommand(this.commands);
+  commandList: Command[] = [];
+
+  @ViewChild('commandContainer') commandContainer: ElementRef;
+
+  scrollToBottom() {
+    this.commandContainer.nativeElement.scrollTop = this.commandContainer.nativeElement.scrollHeight - this.commandContainer.nativeElement.commandContainerentHeight;
   }
 
-  ngOnInit(): void {
-    console.log(this.commandList.getCommands());
+  constructor() {
+    const commandList = new CommandList;
+    commandList.newCommand(this.commands);
+    this.commandList = commandList.getCommands();
   }
+
+  ngAfterContentInit(): void {
+    this.commandList.forEach((x) => {
+      x.hidden = false;
+    });
+  }
+
+
 }
+
+// command/commandList
 
 interface Command {
   text: string;
   ok?: boolean;
+  hidden?: boolean;
 }
 
 class CommandList {
-  commands: Command[] = [];
+  commandList: Command[] = [];
 
   newCommand(array: Command[]): void {
     for (let x of array) {
-      if (x.ok === undefined) x.ok = true;
-      let command: Command = {text: x.text, ok: x.ok};
-      this.commands.push(command);
+
+      let command: Command = {
+        text: x.text,
+        ok: x.ok === undefined ? true : false,
+        hidden: x.hidden === undefined ? true : false
+      };
+
+      this.commandList.push(command);
     }
   }
 
   getCommands() {
-    return this.commands;
+    return this.commandList;
   }
 }

@@ -1,14 +1,16 @@
-<div [@listAnimation]="commands.length"
-     class="body">
-    <div *ngFor="let command of commands"
-         class="command">
-        <span class="ok">
-            <span *ngIf="command.ok">
-                <span style="margin-right: 18px">[</span>
-                <span style="color: #4AF626">OK</span>
-                <span style="margin-left: 18px">]</span>
+<div class="body">
+    <div class="command-container" #commandContainer>
+        <div *ngFor="let command of commandList"
+             class="command"
+             [ngClass]="{'show': !command.hidden}">
+            <span class="ok">
+                <span *ngIf="command.ok">
+                    <span style="margin-right: 18px">[</span>
+                    <span style="color: #4AF626">OK</span>
+                    <span style="margin-left: 18px">]</span>
+                </span>
             </span>
-        </span>
-        <span>{{command.text}}</span>
+            <span>{{command.text}}</span>
+        </div>
     </div>
 </div>
