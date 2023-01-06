@@ -1,7 +1,29 @@
+@font-face {
+  font-family: 'Terminus';
+  src: url('../../assets/fonts/Terminus.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .body {
-    position: absolute;
-    background: black;
     height: 100vh;
     width: 100vw;
+    padding: 10px;
+    color: #fff;
+    font-family: 'Terminus';
+    font-weight: 1000;
+    position: absolute;
+    background: #000;
     z-index: 10;
+}
+
+.command {
+    user-select: none;
+}
+
+.ok {
+    display: inline-block;
+    min-width: 80px;
+    padding-right: 5px;
+    text-align: center;
 }
