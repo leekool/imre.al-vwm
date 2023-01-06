@@ -93,10 +93,14 @@ export class ShutdownComponent implements AfterContentInit {
   async ngAfterContentInit() {
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-    for (let i = 0; i < this.commandList.length; i++) {
-      const interval = 100 - Math.log(i)*Math.log(i)*6;
+    for (let i = 0; i < this.commandList.length + 1; i++) {
+      if (i == this.commandList.length) {
+        await sleep(1000);
+        this.commandList = [];
+        break;
+      }
 
-      await sleep(interval);
+      await sleep(100 - Math.log(i)*Math.log(i)*6);
       this.commandList[i].hidden = false;
       this.scrollToBottom(this.body);
     }
