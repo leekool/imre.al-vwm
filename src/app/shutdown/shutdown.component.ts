@@ -78,10 +78,10 @@ export class ShutdownComponent implements AfterContentInit {
 
   commandList: Command[] = [];
 
-  @ViewChild('commandContainer') commandContainer: ElementRef;
+  @ViewChild('body') body: ElementRef;
 
-  scrollToBottom() {
-    this.commandContainer.nativeElement.scrollTop = this.commandContainer.nativeElement.scrollHeight - this.commandContainer.nativeElement.commandContainerentHeight;
+  scrollToBottom(el: ElementRef) {
+    el.nativeElement.scrollTop = el.nativeElement.scrollHeight - el.nativeElement.clientHeight;
   }
 
   constructor() {
@@ -90,17 +90,19 @@ export class ShutdownComponent implements AfterContentInit {
     this.commandList = commandList.getCommands();
   }
 
-  ngAfterContentInit(): void {
-    this.commandList.forEach((x) => {
-      x.hidden = false;
-    });
-  }
+  async ngAfterContentInit() {
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+    for (let x of this.commandList) {
+      await sleep(300);
+      x.hidden = false;
+      this.scrollToBottom(this.body);
+    }
+  }
 
 }
 
 // command/commandList
-
 interface Command {
   text: string;
   ok?: boolean;
@@ -112,13 +114,11 @@ class CommandList {
 
   newCommand(array: Command[]): void {
     for (let x of array) {
-
       let command: Command = {
         text: x.text,
         ok: x.ok === undefined ? true : false,
         hidden: x.hidden === undefined ? true : false
       };
-
       this.commandList.push(command);
     }
   }
