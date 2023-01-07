@@ -6,7 +6,7 @@
              class="desktop-icon"
              (click)="window.toggleHighlight()"
              (dblclick)="doubleClick(window)">
-            <img [src]="window.desktopIcon">
+            <img [src]="window.desktopIcon" alt="">
             <span [ngClass]="{'desktop-icon-highlight': window.highlight}">
                 {{window._title}}
             </span>
