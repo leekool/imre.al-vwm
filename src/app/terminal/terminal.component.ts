@@ -37,7 +37,7 @@ export class TerminalComponent implements AfterViewInit {
     this.inputCommands.push(input.textContent);
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
 
-    switch (input.textContent) {
+    switch (input.textContent.trim()) {
       case 'clear':
         this.inputCommands = [];
         break;
