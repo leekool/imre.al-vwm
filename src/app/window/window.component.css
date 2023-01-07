@@ -26,11 +26,11 @@
 }
 
 .focus {
-  z-index: 10;
   box-shadow: 0 0 0 1px #222020 inset,
               0 0 0 3px #32302c inset,
               0 0 0 6px #222020 inset,
               0 3px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }
 
 .navbar {
@@ -41,7 +41,6 @@
   background-repeat: repeat;
   background-image: url('src/assets/images/pixmaps/navbar-tile.png');
   box-shadow: 0 -1px 0 0 #5c6057 inset;
-  z-index: 10;
   user-select: none;
 }
 

@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
-  @Input() content: string = '';
+  @Input() content: string = '   _/_/_/    _/_/_/_/    _/_/    _/\n   _/    _/  _/        _/    _/  _/\n  _/_/_/    _/_/_/    _/_/_/_/  _/\n _/    _/  _/        _/    _/  _/\n_/    _/  _/_/_/_/  _/    _/  _/_/_/_/';
   @Input() title: string = '';
 
   lineCount(): number[] {
