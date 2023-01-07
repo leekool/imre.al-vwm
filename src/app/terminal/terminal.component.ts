@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { WindowService } from '../window.service';
 import { WindowComponent } from '../window/window.component';
 
@@ -16,7 +17,8 @@ export class TerminalComponent implements AfterViewInit {
   inputCommands: string[] = [];
 
   constructor(private windowService: WindowService,
-              private _parent: WindowComponent) { }
+              private _parent: WindowComponent,
+              private router: Router) { }
 
   validCommand(input: string): boolean {
     return this.commands.includes(input);
@@ -39,6 +41,8 @@ export class TerminalComponent implements AfterViewInit {
       case 'clear':
         this.inputCommands = [];
         break;
+      case 'shutdown':
+        this.router.navigate(['/shutdown']);
     }
 
     input.textContent = '';
