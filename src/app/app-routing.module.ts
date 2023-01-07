@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShutdownComponent } from './shutdown/shutdown.component';
 
 const routes: Routes = [
-  { path: 'shutdown', component: ShutdownComponent }
+  { path: 'shutdown', component: ShutdownComponent },
 ];
 
 @NgModule({
