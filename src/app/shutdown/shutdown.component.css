@@ -25,6 +25,12 @@
     display: none;
     user-select: none;
     white-space: nowrap;
+    color: #E0E0E0;
+    font-size: 0;
+}
+
+.command span {
+    font-size: 16px;
 }
 
 .show {
