@@ -13,15 +13,21 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('input') input: ElementRef;
 
   directory: string = '~';
-  commands: string[] = ['clear'];
   inputCommands: string[] = [];
+
+  commands: { command: string, run: () => void }[] = [
+    {command: 'clear',
+     run: () => this.inputCommands.length = 0},
+    {command: 'shutdown',
+     run: () => this.router.navigate(['/shutdown'])}
+  ];
 
   constructor(private windowService: WindowService,
               private _parent: WindowComponent,
               private router: Router) { }
 
   validCommand(input: string): boolean {
-    return this.commands.includes(input);
+    return this.commands.some(e => e.command === input);
   }
 
   onEnter(input: HTMLSpanElement) {
@@ -37,12 +43,10 @@ export class TerminalComponent implements AfterViewInit {
     this.inputCommands.push(input.textContent);
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
 
-    switch (input.textContent.trim()) {
-      case 'clear':
-        this.inputCommands = [];
-        break;
-      case 'shutdown':
-        this.router.navigate(['/shutdown']);
+    if (this.validCommand(input.textContent.trim())) {
+      for (let x of this.commands) {
+        if (input.textContent.trim() === x.command) x.run();
+      }
     }
 
     input.textContent = '';
@@ -51,4 +55,9 @@ export class TerminalComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.input)
   }
+}
+
+interface Command {
+  command: string;
+  run(x: any): void;
 }
