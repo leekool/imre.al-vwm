@@ -15,10 +15,10 @@ export class TerminalComponent implements AfterViewInit {
   directory: string = '~';
   inputCommands: string[] = [];
 
-  commands: { command: string, run: () => void }[] = [
-    {command: 'clear',
+  commands: { name: string, run: (x?: string) => void }[] = [
+    {name: 'clear',
      run: () => this.inputCommands.length = 0},
-    {command: 'shutdown',
+    {name: 'shutdown',
      run: () => this.router.navigate(['/shutdown'])}
   ];
 
@@ -27,7 +27,7 @@ export class TerminalComponent implements AfterViewInit {
               private router: Router) { }
 
   validCommand(input: string): boolean {
-    return this.commands.some(e => e.command === input);
+    return this.commands.some(e => e.name === input);
   }
 
   onEnter(input: HTMLSpanElement) {
@@ -45,7 +45,7 @@ export class TerminalComponent implements AfterViewInit {
 
     if (this.validCommand(input.textContent.trim())) {
       for (let x of this.commands) {
-        if (input.textContent.trim() === x.command) x.run();
+        if (input.textContent.trim() === x.name) x.run();
       }
     }
 
@@ -55,9 +55,4 @@ export class TerminalComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.input)
   }
-}
-
-interface Command {
-  command: string;
-  run(x: any): void;
 }
