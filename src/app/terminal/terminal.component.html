@@ -1,19 +1,25 @@
 <div class="main">
     <div class="body">
 
-        <div class="cli-line-container" #cli>
+        <div #cli class="cli-line-container">
             <div *ngFor="let command of inputCommands">
                 <div class="cli-line">
-                    <span [ngClass]="{'ri-terminal-arrow': validCommand(command),
-                                     'ri-terminal-x': !validCommand(command)}">
+                    <span [ngClass]="{'ri-terminal-arrow': validCommand(command.name),
+                                     'ri-terminal-x': !validCommand(command.name)}">
                     </span>
-                    <span class="command">{{command}}</span>
+                    <span class="command">{{command.name}}</span>
                 </div>
 
-                <div *ngIf="!validCommand(command)"
+                <div *ngIf="!validCommand(command.name)"
                      class="cli-line command"
                      style="color: #efefe7;">
-                     {{command}}: command not found
+                     {{command.name}}: command not found
+                </div>
+
+                <div *ngIf="command.output"
+                     class="cli-line command"
+                     style="color: #efefe7;">
+                     r
                 </div>
             </div>
         </div>
