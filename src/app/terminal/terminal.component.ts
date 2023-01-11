@@ -15,14 +15,16 @@ export class TerminalComponent implements AfterViewInit {
   directory: string = '~';
   inputCommands: any[] = [];
 
-  commands: { name: string, run: (x?: string) => void, output?: string}[] = [
+  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean}[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
     {name: 'shutdown',
      run: () => this.router.navigate(['/shutdown'])},
     {name: 'echo',
-     run: () => console.log('penis'),
-     output: 'penis'}
+     output: true,
+     run: (str) => { return str }},
+    {name: 'test',
+     run: () => console.log('test')}
   ];
 
   constructor(private windowService: WindowService,
@@ -43,11 +45,14 @@ export class TerminalComponent implements AfterViewInit {
 
     if (!input.textContent) return;
 
-    if (this.validCommand(input.textContent.trim())) {
+    const command = input.textContent.split(' ')[0].trim();
+
+    if (this.validCommand(command)) {
       for (let x of this.commands) {
-        if (input.textContent.trim() === x.name) {
-          x.run();
-          this.inputCommands.push(x);
+        if (command === x.name) {
+          if (x.output) x.input = input.textContent.split(' ').slice(1).join(' ');
+          this.inputCommands.push(JSON.parse(JSON.stringify(x)));
+          x.run('test');
         }
       }
     } else {
