@@ -8,18 +8,23 @@
                                      'ri-terminal-x': !validCommand(command.name)}">
                     </span>
                     <span class="command">{{command.name}}</span>
+                    <span *ngIf="command.output"
+                          class="command"
+                          style="color: #c2999c; white-space: pre">
+                        {{command.input}}
+                    </span>
                 </div>
 
                 <div *ngIf="!validCommand(command.name)"
                      class="cli-line command"
-                     style="color: #efefe7;">
-                     {{command.name}}: command not found
+                     style="color: #efefe7">
+                    {{command.name}}: command not found
                 </div>
 
                 <div *ngIf="command.output"
                      class="cli-line command"
-                     style="color: #efefe7;">
-                     {{command.input}}
+                     style="color: #efefe7">
+                    {{command.input}}
                 </div>
             </div>
         </div>

@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'Terminus';
-  src: url('../../assets/fonts/Terminus.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Terminus';
+    src: url('../../assets/fonts/Terminus.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .body {
