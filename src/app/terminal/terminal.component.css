@@ -75,6 +75,10 @@
     -webkit-line-clamp: 1;
 }
 
+.output {
+    color: #efefe7;
+}
+
 .caret {
     margin: 0 2px;
     height: 14px;

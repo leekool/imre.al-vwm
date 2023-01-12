@@ -16,14 +16,13 @@
                 </div>
 
                 <div *ngIf="!validCommand(command.name)"
-                     class="cli-line command"
+                     class="cli-line command output"
                      style="color: #efefe7">
                     {{command.name}}: command not found
                 </div>
 
                 <div *ngIf="command.output"
-                     class="cli-line command"
-                     style="color: #efefe7">
+                     class="cli-line command output">
                     {{command.input}}
                 </div>
             </div>
