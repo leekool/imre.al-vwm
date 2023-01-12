@@ -2,3 +2,4 @@
 [[https://imre.al][Virtual Desktop Angular Project]]
 
 [[screenshot_desktop.png]]
+[[screenshot_mobile.png]]
