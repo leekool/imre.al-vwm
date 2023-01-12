@@ -1,2 +1,4 @@
 * [[https://imre.al][imre.al]]
 [[https://imre.al][Virtual Desktop Angular Project]]
+
+[[screenshot_desktop.png]]
