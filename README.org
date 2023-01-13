@@ -1,5 +1,15 @@
-* [[https://imre.al][imre.al]]
-[[https://imre.al][Virtual Desktop Angular Project]]
+* imre.al
+** [[https://imre.al]]
+virtual desktop angular project based on my fvwm config - windows can focus, minimise, maximise and close
+
+** windows
+*** imre.al
+based on doom emacs
+*** terminal
+***** commands
+- echo
+- clear
+- shutdown
 
 [[screenshot_desktop.png]]
 [[screenshot_mobile.png]]
