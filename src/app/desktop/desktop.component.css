@@ -54,3 +54,10 @@
     outline: 1px dotted rgba(255, 254, 254, 0.5);
     text-shadow: none;
 }
+
+@media screen and ( max-height: 900px ) {
+    .desktop {
+        background-image: url('src/assets/images/bg-sunset-top.png');
+        background-position: left top;
+    }
+}
