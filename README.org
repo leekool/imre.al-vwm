@@ -4,9 +4,9 @@ virtual desktop angular project based on my fvwm config - windows can focus, min
 
 ** windows
 *** imre.al
-based on doom emacs
+- based on doom emacs
 *** terminal
-***** commands
+***** commands:
 - echo
 - clear
 - shutdown
