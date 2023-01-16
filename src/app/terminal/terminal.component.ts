@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowService } from '../window.service';
 import { WindowComponent } from '../window/window.component';
+import { cloneDeep } from 'lodash'
 
 @Component({
   selector: 'terminal',
@@ -16,18 +17,18 @@ export class TerminalComponent implements AfterViewInit {
   windowList: WindowComponent[];
   inputCommands: any[] = [];
 
-  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean}[] = [
+  commands: { name: string, run: (x?: string) => (string | void), input?: string, output?: boolean }[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
     {name: 'shutdown',
      run: () => this.router.navigate(['/shutdown'])},
     {name: 'echo',
      output: true,
-     run: () => {}},
+     run: (input) => {return input}},
     {name: 'kill',
-     run: (window) => {
-       this.windowList.forEach(x => {
-         if (!x.closed && x._title == window) x.toggleClose()
+     run: (input) => {
+       this.windowList.forEach(window => {
+         if (!window.closed && window._title == input) window.toggleClose();
        });
      }}
 
@@ -57,7 +58,7 @@ export class TerminalComponent implements AfterViewInit {
       for (let x of this.commands) {
         if (command === x.name) {
           x.input = input.textContent.split(' ').slice(1).join(' ');
-          this.inputCommands.push(JSON.parse(JSON.stringify(x)));
+          this.inputCommands.push(cloneDeep(x));
           x.run(x.input);
         }
       }

@@ -8,8 +8,7 @@
                                      'ri-terminal-x': !validCommand(command.name)}">
                     </span>
                     <span class="command">{{command.name}}</span>
-                    <span *ngIf="command.output"
-                          class="command"
+                    <span class="command"
                           style="color: #c2999c; white-space: pre">
                         {{command.input}}
                     </span>
@@ -23,7 +22,7 @@
 
                 <div *ngIf="command.output"
                      class="cli-line command output">
-                    {{command.input}}
+                    {{command.run(command.input)}}
                 </div>
             </div>
         </div>
