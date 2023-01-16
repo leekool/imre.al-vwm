@@ -13,6 +13,7 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('input') input: ElementRef;
 
   directory: string = '~';
+  windowList: WindowComponent[];
   inputCommands: any[] = [];
 
   commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean}[] = [
@@ -22,9 +23,14 @@ export class TerminalComponent implements AfterViewInit {
      run: () => this.router.navigate(['/shutdown'])},
     {name: 'echo',
      output: true,
-     run: (str) => { return str }},
-    {name: 'test',
-     run: () => console.log('test')}
+     run: () => {}},
+    {name: 'kill',
+     run: (window) => {
+       this.windowList.forEach(x => {
+         if (!x.closed && x._title == window) x.toggleClose()
+       });
+     }}
+
   ];
 
   constructor(private windowService: WindowService,
@@ -50,9 +56,9 @@ export class TerminalComponent implements AfterViewInit {
     if (this.validCommand(command)) {
       for (let x of this.commands) {
         if (command === x.name) {
-          if (x.output) x.input = input.textContent.split(' ').slice(1).join(' ');
+          x.input = input.textContent.split(' ').slice(1).join(' ');
           this.inputCommands.push(JSON.parse(JSON.stringify(x)));
-          x.run('test');
+          x.run(x.input);
         }
       }
     } else {
@@ -66,5 +72,12 @@ export class TerminalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.input);
+  }
+
+  ngOnInit(): void {
+    this.windowService.windows$.subscribe((response: any) => {
+      this.windowList = response;
+    });
+
   }
 }
