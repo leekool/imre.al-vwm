@@ -17,19 +17,24 @@ export class TerminalComponent implements AfterViewInit {
   windowList: WindowComponent[];
   inputCommands: any[] = [];
 
-  commands: { name: string, run: (x?: string) => (string | void), input?: string, output?: boolean }[] = [
+  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean }[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
     {name: 'shutdown',
      run: () => this.router.navigate(['/shutdown'])},
     {name: 'echo',
      output: true,
-     run: (input) => {return input}},
+     run: (input) => { return input }},
     {name: 'kill',
+     output: true,
      run: (input) => {
+       if (!this.windowList.some(window => window._title == input)) return `kill: cannot find process "${input}"`;
+
        this.windowList.forEach(window => {
          if (!window.closed && window._title == input) window.toggleClose();
        });
+
+       return;
      }}
 
   ];
