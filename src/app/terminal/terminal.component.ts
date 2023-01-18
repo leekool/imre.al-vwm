@@ -14,10 +14,10 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('input') input: ElementRef;
 
   directory: string = '~';
-  windowList: WindowComponent[];
+  windowList: WindowComponent[] = [];
   inputCommands: any[] = [];
 
-  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean }[] = [
+  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean, validArgs?: any }[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
     {name: 'shutdown',
@@ -28,6 +28,7 @@ export class TerminalComponent implements AfterViewInit {
     {name: 'kill',
      output: true,
      run: (input) => {
+       if (!input) return 'kill: not enough arguments';
        if (!this.windowList.some(window => window._title == input)) return `kill: cannot find process "${input}"`;
 
        this.windowList.forEach(window => {
@@ -35,16 +36,47 @@ export class TerminalComponent implements AfterViewInit {
        });
 
        return;
-     }}
-
+     },
+     validArgs: () => this.windowList.map(x => x._title)}
   ];
 
   constructor(private windowService: WindowService,
               private _parent: WindowComponent,
-              private router: Router) { }
+              private router: Router) {
+  }
 
-  validCommand(input: string): boolean {
-    return this.commands.some(e => e.name === input);
+
+  validCommand(input: string): any {
+    const arrInput = input.split(' ');
+    const command = arrInput[0];
+    const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
+
+    console.log(arrInput)
+
+    if (arrInput.length <= 1) console.log('no arg')
+
+    // for (let x of this.commands) {
+    //   if (x.validArgs) {
+    //     for (let y of x.validArgs()) {
+    //       if (y == args) console.log('yes')
+    //     }
+    //   }
+    // }
+    this.commands.forEach(x => {
+      if (!x.validArgs) return (this.commands.some(e => e.name === command));
+
+      // x.validArgs().forEach((y: any) => {
+      //   if (y == args) console.log('yes')
+      // });
+      if (x.validArgs().includes(args)) console.log('yes')
+
+
+
+      return 'no';
+    });
+
+    return 'no';
+
   }
 
   onEnter(input: HTMLSpanElement) {
@@ -58,11 +90,12 @@ export class TerminalComponent implements AfterViewInit {
     if (!input.textContent) return;
 
     const command = input.textContent.split(' ')[0].trim();
+    const commandArgs = input.textContent.split(' ').slice(1).join(' ');
 
-    if (this.validCommand(command)) {
+    if (this.validCommand(input.textContent)) {
       for (let x of this.commands) {
         if (command === x.name) {
-          x.input = input.textContent.split(' ').slice(1).join(' ');
+          x.input = commandArgs;
           this.inputCommands.push(cloneDeep(x));
           x.run(x.input);
         }
