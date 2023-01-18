@@ -52,7 +52,9 @@ export class TerminalComponent implements AfterViewInit {
     const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
 
     for (let x of this.commands) {
-      if (command === x.name) return true;
+      if (command === x.name) {
+        if (arrInput.length <= 1) return true;
+      }
     }
 
 
@@ -87,15 +89,24 @@ export class TerminalComponent implements AfterViewInit {
     const command = input.textContent.split(' ')[0].trim();
     const commandArgs = input.textContent.split(' ').slice(1).join(' ');
 
+    if (!this.commands.some(x => x.name === command)) {
+      this.inputCommands.push({ name: command, input: commandArgs, valid: false });
+      input.textContent = '';
+      return;
+    }
+
     for (let x of this.commands) {
       if (command === x.name) {
-        if (this.validCommand(input.textContent)) x.valid = true;
+        x.valid = this.validCommand(input.textContent) ? true : false;
+
         x.input = commandArgs;
         this.inputCommands.push(cloneDeep(x));
 
         x.run(x.input);
       }
     }
+
+    console.log(this.inputCommands)
 
     // if (this.validCommand(input.textContent)) {
     //   for (let x of this.commands) {
