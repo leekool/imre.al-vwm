@@ -54,26 +54,12 @@ export class TerminalComponent implements AfterViewInit {
     for (let x of this.commands) {
       if (command === x.name) {
         if (arrInput.length <= 1) return true;
+        if (!x.validArgs) return true;
+        if (x.validArgs().includes(args)) return true;
       }
     }
 
-
-    // this.commands.forEach(x => {
-    //   if (command === x.name) {
-    //       return true;
-    //   }
-
-      // if (arrInput.length <= 1) return (x.name === command);
-
-      // if (!x.validArgs && this.commands.some(e => e.name === command)) return true;
-
-      // if (x.validArgs().includes(args)) {
-      //   return true;
-      // }
-
-      // return;
-    // });
-
+    return false;
   }
 
   onEnter(input: HTMLSpanElement) {
