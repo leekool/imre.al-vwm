@@ -51,32 +51,20 @@ export class TerminalComponent implements AfterViewInit {
     const command = arrInput[0];
     const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
 
-    console.log(arrInput)
 
-    if (arrInput.length <= 1) console.log('no arg')
-
-    // for (let x of this.commands) {
-    //   if (x.validArgs) {
-    //     for (let y of x.validArgs()) {
-    //       if (y == args) console.log('yes')
-    //     }
-    //   }
-    // }
     this.commands.forEach(x => {
-      if (!x.validArgs) return (this.commands.some(e => e.name === command));
+      if (arrInput.length <= 1) return (x.name === command);
 
-      // x.validArgs().forEach((y: any) => {
-      //   if (y == args) console.log('yes')
-      // });
-      if (x.validArgs().includes(args)) console.log('yes')
+      if (!x.validArgs && this.commands.some(e => e.name === command)) return true;
 
+      if (x.validArgs().includes(args)) {
+        return true;
+      }
 
-
-      return 'no';
+      return;
     });
 
-    return 'no';
-
+    return false;
   }
 
   onEnter(input: HTMLSpanElement) {
@@ -91,6 +79,8 @@ export class TerminalComponent implements AfterViewInit {
 
     const command = input.textContent.split(' ')[0].trim();
     const commandArgs = input.textContent.split(' ').slice(1).join(' ');
+
+    console.log(this.validCommand(input.textContent))
 
     if (this.validCommand(input.textContent)) {
       for (let x of this.commands) {
