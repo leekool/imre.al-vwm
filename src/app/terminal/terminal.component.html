@@ -4,8 +4,8 @@
         <div #cli class="cli-line-container">
             <div *ngFor="let command of inputCommands">
                 <div class="cli-line">
-                    <span [ngClass]="{'ri-terminal-arrow': validCommand(command.name),
-                                     'ri-terminal-x': !validCommand(command.name)}">
+                    <span [ngClass]="{'ri-terminal-arrow': command.valid,
+                                     'ri-terminal-x': !command.valid}">
                     </span>
                     <span class="command">{{command.name}}</span>
                     <span class="command"
@@ -14,7 +14,7 @@
                     </span>
                 </div>
 
-                <div *ngIf="!validCommand(command.name)"
+                <div *ngIf="!command.valid"
                      class="cli-line command output"
                      style="color: #efefe7">
                     {{command.name}}: command not found

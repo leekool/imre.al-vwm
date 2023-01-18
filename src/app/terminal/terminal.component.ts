@@ -17,7 +17,7 @@ export class TerminalComponent implements AfterViewInit {
   windowList: WindowComponent[] = [];
   inputCommands: any[] = [];
 
-  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean, validArgs?: any }[] = [
+  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean, validArgs?: any, valid?: boolean }[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
     {name: 'shutdown',
@@ -51,20 +51,27 @@ export class TerminalComponent implements AfterViewInit {
     const command = arrInput[0];
     const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
 
+    for (let x of this.commands) {
+      if (command === x.name) return true;
+    }
 
-    this.commands.forEach(x => {
-      if (arrInput.length <= 1) return (x.name === command);
 
-      if (!x.validArgs && this.commands.some(e => e.name === command)) return true;
+    // this.commands.forEach(x => {
+    //   if (command === x.name) {
+    //       return true;
+    //   }
 
-      if (x.validArgs().includes(args)) {
-        return true;
-      }
+      // if (arrInput.length <= 1) return (x.name === command);
 
-      return;
-    });
+      // if (!x.validArgs && this.commands.some(e => e.name === command)) return true;
 
-    return false;
+      // if (x.validArgs().includes(args)) {
+      //   return true;
+      // }
+
+      // return;
+    // });
+
   }
 
   onEnter(input: HTMLSpanElement) {
@@ -80,19 +87,27 @@ export class TerminalComponent implements AfterViewInit {
     const command = input.textContent.split(' ')[0].trim();
     const commandArgs = input.textContent.split(' ').slice(1).join(' ');
 
-    console.log(this.validCommand(input.textContent))
+    for (let x of this.commands) {
+      if (command === x.name) {
+        if (this.validCommand(input.textContent)) x.valid = true;
+        x.input = commandArgs;
+        this.inputCommands.push(cloneDeep(x));
 
-    if (this.validCommand(input.textContent)) {
-      for (let x of this.commands) {
-        if (command === x.name) {
-          x.input = commandArgs;
-          this.inputCommands.push(cloneDeep(x));
-          x.run(x.input);
-        }
+        x.run(x.input);
       }
-    } else {
-      this.inputCommands.push({ name: input.textContent.trim() });
     }
+
+    // if (this.validCommand(input.textContent)) {
+    //   for (let x of this.commands) {
+    //     if (command === x.name) {
+    //       x.input = commandArgs;
+    //       this.inputCommands.push(cloneDeep(x));
+    //       x.run(x.input);
+    //     }
+    //   }
+    // } else {
+    //   this.inputCommands.push({ name: input.textContent.trim() });
+    // }
 
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
 
