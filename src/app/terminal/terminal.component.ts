@@ -42,9 +42,7 @@ export class TerminalComponent implements AfterViewInit {
 
   constructor(private windowService: WindowService,
               private _parent: WindowComponent,
-              private router: Router) {
-  }
-
+              private router: Router) { }
 
   validCommand(input: string): any {
     const arrInput = input.split(' ');
@@ -83,7 +81,7 @@ export class TerminalComponent implements AfterViewInit {
 
     for (let x of this.commands) {
       if (command === x.name) {
-        x.valid = this.validCommand(input.textContent) ? true : false;
+        x.valid = this.validCommand(input.textContent);
 
         x.input = commandArgs;
         this.inputCommands.push(cloneDeep(x));
@@ -92,22 +90,7 @@ export class TerminalComponent implements AfterViewInit {
       }
     }
 
-    console.log(this.inputCommands)
-
-    // if (this.validCommand(input.textContent)) {
-    //   for (let x of this.commands) {
-    //     if (command === x.name) {
-    //       x.input = commandArgs;
-    //       this.inputCommands.push(cloneDeep(x));
-    //       x.run(x.input);
-    //     }
-    //   }
-    // } else {
-    //   this.inputCommands.push({ name: input.textContent.trim() });
-    // }
-
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
-
     input.textContent = '';
   }
 
@@ -119,6 +102,5 @@ export class TerminalComponent implements AfterViewInit {
     this.windowService.windows$.subscribe((response: any) => {
       this.windowList = response;
     });
-
   }
 }
