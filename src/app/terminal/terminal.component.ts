@@ -21,6 +21,7 @@ export class TerminalComponent implements AfterViewInit {
               run: (input?: string, windowList?: WindowComponent[]) => void,
               input?: string,
               output?: string,
+              // validArgs?: () => string[],
               validArgs?: any,
               valid?: boolean }[] = [
     {name: 'clear',
@@ -38,13 +39,15 @@ export class TerminalComponent implements AfterViewInit {
          return this.output = 'kill: not enough arguments';
        }
 
-       if (!windowList.some(window => window._title == input)) return this.output = `kill: cannot find process "${input}"`;
+       console.log(this.validArgs(), input)
+       if (!this.validArgs().some((window: any) => window == input)) return this.output = `kill: cannot find process "${input}"`;
 
        windowList.forEach(window => {
          if (!window.closed && window._title == input) window.toggleClose();
        });
      },
-     validArgs: () => this.windowList.map(x => x._title)}
+     // validArgs: () => this.windowList.map(x => x._title)}
+     validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)}
   ];
 
   constructor(private windowService: WindowService,
@@ -92,8 +95,8 @@ export class TerminalComponent implements AfterViewInit {
 
         x.input = commandArgs;
         x.run(x.input, this.windowList);
-
         this.inputCommands.push(cloneDeep(x));
+
 
       }
     }
