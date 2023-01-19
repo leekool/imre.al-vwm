@@ -44,7 +44,7 @@ export class TerminalComponent implements AfterViewInit {
               private _parent: WindowComponent,
               private router: Router) { }
 
-  validCommand(input: string): any {
+  validCommand(input: string): boolean {
     const arrInput = input.split(' ');
     const command = arrInput[0];
     const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
