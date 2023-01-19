@@ -17,16 +17,14 @@ export class TerminalComponent implements AfterViewInit {
   windowList: WindowComponent[] = [];
   inputCommands: any[] = [];
 
-  commands: { name: string, run: (x?: string) => void, input?: string, output?: boolean, validArgs?: any, valid?: boolean }[] = [
+  commands: { name: string, run: (x?: string) => void, input?: string, output?: string, validArgs?: any, valid?: boolean }[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
     {name: 'shutdown',
      run: () => this.router.navigate(['/shutdown'])},
     {name: 'echo',
-     output: true,
-     run: (input) => { return input }},
+     run: function(input) { this.output = input }},
     {name: 'kill',
-     output: true,
      run: (input) => {
        if (!input) return 'kill: not enough arguments';
        if (!this.windowList.some(window => window._title == input)) return `kill: cannot find process "${input}"`;
@@ -84,9 +82,10 @@ export class TerminalComponent implements AfterViewInit {
         x.valid = this.validCommand(input.textContent);
 
         x.input = commandArgs;
+        x.run(x.input);
+
         this.inputCommands.push(cloneDeep(x));
 
-        x.run(x.input);
       }
     }
 
