@@ -32,6 +32,7 @@ export class TerminalComponent implements AfterViewInit {
      run: function(input) { this.output = input }},
     {name: 'kill',
      run: function(input, windowList) {
+       this.output = '';
        if (!windowList) return;
 
        if (!input) {
@@ -39,8 +40,9 @@ export class TerminalComponent implements AfterViewInit {
          return this.output = 'kill: not enough arguments';
        }
 
-       console.log(this.validArgs(), input)
-       if (!this.validArgs().some((window: any) => window == input)) return this.output = `kill: cannot find process "${input}"`;
+       if (!this.validArgs().some((window: any) => window == input)) {
+         return this.output = `kill: cannot find process "${input}"`;
+       }
 
        windowList.forEach(window => {
          if (!window.closed && window._title == input) window.toggleClose();
