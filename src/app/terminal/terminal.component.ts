@@ -32,7 +32,6 @@ export class TerminalComponent implements AfterViewInit {
      run: function(input) { this.output = input }},
     {name: 'kill',
      run: function(input, windowList) {
-       this.output = '';
        if (!windowList) return;
 
        if (!input) {
@@ -91,6 +90,7 @@ export class TerminalComponent implements AfterViewInit {
       return;
     }
 
+    // refactor into command handling function
     for (let x of this.commands) {
       if (command === x.name) {
         x.valid = this.validCommand(input.textContent);
@@ -98,8 +98,7 @@ export class TerminalComponent implements AfterViewInit {
         x.input = commandArgs;
         x.run(x.input, this.windowList);
         this.inputCommands.push(cloneDeep(x));
-
-
+        x.output = '';
       }
     }
 
