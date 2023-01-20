@@ -31,23 +31,18 @@ export class TerminalComponent implements AfterViewInit {
     {name: 'echo',
      run: function(input) { this.output = input }},
     {name: 'kill',
-     run: function(input, windowList) {
-       if (!windowList) return;
-
+     run: function(input, windowList = []) {
        if (!input) {
          this.valid = false;
          return this.output = 'kill: not enough arguments';
        }
 
-       if (!this.validArgs().some((window: any) => window == input)) {
-         return this.output = `kill: cannot find process "${input}"`;
-       }
+       if (!this.validArgs().some((window: any) => window == input)) return this.output = `kill: cannot find process "${input}"`;
 
        windowList.forEach(window => {
-         if (!window.closed && window._title == input) window.toggleClose();
+         if (window._title == input) window.toggleClose();
        });
      },
-     // validArgs: () => this.windowList.map(x => x._title)}
      validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)}
   ];
 
