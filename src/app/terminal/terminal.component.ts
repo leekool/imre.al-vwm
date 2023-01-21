@@ -21,8 +21,7 @@ export class TerminalComponent implements AfterViewInit {
               run: (input?: string, windowList?: WindowComponent[]) => void,
               input?: string,
               output?: string,
-              // validArgs?: () => string[],
-              validArgs?: any,
+              validArgs?: () => string[],
               valid?: boolean }[] = [
     {name: 'clear',
      run: () => this.inputCommands.length = 0},
@@ -32,16 +31,18 @@ export class TerminalComponent implements AfterViewInit {
      run: function(input) { this.output = input }},
     {name: 'kill',
      run: function(input, windowList = []) {
-       if (!input) {
+       if (!input || !this.validArgs) {
          this.valid = false;
          return this.output = 'kill: not enough arguments';
        }
 
-       if (!this.validArgs().some((window: any) => window == input)) return this.output = `kill: cannot find process "${input}"`;
+       if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
 
-       windowList.forEach(window => {
-         if (window._title == input) window.toggleClose();
-       });
+       windowList.filter(x => x._title == input)[0].toggleClose();
+
+       // windowList.forEach(window => {
+       //   if (window._title == input) return window.toggleClose();
+       // });
      },
      validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)}
   ];
