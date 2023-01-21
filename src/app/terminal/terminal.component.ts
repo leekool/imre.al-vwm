@@ -40,7 +40,9 @@ export class TerminalComponent implements AfterViewInit {
 
        windowList.filter(x => x._title == input)[0].toggleClose();
      },
-     validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)}
+     validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)},
+    {name: 'pwd',
+     run: function() { this.output = '/home/you' }}
   ];
 
   constructor(private windowService: WindowService,
@@ -65,7 +67,6 @@ export class TerminalComponent implements AfterViewInit {
     // prevent contenteditable adding <div> on chrome
     document.execCommand('insertLineBreak');
     event?.preventDefault();
-
     // remove <br> created by contenteditable
     if (input.children[input.children.length - 1].tagName == 'BR') input.children[input.children.length - 1].remove();
 
