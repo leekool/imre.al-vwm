@@ -39,10 +39,6 @@ export class TerminalComponent implements AfterViewInit {
        if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
 
        windowList.filter(x => x._title == input)[0].toggleClose();
-
-       // windowList.forEach(window => {
-       //   if (window._title == input) return window.toggleClose();
-       // });
      },
      validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)}
   ];
@@ -58,9 +54,7 @@ export class TerminalComponent implements AfterViewInit {
 
     for (let x of this.commands) {
       if (command === x.name) {
-        if (arrInput.length <= 1) return true;
-        if (!x.validArgs) return true;
-        if (x.validArgs().includes(args)) return true;
+        if (arrInput.length <= 1 || !x.validArgs || x.validArgs().includes(args)) return true;
       }
     }
 
