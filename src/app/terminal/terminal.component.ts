@@ -55,7 +55,7 @@ export class TerminalComponent implements AfterViewInit {
     const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
 
     for (let x of this.commands) {
-      if (command !== x.name) break;
+      if (command !== x.name) continue;
       if (arrInput.length <= 1 || !x.validArgs || x.validArgs().includes(args)) return true;
     }
 
@@ -82,7 +82,7 @@ export class TerminalComponent implements AfterViewInit {
 
     // refactor into command handling function
     for (let x of this.commands) {
-      if (command !== x.name) break;
+      if (command !== x.name) continue;
 
       x.valid = this.validCommand(input.textContent);
       x.input = commandArgs;
