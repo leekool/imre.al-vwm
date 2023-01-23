@@ -82,14 +82,13 @@ export class TerminalComponent implements AfterViewInit {
 
     // refactor into command handling function
     for (let x of this.commands) {
-      if (command === x.name) {
-        x.valid = this.validCommand(input.textContent);
+      if (command !== x.name) break;
 
-        x.input = commandArgs;
-        x.run(x.input, this.windowList);
-        this.inputCommands.push(cloneDeep(x));
-        x.output = '';
-      }
+      x.valid = this.validCommand(input.textContent);
+      x.input = commandArgs;
+      x.run(x.input, this.windowList);
+      this.inputCommands.push(cloneDeep(x));
+      x.output = '';
     }
 
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
