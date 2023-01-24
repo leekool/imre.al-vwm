@@ -23,26 +23,36 @@ export class TerminalComponent implements AfterViewInit {
               output?: string,
               validArgs?: () => string[],
               valid?: boolean }[] = [
-    {name: 'clear',
-     run: () => this.inputCommands.length = 0},
-    {name: 'shutdown',
-     run: () => this.router.navigate(['/shutdown'])},
-    {name: 'echo',
-     run: function(input) { this.output = input }},
-    {name: 'kill',
-     run: function(input, windowList = []) {
-       if (!input || !this.validArgs) {
-         this.valid = false;
-         return this.output = 'kill: not enough arguments';
-       }
+    {
+      name: 'clear',
+      run: () => this.inputCommands.length = 0
+    },
+    {
+      name: 'shutdown',
+      run: () => this.router.navigate(['/shutdown'])
+    },
+    {
+      name: 'echo',
+      run: function(input) { this.output = input }
+    },
+    {
+      name: 'kill',
+      run: function(input, windowList = []) {
+        if (!input || !this.validArgs) {
+          this.valid = false;
+          return this.output = 'kill: not enough arguments';
+        }
 
-       if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
+        if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
 
-       windowList.filter(x => x._title == input)[0].toggleClose();
-     },
-     validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)},
-    {name: 'pwd',
-     run: function() { this.output = '/home/you' }}
+        windowList.filter(x => x._title == input)[0].toggleClose();
+      },
+      validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)
+    },
+    {
+      name: 'pwd',
+      run: function() { this.output = '/home/you' }
+    }
   ];
 
   constructor(private windowService: WindowService,
