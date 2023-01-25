@@ -107,6 +107,19 @@ export class TerminalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.input);
+
+    setTimeout(() => {
+      this.windowList.forEach(window => {
+        this.commands.push({
+          name: window._title,
+          run: () => {
+            if (window.minimised) window.toggleMinimise();
+            if (window.closed) window.toggleClose();
+            if (!window.closed) this.windowService.getFocus(window);
+          }
+        });
+      });
+    })
   }
 
   ngOnInit(): void {
