@@ -33,6 +33,7 @@
                   class="input command"
                   role="textbox"
                   contenteditable
+                  (keydown.arrowUp)="lastCommand(input)"
                   (keydown.enter)="onEnter(input)">
             </span>
             <span class="caret"></span>

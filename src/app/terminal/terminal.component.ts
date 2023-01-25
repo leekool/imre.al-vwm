@@ -105,6 +105,11 @@ export class TerminalComponent implements AfterViewInit {
     input.textContent = '';
   }
 
+  lastCommand(input: HTMLSpanElement): void {
+    if (!this.inputCommands) return;
+    input.textContent = this.inputCommands[this.inputCommands.length - 1].name;
+  }
+
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.input);
 
