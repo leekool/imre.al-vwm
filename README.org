@@ -7,8 +7,10 @@ virtual desktop angular project based on my fvwm config - windows can focus, min
 - based on doom emacs
 *** terminal
 ***** commands:
-- echo
 - clear
+- echo
+- kill
+- pwd
 - shutdown
 
 [[screenshot_desktop.png]]
