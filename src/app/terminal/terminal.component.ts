@@ -90,7 +90,7 @@ export class TerminalComponent implements AfterViewInit {
       return;
     }
 
-    // refactor into command handling function
+    // to refactor into command handling function
     for (let x of this.commands) {
       if (command !== x.name) continue;
 
@@ -105,6 +105,7 @@ export class TerminalComponent implements AfterViewInit {
     input.textContent = '';
   }
 
+  // get last command entered
   lastCommand(input: HTMLSpanElement): void {
     if (!this.inputCommands) return;
     input.textContent = this.inputCommands[this.inputCommands.length - 1].name;
@@ -113,6 +114,7 @@ export class TerminalComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.windowService.pushFocusElement(this._parent, this.input);
 
+    // commands to open/focus each window component
     setTimeout(() => {
       this.windowList.forEach(window => {
         this.commands.push({
