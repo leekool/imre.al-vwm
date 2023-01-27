@@ -84,6 +84,8 @@ export class TerminalComponent implements AfterViewInit {
     const command = input.textContent.split(' ')[0].trim();
     const commandArgs = input.textContent.split(' ').slice(1).join(' ');
 
+    /* checks if command exists - cannot use validCommand() as it
+       returns false if command exists but it's arguments are invalid */
     if (!this.commands.some(x => x.name === command)) {
       this.inputCommands.push({ name: command, input: commandArgs, valid: false });
       input.textContent = '';
@@ -126,7 +128,7 @@ export class TerminalComponent implements AfterViewInit {
           }
         });
       });
-    })
+    });
   }
 
   ngOnInit(): void {
