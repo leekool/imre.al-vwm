@@ -41,6 +41,12 @@ export class WindowComponent implements AfterViewInit {
     });
   }
 
+  focusOrOpen() {
+    if (this.minimised) this.toggleMinimise();
+    if (this.closed) this.toggleClose();
+    if (!this.closed) this.windowService.getFocus(this);
+  }
+
   toggleMinimise() {
     this.minimised = !this.minimised;
 

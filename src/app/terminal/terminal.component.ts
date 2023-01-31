@@ -121,11 +121,7 @@ export class TerminalComponent implements AfterViewInit {
       this.windowList.forEach(window => {
         this.commands.push({
           name: window._title,
-          run: () => {
-            if (window.minimised) window.toggleMinimise();
-            if (window.closed) window.toggleClose();
-            if (!window.closed) this.windowService.getFocus(window);
-          }
+          run: () => window.focusOrOpen()
         });
       });
     });

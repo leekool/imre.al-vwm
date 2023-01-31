@@ -22,9 +22,7 @@ export class TaskbarComponent implements OnInit {
   }
 
   startMenuPress(window: WindowComponent) {
-    if (window.minimised) window.toggleMinimise();
-    if (window.closed) window.toggleClose();
-    if (!window.closed) this.windowService.getFocus(window);
+    window.focusOrOpen();
   }
 
   ngOnInit() {
