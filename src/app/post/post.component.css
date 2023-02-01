@@ -35,7 +35,7 @@
     height: 100%;
     color: #e4e3d5;
     padding-left: 10px;
-    white-space: pre-wrap;
+    white-space: pre-line;
 }
 
 .footer {
