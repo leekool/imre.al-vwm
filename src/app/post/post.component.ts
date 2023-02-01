@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
-  @Input() content: string = '';
   @Input() title: string = '';
+  @Input() content: string = '#+TITLE: imre.al\n#+AUTHOR: Lee Luppi\n#+EMAIL: lee@imre.al';
 
   lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);
