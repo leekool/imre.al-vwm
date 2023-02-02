@@ -80,6 +80,13 @@
     outline: 1px dotted rgba(255, 254, 254, 0.5);
 }
 
+.divider {
+    height: 1px;
+    margin: 3px 0;
+    border: none;
+    background-color: #948c79;
+}
+
 .iconman {
     display: flex;
     width: 100%;
