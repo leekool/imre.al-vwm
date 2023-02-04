@@ -103,6 +103,7 @@ export class TerminalComponent implements AfterViewInit {
       x.output = '';
     }
 
+    // scroll terminal to bottom
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
     input.textContent = '';
   }
