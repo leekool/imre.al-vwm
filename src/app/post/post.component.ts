@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class PostComponent {
   @Input() title: string = new Date().toLocaleDateString('en-GB').replace(/\//g, '') + '.org';
-  @Input() content: string = '#+TITLE: imre.al\n#+AUTHOR: Lee Luppi\n#+EMAIL: lee@imre.al';
+  @Input() content: string = '\n\n';
 
   lineCount(): number[] {
     let lineCount = this.content.match(/\n/g);
@@ -23,3 +23,7 @@ export class PostComponent {
     return wordCount ? wordCount.length : 1;
   }
 }
+
+/* --- TODO ---
+refactor line count
+---------------- */

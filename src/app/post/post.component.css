@@ -38,6 +38,10 @@
     white-space: pre-line;
 }
 
+.content .heading {
+    color: #5b5d52;
+}
+
 .footer {
     display: flex;
     align-items: center;
