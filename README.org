@@ -15,3 +15,8 @@ virtual desktop angular project based on my fvwm config - windows can focus, min
 
 [[screenshot_desktop.png]]
 [[screenshot_mobile.png]]
+
+** todo:
+- start button hover css
+- terminal wallpaper command
+- refactor post line count
