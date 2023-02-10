@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'shutdown',
