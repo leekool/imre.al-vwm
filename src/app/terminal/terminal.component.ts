@@ -72,6 +72,18 @@ export class TerminalComponent implements AfterViewInit {
     return false;
   }
 
+  handleCommand(command: string, commandArgs: string) {
+    for (let x of this.commands) {
+      if (command !== x.name) continue;
+
+      x.valid = this.validCommand(`${command} ${commandArgs}`);
+      x.input = commandArgs;
+      x.run(x.input, this.windowList);
+      this.inputCommands.push(cloneDeep(x));
+      x.output = '';
+    }
+  }
+
   onEnter(input: HTMLSpanElement) {
     // prevent contenteditable adding <div> on chrome
     document.execCommand('insertLineBreak');
@@ -81,6 +93,7 @@ export class TerminalComponent implements AfterViewInit {
 
     if (!input.textContent) return;
 
+    // possibly refactor into object for handleCommand()
     const command = input.textContent.split(' ')[0].trim();
     const commandArgs = input.textContent.split(' ').slice(1).join(' ');
 
@@ -92,16 +105,7 @@ export class TerminalComponent implements AfterViewInit {
       return;
     }
 
-    // to refactor into command handling function
-    for (let x of this.commands) {
-      if (command !== x.name) continue;
-
-      x.valid = this.validCommand(input.textContent);
-      x.input = commandArgs;
-      x.run(x.input, this.windowList);
-      this.inputCommands.push(cloneDeep(x));
-      x.output = '';
-    }
+    this.handleCommand(command, commandArgs);
 
     // scroll terminal to bottom
     this.cli.nativeElement.scrollTop = this.cli.nativeElement.scrollHeight - this.cli.nativeElement.clientHeight;
