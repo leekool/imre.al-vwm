@@ -7,8 +7,8 @@ export class Position {
     width = 0;
     top = 0;
     left = 0;
-    topPercent = 0;
-    leftPercent = 0;
+    topPercent = 50;
+    leftPercent = 50;
 
     constructor(top: number, left: number) {
         this.topPercent = top;

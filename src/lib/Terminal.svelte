@@ -31,7 +31,7 @@
         },
         {
             name: 'kill',
-            run: function(input, windowList = []) {
+            run: function(input) {
                 if (!input || !this.validArgs) {
                     this.valid = false;
                     return this.output = 'kill: not enough arguments';
@@ -39,10 +39,10 @@
 
                 if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
         
-                // windowList.filter(x => x._title == input)[0].toggleClose();
+                $windowStore.filter(window => window.name == input)[0].kill();
             },
             
-            // validArgs: () => windowList.filter(x => !x.closed).map(x => x._title)
+            validArgs: () => $windowStore.map(window => window.name)
         },
         {
             name: 'pwd',
