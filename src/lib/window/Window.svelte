@@ -69,13 +69,18 @@
 
     // -----
 
+    const clickNavbar = (): void => {
+        if (!window_.options.focusEle) return;
+        window_.options.focusEle.focus();
+    }
+
     onMount(async () => {
         getPosition();
 
         window.addEventListener("resize", () => getTopLeftPercent());
     });
 
-    onDestroy( () => {
+    onDestroy(() => {
         console.log("destroyed: ", window_);
     });
 </script>
@@ -94,7 +99,11 @@
         class="main border"
         class:focused={window_.options.focused}
     >
-        <div class="drag-bar" on:mousedown={dragMouseDown}></div>
+        <div 
+            class="drag-bar" 
+            on:mousedown={dragMouseDown}
+            on:click={() => clickNavbar()}
+        />
         <Navbar {window_} />
 
         <div class="content">
