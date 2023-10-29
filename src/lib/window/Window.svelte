@@ -8,7 +8,6 @@
         type Position
     } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
-    import Footer from "./Footer.svelte";
 
     $: $windowStore, window_ = window_; // trigger state management
 
@@ -98,8 +97,6 @@
         <div class="content">
             <slot />
         </div>
-
-        <!-- <Footer {window_} /> -->
     </div>
 </div>
 

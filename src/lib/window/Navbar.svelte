@@ -112,7 +112,9 @@
     }
 
     .navbar-title {
+        display: flex;
         position: absolute;
+        align-items: center;
         height: 28px;
         line-height: 30px;
         left: 50%;
