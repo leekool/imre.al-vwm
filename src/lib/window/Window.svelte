@@ -153,7 +153,7 @@
         align-self: center;
         flex-direction: column;
         background-color: #1d1f21;
-        margin: 2px 4px;
+        margin: 0 4px;
         width: 100%;
         overflow: scroll;
     }
@@ -164,9 +164,10 @@
         position: absolute;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        min-height: 300px;
-        max-width: 438px;
         width: 80%;
+        max-width: 1200px;
+        height: 70%;
+        max-height: 80%;
     }
 
     .window-layout {
