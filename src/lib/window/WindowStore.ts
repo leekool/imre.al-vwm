@@ -1,5 +1,4 @@
 import { writable, get } from "svelte/store";
-import html2canvas from "html2canvas";
 
 let count: number = 0;
 
@@ -8,8 +7,13 @@ export class Position {
     width = 0;
     top = 0;
     left = 0;
-    topPercent = 50;
-    leftPercent = 50;
+    topPercent = 0;
+    leftPercent = 0;
+
+    constructor(top: number, left: number) {
+        this.topPercent = top;
+        this.leftPercent = left;
+    }
 }
 
 export class Options {
@@ -38,7 +42,7 @@ export class Window {
     static windowStore = writable<Window[]>([]);
     static focusList: number[] = [];
 
-    constructor(name: string, component: any, options?: Partial<Options>) {
+    constructor(name: string, component: any, options?: Partial<Options>, position?: Partial<Position>) {
         Window.windowStore.update((store) => [...store, this]);
 
         this.options = new Options();
@@ -47,7 +51,8 @@ export class Window {
         this.component = component;
         this.name = name;
         this.icon = "icons/" + name + "-icon-small.png";
-        this.position = new Position();
+
+        this.position = new Position(position?.topPercent || 50, position?.leftPercent || 50);
 
         this.id = count; // simple ID system for now
         count++

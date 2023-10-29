@@ -23,6 +23,10 @@
     options={{
         type: "window-terminal"
     }}
+    position={{
+        topPercent: 50,
+        leftPercent: 60
+    }}
 >
     <Terminal />
 </Window>
