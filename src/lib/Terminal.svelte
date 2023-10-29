@@ -3,7 +3,6 @@
     import { windowStore, Window } from "./window/WindowStore";
     import _ from "lodash";
 
-    let cli: any;
     let input: HTMLSpanElement;
 
     let directory = "~";
@@ -87,8 +86,6 @@
             inputCommands = inputCommands; // trigger change detection
 
             x.output = "";
-
-            console.log("TEST!", command, inputCommands);
         }
     };
 
@@ -134,20 +131,6 @@
         input.textContent = inputCommands[inputCommands.length - 1].name;
     };
 
-    // ngAfterViewInit(): void {
-    // this.windowService.pushFocusElement(this._parent, this.input);
-
-    // commands to open/focus each window component
-    // setTimeout(() => {
-    //   this.windowList.forEach(window => {
-    //     this.commands.push({
-    //       name: window._title,
-    //       run: () => window.focusOrOpen()
-    //     });
-    //   });
-    // });
-    // }
-
     const onKeyDown = (e: KeyboardEvent) => {
         switch (e.key) {
             case "Enter":
@@ -167,13 +150,24 @@
                 window.options.focusEle = input;
             }
         }
+
+        // commands to open/focus each window
+        $windowStore.forEach(window => {
+            commands.push({
+                name: window.name,
+                run: () => {
+                    window.getFocus();
+                    $windowStore = $windowStore;
+                }
+            });
+        });
     });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="main" on:click={() => input.focus()}>
     <div class="body">
-        <div bind:this={cli} class="cli-line-container">
+        <div class="cli-line-container">
             {#each inputCommands as command}
                 <div class="cli-line">
                     <span
