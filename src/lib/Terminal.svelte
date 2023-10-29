@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { windowStore, Window } from "./window/WindowStore";
+    import _ from "lodash";
 
     let cli: any;
     let input: HTMLSpanElement;
@@ -69,7 +70,10 @@
       x.valid = validCommand(`${command} ${commandArgs}`);
       x.input = commandArgs;
       x.run(x.input, $windowStore);
-      // inputCommands.push(cloneDeep(x));
+
+      inputCommands.push(_.cloneDeep(x));
+      inputCommands = inputCommands; // trigger change detection
+
       x.output = '';
 
       console.log("TEST!", command, inputCommands)
@@ -168,9 +172,11 @@
                     >
                     </span>
                     <span class="command">{command.name}</span>
-                    <span class="command"
-                          style="color: #c2999c; white-space: pre">
-                        {command.input}
+                    <span 
+                        class="command"
+                        style="color: #c2999c; white-space: pre"
+                    >
+                        {" " + command.input}
                     </span>
                 </div>
 

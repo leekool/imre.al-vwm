@@ -27,5 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@types/lodash": "^4.14.200",
+		"lodash": "^4.17.21"
 	}
 }
