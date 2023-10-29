@@ -201,7 +201,7 @@
     padding: 12px;
     flex-direction: column;
     position: relative;
-    background-color: rgba(40, 40, 40, 0.8);
+    background-color: rgba(40, 40, 40, 0.8) !important;
     -ms-overflow-style: none;  /* ie & edge */
     scrollbar-width: none;  /* firefox */
     overflow: hidden;

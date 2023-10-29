@@ -114,7 +114,7 @@
         flex: 1 0 auto;
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
-        background-color: #1d1f21;
+        /* background-color: #1d1f21; */
         min-height: 100%;
     }
 
@@ -135,7 +135,7 @@
         position: absolute;
         width: calc(100% - 12px) !important;
         max-width: calc(100% - 12px) !important;
-        height: calc(100% - 43px);
+        height: calc(100% - 43px) !important;
         max-height: calc(100% - 43px) !important;
         top: 0 !important;
         left: 0 !important;
@@ -152,7 +152,7 @@
         flex: 1 1 auto;
         align-self: center;
         flex-direction: column;
-        background-color: #1d1f21;
+        /* background-color: #1d1f21; */
         margin: 0 4px;
         width: 100%;
         overflow: scroll;
