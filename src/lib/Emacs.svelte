@@ -27,10 +27,9 @@
             {/each}
         </div>
         <div class="content">
-            <!-- {content} -->
-            <span class="heading">#+TITLE:</span> imre.al<br />
-            <span class="heading">#+AUTHOR:</span> Lee Luppi<br />
-            <span class="heading">#+EMAIL:</span> lee@imre.al<br />
+            <span class="heading">#+TITLE:</span> imre.al
+            <span class="heading">#+AUTHOR:</span> Lee Luppi
+            <span class="heading">#+EMAIL:</span> lee@imre.al
         </div>
     </div>
 
