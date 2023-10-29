@@ -23,13 +23,7 @@ export class Options {
         close: true,
         info: false
     }
-    layoutInfo = {
-        name: "",
-        svg: "",
-        fileName: "",
-        filePath: "",
-        fileSize: ""
-    }
+    focusEle: HTMLElement | null = null;
 }
 
 export class Window {
@@ -88,6 +82,9 @@ export class Window {
 
         this.options.focused = true;
 
+        // focus element
+        if (this.options.focusEle) this.options.focusEle.focus();
+
         // update focusList
         const index = Window.focusList.indexOf(this.id);
         if (index !== -1) Window.focusList.splice(index, 1);
@@ -123,51 +120,6 @@ export class Window {
 
             window.zIndex = 10 + -index;
         }
-    }
-
-    async screenshotCanvas(): Promise<File | null> {
-        const layout = this.options.layoutInfo?.svg;
-        if (!layout) return null;
-
-        // Get the id from the <svg> element
-        const svgId = layout.substring(layout.indexOf("id=") + 4, layout.indexOf("<style>") - 2);
-        const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
-        const svgAssets = document.querySelectorAll("img");
-        
-        if (el) {
-            const canvas = await html2canvas(el, {
-                allowTaint: true,
-                useCORS: true,
-                logging: true,
-                imageTimeout: 0,
-                onclone: (doc) => {
-                    svgAssets.forEach((asset) => {
-                        console.log("assets", asset, asset.width, asset.height);
-                        const img = doc.createElement("img");
-                        img.src = asset.src;
-                        img.width = asset.width;
-                        img.height = asset.height;
-                        doc.body.appendChild(img);
-                    });
-                }
-            });
-
-            const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-            // TODO handle error if blob is null somehow
-            const file = new File([blob as BlobPart], "thumbnail.png", { type: "image/png" });
-            this.downloadData(file, this.name);
-            return file;
-        }
-        return null;
-    }
-
-    downloadData(blob: Blob, name: string) {
-        let a = document.createElement("a");
-        document.body.append(a);
-        a.download = name;
-        a.href = URL.createObjectURL(blob);
-        a.click();
-        a.remove();
     }
 
     kill() {

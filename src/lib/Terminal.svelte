@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { windowStore, type Window } from "./window/WindowStore";
+    import { onMount } from "svelte";
+    import { windowStore, Window } from "./window/WindowStore";
 
-    let cli: HTMLElement;
-    let input: HTMLElement;
+    let cli: any;
+    let input: HTMLSpanElement;
 
     let directory = "~";
-    const inputCommands: any[] = [];
+    let inputCommands: any[] = [];
 
     const commands: {
         name: string,
@@ -17,12 +18,12 @@
     }[] = [
         {
             name: 'clear',
-            run: () => this.inputCommands.length = 0
+            run: () => inputCommands.length = 0
         },
-        {
-            name: 'shutdown',
-            run: () => this.router.navigate(['/shutdown'])
-        },
+        // {
+        //     name: 'shutdown',
+        //     run: () => router.navigate(['/shutdown'])
+        // },
         {
             name: 'echo',
             run: function(input) { this.output = input }
@@ -37,10 +38,10 @@
 
                 if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
         
-                windowList.filter(x => x._title == input)[0].toggleClose();
+                // windowList.filter(x => x._title == input)[0].toggleClose();
             },
             
-            validArgs: () => this.windowList.filter(x => !x.closed).map(x => x._title)
+            // validArgs: () => windowList.filter(x => !x.closed).map(x => x._title)
         },
         {
             name: 'pwd',
@@ -67,18 +68,21 @@
 
       x.valid = validCommand(`${command} ${commandArgs}`);
       x.input = commandArgs;
-      x.run(x.input, this.windowList);
-      inputCommands.push(cloneDeep(x));
+      x.run(x.input, $windowStore);
+      // inputCommands.push(cloneDeep(x));
       x.output = '';
+
+      console.log("TEST!", command, inputCommands)
     }
   }
 
   const onEnter = (input: HTMLSpanElement) => {
     // prevent contenteditable adding <div> on chrome
-    document.execCommand('insertLineBreak');
+    document.execCommand("insertLineBreak");
     event?.preventDefault();
+
     // remove <br> created by contenteditable
-    if (input.children[input.children.length - 1].tagName == 'BR') input.children[input.children.length - 1].remove();
+    if (input.children[input.children.length - 1].tagName === "BR") input.children[input.children.length - 1].remove();
 
     if (!input.textContent) return;
 
@@ -90,6 +94,8 @@
        returns false if command exists but it's arguments are invalid */
     if (!commands.some(x => x.name === command)) {
       inputCommands.push({ name: command, input: commandArgs, valid: false });
+      inputCommands = inputCommands; // trigger change detection
+    
       input.textContent = '';
       return;
     }
@@ -97,7 +103,7 @@
     handleCommand(command, commandArgs);
 
     // scroll terminal to bottom
-    cli.nativeElement.scrollTop = cli.nativeElement.scrollHeight - cli.nativeElement.clientHeight;
+    // cli.nativeElement.scrollTop = cli.nativeElement.scrollHeight - cli.nativeElement.clientHeight;
     input.textContent = '';
   }
 
@@ -120,7 +126,8 @@
     //   });
     // });
   // }
-  const onKeyDown = (event: any, input?: any) => {
+
+  const onKeyDown = (event: any, input: HTMLSpanElement) => {
     switch (event.key) {
         case "Enter":
             onEnter(input);
@@ -131,9 +138,23 @@
     }
   }
 
+  onMount(() => {
+      input.focus();
+
+      for (let window of $windowStore) {
+          if (window.options.type === "window-terminal") {
+              window.options.focusEle = input;
+          }
+      }
+  });
+
 </script>
 
-<div class="main">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div 
+    class="main"
+    on:click={() => input.focus()}
+>
     <div class="body">
 
         <div 
@@ -176,8 +197,9 @@
                 bind:this={input}
                 class="input command"
                 role="textbox"
-                contenteditable
-                on:keydown={onKeyDown}
+                tabindex="0"
+                contenteditable="true"
+                on:keydown={() => onKeyDown(event, input)}
             >
             </span>
             <span class="caret"></span>
@@ -193,15 +215,15 @@
     display: flex;
     flex: 1 1 0;
     flex-direction: column;
+    padding: 10px 12px;
+    background-color: rgba(40, 40, 40, 0.9) !important;
 }
 
 .body {
     display: flex;
     flex: 1 1 0;
-    padding: 12px;
     flex-direction: column;
     position: relative;
-    background-color: rgba(40, 40, 40, 0.8) !important;
     -ms-overflow-style: none;  /* ie & edge */
     scrollbar-width: none;  /* firefox */
     overflow: hidden;

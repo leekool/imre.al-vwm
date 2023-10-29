@@ -90,7 +90,6 @@
 </div>
 
 <style>
-    /* @import url("../../../static/pixel-corners.css"); */
     @import url("../../../static/fonts/real-icons.css");
 
     .navbar {
@@ -237,18 +236,13 @@
     /*     transform: rotate(270deg); */
     /* } */
 
-    .inactive {
-        border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0;
-    }
+    /* .inactive { */
+        /* border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0; */
+    /* } */
 
-    .inactive .navbar-btn-base {
-        background-color: #d0d0d0;
-        box-shadow: 2px 2px 0 0 #454545 inset;
-    }
-
-    .inactive .navbar-btn-inner {
-        box-shadow: -2px -2px 0 0 #454545 inset;
-    }
+    /* .inactive .navbar-btn-inner { */
+        /* box-shadow: -2px -2px 0 0 #454545 inset; */
+    /* } */
 
     /* .inactive .navbar-btn-right { */
     /*     box-shadow: -2px -2px 0 0 #454545 inset, -6px -6px 0 0 #a4a4a4 inset, */
