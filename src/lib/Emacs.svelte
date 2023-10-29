@@ -37,13 +37,12 @@
     <div class="footer">
         <span class="circle"></span>
         <span class="file-size"></span>
-        <div class="footer-text">
-            <span style="color: #acbc68; margin-left: 9px;">imre.al/</span>
-            <span class="file-name">{title}</span>
+        <span class="footer-text">
+            <span style="color: #acbc68; margin-left: 9px;">imre.al/</span><span class="file-name">{title}</span>
             <span class="word-count">
                 {lineCount()[lineCount().length - 1]}:{wordCount()}
             </span>
-        </div>
+        </span>
     </div>
 </div>
 
@@ -102,6 +101,7 @@
 
 .footer-text {
     margin-top: 2px;
+    white-space: pre;
 }
 
 .circle {
