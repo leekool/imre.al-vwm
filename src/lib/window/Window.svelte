@@ -90,7 +90,10 @@
     style="z-index: {window_.zIndex}; left: {window_.position.leftPercent}%; top: {window_.position.topPercent}%;"
     on:click={() => windowClick()}
 >
-    <div class="main border">
+    <div 
+        class="main border"
+        class:focused={window_.options.focused}
+    >
         <div class="drag-bar" on:mousedown={dragMouseDown}></div>
         <Navbar {window_} />
 
@@ -125,6 +128,13 @@
            0 3px 15px rgba(0, 0, 0, 0.3);
     }
 
+    .focused {
+        box-shadow: 0 0 0 3px #222020,
+           0 0 0 5px #32302c,
+           0 0 0 6px #222020,
+           0 3px 15px rgba(0, 0, 0, 0.3);
+    }
+
     .minimised {
         display: none;
         visibility: hidden;
@@ -142,10 +152,6 @@
         transform: none !important;
         margin: 6px 6px;
     }
-
-    /* .focused { */
-    /*     z-index: 100 !important; */
-    /* } */
 
     .content {
         display: flex;
