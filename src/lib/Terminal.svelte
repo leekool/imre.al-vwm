@@ -10,114 +10,131 @@
     let inputCommands: any[] = [];
 
     const commands: {
-        name: string,
-        run: (input?: string, windowList?: Window[]) => void,
-        input?: string,
-        output?: string,
-        validArgs?: () => string[],
-        valid?: boolean
+        name: string;
+        run: (input?: string, windowList?: Window[]) => void;
+        input?: string;
+        output?: string;
+        validArgs?: () => string[];
+        valid?: boolean;
     }[] = [
         {
-            name: 'clear',
-            run: () => inputCommands.length = 0
+            name: "clear",
+            run: () => (inputCommands.length = 0),
         },
         // {
         //     name: 'shutdown',
         //     run: () => router.navigate(['/shutdown'])
         // },
         {
-            name: 'echo',
-            run: function(input) { this.output = input }
+            name: "echo",
+            run: function (input) {
+                this.output = input;
+            },
         },
         {
-            name: 'kill',
-            run: function(input) {
+            name: "kill",
+            run: function (input) {
                 if (!input || !this.validArgs) {
                     this.valid = false;
-                    return this.output = 'kill: not enough arguments';
+                    return (this.output = "kill: not enough arguments");
                 }
 
-                if (!this.validArgs().some((window: unknown) => window == input)) return this.output = `kill: cannot find process "${input}"`;
-        
-                $windowStore.filter(window => window.name == input)[0].kill();
+                if (
+                    !this.validArgs().some((window: unknown) => window == input)
+                )
+                    return (this.output = `kill: cannot find process "${input}"`);
+
+                $windowStore.filter((window) => window.name == input)[0].kill();
             },
-            
-            validArgs: () => $windowStore.map(window => window.name)
+
+            validArgs: () => $windowStore.map((window) => window.name),
         },
         {
-            name: 'pwd',
-            run: function() { this.output = '/home/you' }
-        }
+            name: "pwd",
+            run: function () {
+                this.output = "/home/you";
+            },
+        },
     ];
 
-  const validCommand = (input: string): boolean => {
-    const arrInput = input.split(' ');
-    const command = arrInput[0];
-    const args = arrInput.length > 1 ? arrInput.slice(1).join(' ') : '';
+    const validCommand = (input: string): boolean => {
+        const arrInput = input.split(" ");
+        const command = arrInput[0];
+        const args = arrInput.length > 1 ? arrInput.slice(1).join(" ") : "";
 
-    for (let x of commands) {
-      if (command !== x.name) continue;
-      if (arrInput.length <= 1 || !x.validArgs || x.validArgs().includes(args)) return true;
-    }
+        for (let x of commands) {
+            if (command !== x.name) continue;
+            if (
+                arrInput.length <= 1 ||
+                !x.validArgs ||
+                x.validArgs().includes(args)
+            )
+                return true;
+        }
 
-    return false;
-  }
+        return false;
+    };
 
-  const handleCommand = (command: string, commandArgs: string) => {
-    for (let x of commands) {
-      if (command !== x.name) continue;
+    const handleCommand = (command: string, commandArgs: string) => {
+        for (let x of commands) {
+            if (command !== x.name) continue;
 
-      x.valid = validCommand(`${command} ${commandArgs}`);
-      x.input = commandArgs;
-      x.run(x.input, $windowStore);
+            x.valid = validCommand(`${command} ${commandArgs}`);
+            x.input = commandArgs;
+            x.run(x.input, $windowStore);
 
-      inputCommands.push(_.cloneDeep(x));
-      inputCommands = inputCommands; // trigger change detection
+            inputCommands.push(_.cloneDeep(x));
+            inputCommands = inputCommands; // trigger change detection
 
-      x.output = '';
+            x.output = "";
 
-      console.log("TEST!", command, inputCommands)
-    }
-  }
+            console.log("TEST!", command, inputCommands);
+        }
+    };
 
-  const onEnter = (input: HTMLSpanElement) => {
-    // prevent contenteditable adding <div> on chrome
-    document.execCommand("insertLineBreak");
-    event?.preventDefault();
+    const onEnter = (input: HTMLSpanElement) => {
+        // prevent contenteditable adding <div> on chrome
+        document.execCommand("insertLineBreak");
+        event?.preventDefault();
 
-    // remove <br> created by contenteditable
-    if (input.children[input.children.length - 1].tagName === "BR") input.children[input.children.length - 1].remove();
+        // remove <br> created by contenteditable
+        if (input.children[input.children.length - 1].tagName === "BR")
+            input.children[input.children.length - 1].remove();
 
-    if (!input.textContent) return;
+        if (!input.textContent) return;
 
-    // possibly refactor into object for handleCommand()
-    const command = input.textContent.split(' ')[0].trim();
-    const commandArgs = input.textContent.split(' ').slice(1).join(' ');
+        // possibly refactor into object for handleCommand()
+        const command = input.textContent.split(" ")[0].trim();
+        const commandArgs = input.textContent.split(" ").slice(1).join(" ");
 
-    /* checks if command exists - cannot use validCommand() as it
+        /* checks if command exists - cannot use validCommand() as it
        returns false if command exists but it's arguments are invalid */
-    if (!commands.some(x => x.name === command)) {
-      inputCommands.push({ name: command, input: commandArgs, valid: false });
-      inputCommands = inputCommands; // trigger change detection
-    
-      input.textContent = '';
-      return;
-    }
+        if (!commands.some((x) => x.name === command)) {
+            inputCommands.push({
+                name: command,
+                input: commandArgs,
+                valid: false,
+            });
+            inputCommands = inputCommands; // trigger change detection
 
-    handleCommand(command, commandArgs);
+            input.textContent = "";
+            return;
+        }
 
-    // scroll terminal to bottom
-    // cli.nativeElement.scrollTop = cli.nativeElement.scrollHeight - cli.nativeElement.clientHeight;
-    input.textContent = '';
-  }
+        handleCommand(command, commandArgs);
 
-  // get last command entered
-  const lastCommand = (input: HTMLSpanElement): void => {
-    if (!inputCommands) return;
-    input.textContent = inputCommands[inputCommands.length - 1].name;
-  }
+        // scroll terminal to bottom
+        // cli.nativeElement.scrollTop = cli.nativeElement.scrollHeight - cli.nativeElement.clientHeight;
+        input.textContent = "";
+    };
 
-  // ngAfterViewInit(): void {
+    // get last command entered
+    const lastCommand = (input: HTMLSpanElement): void => {
+        if (!inputCommands) return;
+        input.textContent = inputCommands[inputCommands.length - 1].name;
+    };
+
+    // ngAfterViewInit(): void {
     // this.windowService.pushFocusElement(this._parent, this.input);
 
     // commands to open/focus each window component
@@ -129,50 +146,42 @@
     //     });
     //   });
     // });
-  // }
+    // }
 
-  const onKeyDown = (event: any, input: HTMLSpanElement) => {
-    switch (event.key) {
-        case "Enter":
-            onEnter(input);
-            break;
-        case "ArrowUp":
-            lastCommand(input)
-            break;
-    }
-  }
+    const onKeyDown = (e: KeyboardEvent) => {
+        switch (e.key) {
+            case "Enter":
+                onEnter(input);
+                break;
+            case "ArrowUp":
+                lastCommand(input);
+                break;
+        }
+    };
 
-  onMount(() => {
-      input.focus();
+    onMount(() => {
+        input.focus();
 
-      for (let window of $windowStore) {
-          if (window.options.type === "window-terminal") {
-              window.options.focusEle = input;
-          }
-      }
-  });
-
+        for (let window of $windowStore) {
+            if (window.options.type === "window-terminal") {
+                window.options.focusEle = input;
+            }
+        }
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div 
-    class="main"
-    on:click={() => input.focus()}
->
+<div class="main" on:click={() => input.focus()}>
     <div class="body">
-
-        <div 
-            bind:this={cli}
-            class="cli-line-container">
+        <div bind:this={cli} class="cli-line-container">
             {#each inputCommands as command}
                 <div class="cli-line">
-                    <span 
+                    <span
                         class:ri-terminal-arrow={command.valid}
                         class:ri-terminal-x={!command.valid}
-                    >
-                    </span>
+                    />
                     <span class="command">{command.name}</span>
-                    <span 
+                    <span
                         class="command"
                         style="color: #c2999c; white-space: pre"
                     >
@@ -181,15 +190,12 @@
                 </div>
 
                 {#if !command.run}
-                    <div
-                        class="cli-line command output"
-                        style="color: #efefe7"
-                    >
+                    <div class="cli-line command output" style="color: #efefe7">
                         {command.name}: command not found
                     </div>
                 {/if}
 
-                {#if command.output} 
+                {#if command.output}
                     <div class="cli-line command output">
                         {command.output}
                     </div>
@@ -198,102 +204,101 @@
         </div>
 
         <div class="cli-line">
-            <span class="ri-terminal-arrow"></span>
-            <span 
+            <span class="ri-terminal-arrow" />
+            <span
                 bind:this={input}
                 class="input command"
                 role="textbox"
                 tabindex="0"
                 contenteditable="true"
-                on:keydown={() => onKeyDown(event, input)}
-            >
-            </span>
-            <span class="caret"></span>
+                on:keydown={onKeyDown}
+            />
+            <span class="caret" />
         </div>
-
     </div>
 </div>
 
 <style>
     @import url("../../static/fonts/real-icons.css");
 
-.main {
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    padding: 10px 12px;
-    background-color: rgba(40, 40, 40, 0.9) !important;
-}
+    .main {
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        padding: 10px 12px;
+        background-color: rgba(40, 40, 40, 0.9) !important;
+    }
 
-.body {
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    position: relative;
-    -ms-overflow-style: none;  /* ie & edge */
-    scrollbar-width: none;  /* firefox */
-    overflow: hidden;
-}
+    .body {
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        position: relative;
+        -ms-overflow-style: none; /* ie & edge */
+        scrollbar-width: none; /* firefox */
+        overflow: hidden;
+    }
 
-.cli-line-container {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+    .cli-line-container {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 
-.cli-line-container::-webkit-scrollbar {
-    display: none;
-}
+    .cli-line-container::-webkit-scrollbar {
+        display: none;
+    }
 
-.cli-line {
-    display: flex;
-    align-items: center;
-    width: 0px;
-    min-width: 100%;
-    font-size: 15px;
-    white-space: nowrap;
-}
+    .cli-line {
+        display: flex;
+        align-items: center;
+        width: 0px;
+        min-width: 100%;
+        font-size: 15px;
+        white-space: nowrap;
+    }
 
-.directory {
-    margin-top: 3px;
-    padding-right: 8px;
-    color: #c2999c;
-}
+    .directory {
+        margin-top: 3px;
+        padding-right: 8px;
+        color: #c2999c;
+    }
 
-.ri-terminal-arrow, .ri-terminal-x {
-    display: flex;
-    padding: 0 6px 0 1px;
-    color: #928796;
-    font-size: 10px;
-}
+    .ri-terminal-arrow,
+    .ri-terminal-x {
+        display: flex;
+        padding: 0 6px 0 1px;
+        color: #928796;
+        font-size: 10px;
+    }
 
-.ri-terminal-x {
-    color: #a2676b;
-}
+    .ri-terminal-x {
+        color: #a2676b;
+    }
 
-.command {
-    max-height: 20px;
-    margin-top: 3px;
-    color: #a7b4a9;
-}
+    .command {
+        max-height: 20px;
+        margin-top: 3px;
+        color: #a7b4a9;
+    }
 
-.input {
-    word-break: normal;
-    overflow: hidden;
-    background: transparent;
-    border: none;
-    outline: none;
-    caret-color: transparent;
-    -webkit-line-clamp: 1;
-}
+    .input {
+        word-break: normal;
+        overflow: hidden;
+        background: transparent;
+        border: none;
+        outline: none;
+        caret-color: transparent;
+        -webkit-line-clamp: 1;
+    }
 
-.output {
-    color: #efefe7;
-}
+    .output {
+        color: #efefe7;
+    }
 
-.caret {
-    margin: 0 2px;
-    height: 14px;
-    width: 7px;
-    background-color: #efefe7;
-}
+    .caret {
+        margin: 0 2px;
+        height: 14px;
+        width: 7px;
+        background-color: #efefe7;
+    }
 </style>
