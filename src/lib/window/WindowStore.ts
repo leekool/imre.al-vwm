@@ -16,7 +16,7 @@ export class Options {
     focused = true;
     minimised = false;
     maximised = false;
-    type = "window-main";
+    type = "window-emacs";
     navbar = {
         maximise: true,
         minimise: true,

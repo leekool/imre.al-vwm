@@ -158,7 +158,7 @@
         overflow: scroll;
     }
 
-    .window-main {
+    .window-emacs {
         display: flex;
         flex: 1 0 auto;
         position: absolute;
@@ -170,13 +170,16 @@
         max-height: 80%;
     }
 
-    .window-layout {
+    .window-terminal {
         display: flex;
         flex: 1 0 auto;
         position: absolute;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        max-height: 80%;
+        width: 70%;
+        max-width: 650px;
+        height: 50%;
+        max-height: 40%;
     }
 
     .draggable {
