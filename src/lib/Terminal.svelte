@@ -213,7 +213,7 @@
 </div>
 
 <style>
-    @import url("../../static/fonts/real-icons.css");
+    @import url("/fonts/real-icons.css");
 
     .main {
         display: flex;

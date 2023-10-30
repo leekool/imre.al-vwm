@@ -35,7 +35,7 @@
         font-size: 15px;
         /* font-weight: bold; */
         color: #222020;
-        background-image: url("images/footer-tile.svg");
+        background-image: url("/images/footer-tile.svg");
         background-repeat: repeat;
         border-top: 1px solid #222020;
         box-shadow: 1px 1px #fffefe inset, -1px -1px #948c79 inset;
@@ -82,7 +82,7 @@
 
     .active {
         color: #fffefe;
-        background-image: url("images/iconman-tile.svg");
+        background-image: url("/images/iconman-tile.svg");
         background-size: 6%;
         box-shadow: -1px -1px #92998b inset, 1px 1px #5c6057 inset;
     }

@@ -90,7 +90,7 @@
 </div>
 
 <style>
-    @import url("../../../static/fonts/real-icons.css");
+    @import url("/fonts/real-icons.css");
 
     .navbar {
         display: flex;
@@ -101,7 +101,7 @@
         justify-content: space-between;
         user-select: none;
         box-shadow: 0 -1px 0 0 #5c6057 inset;
-        background-image: url("images/navbar-tile.svg");
+        background-image: url("/images/navbar-tile.svg");
         background-repeat: repeat;
         padding-bottom: 1px;
     }

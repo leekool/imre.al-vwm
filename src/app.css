@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Tamzen';
-    src: url('fonts/Tamzen10x20r.ttf') format('truetype'),
-         url('fonts/Tamzen10x20r.eot') format('embedded-opentype');
+    src: url('/fonts/Tamzen10x20r.ttf') format('truetype'),
+         url('/fonts/Tamzen10x20r.eot') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -12,8 +12,8 @@
 
 body {
     margin: 0;
-    background-image: url("images/bg-sunset-top.png"),
-                      url("images/bg-sunset-bottom.png");
+    background-image: url("/images/bg-sunset-top.png"),
+                      url("/images/bg-sunset-bottom.png");
     background-position: left top, left bottom;
     background-repeat: repeat-x;
     background-size: auto;
@@ -23,7 +23,7 @@ body {
 
 @media screen and (max-height: 900px) {
     body {
-        background-image: url("images/bg-sunset-top.png");
+        background-image: url("/images/bg-sunset-top.png");
         background-position: left top;
     }
 }

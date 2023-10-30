@@ -5,13 +5,14 @@
 	"scripts": {
 		"dev": "vite dev --host",
 		"build": "vite build",
-		"preview": "vite preview",
+		"preview": "vite preview --host",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^2.0.3",
 		"@sveltejs/kit": "^1.5.0",
 		"@tsconfig/svelte": "^4.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.58.0",
