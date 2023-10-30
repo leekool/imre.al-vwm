@@ -17,22 +17,19 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <Desktop />
 
-<Window name="imre.al">
-    <Emacs />
-</Window>
+<Window name="imre.al" slot={Emacs} />
 
 <Window 
     name="terminal"
     options={{
-        type: "window-terminal"
+        type: "terminal"
     }}
     position={{
         topPercent: 50,
         leftPercent: 60
     }}
->
-    <Terminal />
-</Window>
+    slot={Terminal}
+/>
 
 <Taskbar />
 

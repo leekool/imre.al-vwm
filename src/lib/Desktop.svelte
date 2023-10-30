@@ -1,9 +1,14 @@
 <script lang="ts">
-    import { windowStore, Window } from "./window/WindowStore";
+    import { onMount } from "svelte";
+    import { windowStore, desktopIcons, Window } from "./window/WindowStore";
+    import WindowComponent from "./window/Window.svelte";
+    import Emacs from "../lib/Emacs.svelte";
+    import Terminal from "../lib/Terminal.svelte";
 
     const toggleHighlight = (window: Window) => {
         window.options.highlight = !window.options.highlight;
-        $windowStore = $windowStore; // trigger change detection
+        $desktopIcons = $desktopIcons; // trigger change detection
+        $windowStore = $windowStore;
     }
 
     const clearHighlight = () => {
@@ -29,16 +34,46 @@
                 clearTimeout(clickTimer);
             }, 200);
         } else if (clickCount === 2) {
-            window.getFocus();
-            clearTimeout(clickTimer!);
+            if ($windowStore.some(w => w.name === window.name)) {
+                if (!window.options.focused) window.getFocus();
+                return;
+            }
+
+            const contentDiv = document.querySelector("div[style='display: contents']");
+            const target = document.createElement("div"); 
+            contentDiv?.appendChild(target);
+
+            let slot;
+
+            switch (window.options.type) {
+                case "emacs":
+                    slot = Emacs;
+                    break;
+                case "terminal":
+                    slot = Terminal;
+                    break;
+            }
+
+            new WindowComponent({
+                target,
+                props: {
+                    name: window.name,
+                    options: window.options,
+                    position: window.position,
+                    slot 
+                },
+            });
         }
     }
+
+    onMount(() => {
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="desktop" on:click={() => clearHighlight()}>
     <div class="icon-container" on:click|stopPropagation>
-        {#each $windowStore as window}
+        {#each $desktopIcons as window}
             <div
                 class="desktop-icon"
                 on:click={(e) => handleClick(e, window)}

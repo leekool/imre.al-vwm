@@ -14,7 +14,7 @@
                     window = window; // tells svelte object changed
                 }}
             >
-                <img src={"images/" + window.icon} alt={window.name} />
+                <img src={"images/icons/" + window.name + "-icon-small.png"} alt={window.name} />
                 <span>{window.name}</span>
             </div>
         {/each}

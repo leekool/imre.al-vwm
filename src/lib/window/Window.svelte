@@ -14,6 +14,7 @@
     export let name: string;
     export let options: Partial<Options> = {};
     export let position: Partial<Position> = {}
+    export let slot: any;
 
     let window_ = new Window(name, get_current_component(), options, position);
     let element: HTMLElement;
@@ -94,7 +95,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
     bind:this={element}
-    class={window_.options.type}
+    class={"window-" + window_.options.type}
     class:minimised={window_.options.minimised}
     class:maximised={window_.options.maximised}
     class:draggable={!window_.options.maximised}
@@ -113,7 +114,8 @@
         <Navbar {window_} />
 
         <div class="content">
-            <slot />
+            <svelte:component this={slot} />
+            <!-- <slot /> -->
         </div>
     </div>
 </div>

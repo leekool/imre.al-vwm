@@ -21,7 +21,7 @@ export class Options {
     minimised = false;
     maximised = false;
     highlight = false;
-    type = "window-emacs";
+    type = "emacs";
     navbar = {
         maximise: true,
         minimise: true,
@@ -33,7 +33,6 @@ export class Options {
 
 export class Window {
     name: string;
-    icon: string;
     id: number;
     component: any;
     position: Position;
@@ -41,17 +40,15 @@ export class Window {
     zIndex: number = 0;
 
     static windowStore = writable<Window[]>([]);
+    static desktopIcons = writable<Window[]>([]);
     static focusList: number[] = [];
 
     constructor(name: string, component: any, options?: Partial<Options>, position?: Partial<Position>) {
-        Window.windowStore.update((store) => [...store, this]);
-
         this.options = new Options();
         Object.assign(this.options, options);
 
         this.component = component;
         this.name = name;
-        this.icon = "icons/" + name + "-icon-small.png";
 
         this.position = new Position(position?.topPercent || 50, position?.leftPercent || 50);
 
@@ -59,6 +56,13 @@ export class Window {
         count++
 
         this.getFocus();
+
+        Window.windowStore.update((store) => [...store, this]);
+        Window.desktopIcons.update((store) => {
+            if (store.some(w => w.name === this.name)) return [...store];
+            return [...store, this];
+        });
+        Window.updateZIndex();
     }
 
     toggleMinimise(): void {
@@ -117,6 +121,23 @@ export class Window {
         if (index !== -1) store[index].getFocus();
     }
 
+    kill() {
+        const index = Window.focusList.indexOf(this.id);
+        Window.focusList.splice(index, 1);
+
+        Window.windowStore.update((store) => {
+            const index = store.findIndex(w => w.id === this.id);
+
+            store[index].dropFocus(); // focus next window
+
+            store = store.filter(w => w.id !== this.id); // remove window from store
+
+            return store;
+        });
+
+        this.component.$destroy(); // remove window from DOM
+    }
+
     static updateZIndex(): void {
         const store = get(Window.windowStore);
 
@@ -127,23 +148,7 @@ export class Window {
             window.zIndex = 10 + -index;
         }
     }
-
-    kill() {
-        const index = Window.focusList.indexOf(this.id);
-        Window.focusList.splice(index, 1);
-
-        Window.windowStore.update((store) => {
-            const index = store.findIndex(w => w.id === this.id);
-
-            store[index].dropFocus(); // focus next window
-            store = store.filter(w => w.id !== this.id); // remove window from store
-
-            return store;
-        });
-
-        this.component.$destroy(); // remove window from DOM
-    }
 }
 
-// export const windowStore = writable<Window[]>([]);
 export const windowStore = Window.windowStore;
+export const desktopIcons = Window.desktopIcons;
