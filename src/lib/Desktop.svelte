@@ -12,11 +12,12 @@
         });
     }
 
+    let clickCount = 0;
+
     const handleClick = (e: MouseEvent, window: Window) => {
         e.stopPropagation();
 
         let clickTimer: ReturnType<typeof setTimeout>;
-        let clickCount = 0;
 
         toggleHighlight(window);
 
@@ -28,8 +29,8 @@
                 clearTimeout(clickTimer);
             }, 200);
         } else if (clickCount === 2) {
-            clearTimeout(clickTimer!);
             window.getFocus();
+            clearTimeout(clickTimer!);
         }
     }
 </script>
