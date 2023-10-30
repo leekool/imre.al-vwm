@@ -12,13 +12,18 @@
 
 body {
     margin: 0;
-    /* background-image: url('images/bg.svg'); */
-    /* background-size: 16px; */
-    background-image: url('images/bg-sunset-top.png'),
-                      url('images/bg-sunset-bottom.png');
+    background-image: url("images/bg-sunset-top.png"),
+                      url("images/bg-sunset-bottom.png");
     background-position: left top, left bottom;
     background-repeat: repeat-x;
     background-size: auto;
     background-attachment: fixed;
     background-color: #7f84a3;
+}
+
+@media screen and (max-height: 900px) {
+    body {
+        background-image: url("images/bg-sunset-top.png");
+        background-position: left top;
+    }
 }

@@ -20,6 +20,7 @@ export class Options {
     focused = true;
     minimised = false;
     maximised = false;
+    highlight = false;
     type = "window-emacs";
     navbar = {
         maximise: true,
@@ -83,6 +84,7 @@ export class Window {
 
     // focuses target window and unfocuses all other windows
     getFocus(): void {
+        console.log("TEST", this)
         const store = get(Window.windowStore);
 
         this.options.focused = true;

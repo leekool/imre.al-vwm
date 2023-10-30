@@ -35,10 +35,8 @@ declare module '$env/static/private' {
 	export const GTK_THEME: string;
 	export const CSF_MDTVTexturesDirectory: string;
 	export const npm_config_cache: string;
-	export const npm_package_dev_optional: string;
 	export const LESS: string;
 	export const CSF_DrawPluginDefaults: string;
-	export const npm_package_integrity: string;
 	export const NODE: string;
 	export const CSF_LANGUAGE: string;
 	export const DOTNET_ROOT: string;
@@ -57,7 +55,6 @@ declare module '$env/static/private' {
 	export const LOGNAME: string;
 	export const XDG_SESSION_TYPE: string;
 	export const DRAWHOME: string;
-	export const npm_package_dev: string;
 	export const npm_config_init_module: string;
 	export const SYSTEMD_EXEC_PID: string;
 	export const _: string;
@@ -68,13 +65,11 @@ declare module '$env/static/private' {
 	export const MOTD_SHOWN: string;
 	export const GTK2_RC_FILES: string;
 	export const HOME: string;
-	export const npm_package_peer: string;
 	export const LANG: string;
 	export const LS_COLORS: string;
 	export const npm_package_version: string;
 	export const MEMORY_PRESSURE_WATCH: string;
 	export const STARSHIP_SHELL: string;
-	export const npm_package_resolved: string;
 	export const INVOCATION_ID: string;
 	export const INIT_CWD: string;
 	export const CSF_ShadersDirectory: string;
@@ -85,7 +80,6 @@ declare module '$env/static/private' {
 	export const ALACRITTY_SOCKET: string;
 	export const npm_lifecycle_script: string;
 	export const CSF_SHMessage: string;
-	export const npm_package_optional: string;
 	export const npm_config_npm_version: string;
 	export const XDG_SESSION_CLASS: string;
 	export const TERM: string;
@@ -126,7 +120,7 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const OLDPWD: string;
 	export const GOPATH: string;
-	export const npm_package_engines_node: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -165,10 +159,8 @@ declare module '$env/dynamic/private' {
 		GTK_THEME: string;
 		CSF_MDTVTexturesDirectory: string;
 		npm_config_cache: string;
-		npm_package_dev_optional: string;
 		LESS: string;
 		CSF_DrawPluginDefaults: string;
-		npm_package_integrity: string;
 		NODE: string;
 		CSF_LANGUAGE: string;
 		DOTNET_ROOT: string;
@@ -187,7 +179,6 @@ declare module '$env/dynamic/private' {
 		LOGNAME: string;
 		XDG_SESSION_TYPE: string;
 		DRAWHOME: string;
-		npm_package_dev: string;
 		npm_config_init_module: string;
 		SYSTEMD_EXEC_PID: string;
 		_: string;
@@ -198,13 +189,11 @@ declare module '$env/dynamic/private' {
 		MOTD_SHOWN: string;
 		GTK2_RC_FILES: string;
 		HOME: string;
-		npm_package_peer: string;
 		LANG: string;
 		LS_COLORS: string;
 		npm_package_version: string;
 		MEMORY_PRESSURE_WATCH: string;
 		STARSHIP_SHELL: string;
-		npm_package_resolved: string;
 		INVOCATION_ID: string;
 		INIT_CWD: string;
 		CSF_ShadersDirectory: string;
@@ -215,7 +204,6 @@ declare module '$env/dynamic/private' {
 		ALACRITTY_SOCKET: string;
 		npm_lifecycle_script: string;
 		CSF_SHMessage: string;
-		npm_package_optional: string;
 		npm_config_npm_version: string;
 		XDG_SESSION_CLASS: string;
 		TERM: string;
@@ -256,7 +244,7 @@ declare module '$env/dynamic/private' {
 		npm_node_execpath: string;
 		OLDPWD: string;
 		GOPATH: string;
-		npm_package_engines_node: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: string]: string | undefined;
 	}
