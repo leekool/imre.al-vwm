@@ -70,6 +70,13 @@
     });
 </script>
 
+<!-- preload highlighted icons -->
+<svelte:head>
+   {#each $desktopIcons as window}
+        <link rel="preload" as="image" href={"images/icons/" + window.name + "-icon-desktop-highlight.png"} />
+   {/each}
+</svelte:head>
+
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="desktop" on:click={() => clearHighlight()}>
     <div class="icon-container" on:click|stopPropagation>
