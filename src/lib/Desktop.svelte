@@ -36,7 +36,8 @@
             const windowMatch = $windowStore.find(window => window.name === w.name);
 
             if (windowMatch) {
-                if (!windowMatch.options.focused) windowMatch.getFocus();
+                if (windowMatch.options.minimised) windowMatch.toggleMinimise();
+                else if (!windowMatch.options.focused) windowMatch.getFocus();
             } else {
                 updateIcons();
                 openWindow(w);
