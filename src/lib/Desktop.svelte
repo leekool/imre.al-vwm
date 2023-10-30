@@ -1,30 +1,29 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import { windowStore, desktopIcons, Window } from "./window/WindowStore";
     import WindowComponent from "./window/Window.svelte";
     import Emacs from "../lib/Emacs.svelte";
     import Terminal from "../lib/Terminal.svelte";
 
-    const toggleHighlight = (window: Window) => {
-        window.options.highlight = !window.options.highlight;
+    const toggleHighlight = (w: Window) => {
+        w.options.highlight = !w.options.highlight;
         $desktopIcons = $desktopIcons; // trigger change detection
         $windowStore = $windowStore;
     }
 
     const clearHighlight = () => {
-        $windowStore.forEach((window: Window) => {
-            if (window.options.highlight) toggleHighlight(window);
+        $desktopIcons.forEach((w: Window) => {
+            w.options.highlight = false;
         });
+
+        $desktopIcons = $desktopIcons; // trigger change detection
     }
 
     let clickCount = 0;
 
-    const handleClick = (e: MouseEvent, window: Window) => {
-        e.stopPropagation();
-
+    const handleClick = (w: Window) => {
         let clickTimer: ReturnType<typeof setTimeout>;
 
-        toggleHighlight(window);
+        toggleHighlight(w);
 
         clickCount++;
 
@@ -34,40 +33,46 @@
                 clearTimeout(clickTimer);
             }, 200);
         } else if (clickCount === 2) {
-            if ($windowStore.some(w => w.name === window.name)) {
-                if (!window.options.focused) window.getFocus();
-                return;
+            const windowMatch = $windowStore.find(window => window.name === w.name);
+
+            if (windowMatch) {
+                if (!windowMatch.options.focused) windowMatch.getFocus();
+            } else {
+                updateIcons();
+                openWindow(w);
             }
-
-            const contentDiv = document.querySelector("div[style='display: contents']");
-            const target = document.createElement("div"); 
-            contentDiv?.appendChild(target);
-
-            let slot;
-
-            switch (window.options.type) {
-                case "emacs":
-                    slot = Emacs;
-                    break;
-                case "terminal":
-                    slot = Terminal;
-                    break;
-            }
-
-            new WindowComponent({
-                target,
-                props: {
-                    name: window.name,
-                    options: window.options,
-                    position: window.position,
-                    slot 
-                },
-            });
         }
     }
 
-    onMount(() => {
-    });
+    const openWindow = (w: Window) => {
+        const contentDiv = document.querySelector("div[style='display: contents']")!;
+        const target = document.createElement("div"); 
+        contentDiv.appendChild(target);
+
+        const getSlot = (type: string) => {
+            switch (type) {
+                case "emacs": return Emacs;
+                case "terminal": return Terminal
+            }
+        }
+
+        new WindowComponent({
+            target,
+            props: { name: w.name, options: w.options, position: w.position, slot: getSlot(w.options.type) }
+        });
+    }
+
+    const updateIcons = (): void => {
+        const updatedIcons: Window[] = $desktopIcons.map(icon => {
+            const match = $windowStore.find(window => window.name === icon.name);
+
+            return match ? ({ ...icon, ...match } as Window) : icon;
+        });
+
+        updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
+
+        $desktopIcons = updatedIcons;
+    }
 </script>
 
 <!-- preload highlighted icons -->
@@ -83,7 +88,7 @@
         {#each $desktopIcons as window}
             <div
                 class="desktop-icon"
-                on:click={(e) => handleClick(e, window)}
+                on:click|stopPropagation={() => handleClick(window)}
 
             >
             {#if !window.options.highlight}
