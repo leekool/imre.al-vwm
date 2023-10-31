@@ -1,4 +1,5 @@
 import { writable, get } from "svelte/store";
+import _ from "lodash";
 
 let count: number = 0;
 
@@ -56,7 +57,12 @@ export class Window {
 
         this.getFocus();
 
-        Window.windowStore.update((store) => [...store, this]);
+        Window.windowStore.update((store) => {
+            // windowExists prevents duplication on navigation, need to have a better check rather than name though 
+            const windowExists = store.some(item => item.name === this.name);
+            return windowExists ? store : [...store, this];
+        });
+
         Window.updateZIndex();
     }
 

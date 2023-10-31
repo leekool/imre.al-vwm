@@ -37,7 +37,6 @@
 
     onMount(async () => {
         data = await loadPosts();
-        console.log(data)
     })
 </script>
 
