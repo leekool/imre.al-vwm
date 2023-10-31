@@ -1,21 +1,26 @@
 <script lang="ts">
-    import { windowStore, desktopIcons, Window } from "./window/WindowStore";
+    import { onMount } from "svelte";
+    import { windowStore, Window } from "./window/WindowStore";
     import WindowComponent from "./window/Window.svelte";
     import Emacs from "../lib/Emacs.svelte";
     import Terminal from "../lib/Terminal.svelte";
+    import _ from "lodash";
+
+    // let desktopIcons: Window[] = [];
+    let desktopIcons = $windowStore;
 
     const toggleHighlight = (w: Window) => {
         w.options.highlight = !w.options.highlight;
-        $desktopIcons = $desktopIcons; // trigger change detection
+        desktopIcons = desktopIcons; // trigger change detection
         $windowStore = $windowStore;
     }
 
     const clearHighlight = () => {
-        $desktopIcons.forEach((w: Window) => {
+        desktopIcons.forEach((w: Window) => {
             w.options.highlight = false;
         });
 
-        $desktopIcons = $desktopIcons; // trigger change detection
+        desktopIcons = desktopIcons; // trigger change detection
     }
 
     let clickCount = 0;
@@ -35,13 +40,14 @@
         } else if (clickCount === 2) {
             const windowMatch = $windowStore.find(window => window.name === w.name);
 
-            if (windowMatch) {
-                if (windowMatch.options.minimised) windowMatch.toggleMinimise();
-                else if (!windowMatch.options.focused) windowMatch.getFocus();
-            } else {
+            if (!windowMatch) {
                 updateIcons();
                 openWindow(w);
+                return;
             }
+
+            if (windowMatch.options.minimised) windowMatch.toggleMinimise();
+            else if (!windowMatch.options.focused) windowMatch.getFocus();
         }
     }
 
@@ -64,7 +70,7 @@
     }
 
     const updateIcons = (): void => {
-        const updatedIcons: Window[] = $desktopIcons.map(icon => {
+        const updatedIcons: Window[] = desktopIcons.map(icon => {
             const match = $windowStore.find(window => window.name === icon.name);
 
             return match ? ({ ...icon, ...match } as Window) : icon;
@@ -72,13 +78,17 @@
 
         updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
 
-        $desktopIcons = updatedIcons;
+        desktopIcons = updatedIcons;
     }
+
+    onMount(() => {
+        desktopIcons = $windowStore;
+    });
 </script>
 
 <!-- preload highlighted icons -->
 <svelte:head>
-   {#each $desktopIcons as window}
+   {#each desktopIcons as window}
         <link rel="preload" as="image" href={"images/icons/" + window.name + "-icon-desktop-highlight.png"} />
    {/each}
 </svelte:head>
@@ -86,7 +96,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="desktop" on:click={() => clearHighlight()}>
     <div class="icon-container" on:click|stopPropagation>
-        {#each $desktopIcons as window}
+        {#each desktopIcons as window}
             <div
                 class="desktop-icon"
                 on:click|stopPropagation={() => handleClick(window)}

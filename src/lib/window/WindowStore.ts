@@ -40,7 +40,6 @@ export class Window {
     zIndex: number = 0;
 
     static windowStore = writable<Window[]>([]);
-    static desktopIcons = writable<Window[]>([]);
     static focusList: number[] = [];
 
     constructor(name: string, component: any, options?: Partial<Options>, position?: Partial<Position>) {
@@ -58,10 +57,6 @@ export class Window {
         this.getFocus();
 
         Window.windowStore.update((store) => [...store, this]);
-        Window.desktopIcons.update((store) => {
-            if (store.some(w => w.name === this.name)) return [...store];
-            return [...store, this];
-        });
         Window.updateZIndex();
     }
 
@@ -151,4 +146,3 @@ export class Window {
 }
 
 export const windowStore = Window.windowStore;
-export const desktopIcons = Window.desktopIcons;

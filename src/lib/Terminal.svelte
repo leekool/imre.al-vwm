@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
     import { windowStore, Window } from "./window/WindowStore";
     import _ from "lodash";
 
@@ -20,10 +21,10 @@
             name: "clear",
             run: () => (inputCommands.length = 0),
         },
-        // {
-        //     name: 'shutdown',
-        //     run: () => router.navigate(['/shutdown'])
-        // },
+        {
+            name: 'shutdown',
+            run: () => goto("/shutdown"),
+        },
         {
             name: "echo",
             run: function (input) {
