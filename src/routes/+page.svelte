@@ -15,7 +15,10 @@
     });
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
+<svelte:head>
+    <title>imre.al</title>
+</svelte:head>
+
 <Desktop />
 
 <Window name="imre.al" slot={Emacs} />
