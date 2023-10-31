@@ -1,35 +1,36 @@
 <script lang="ts">
-    import { windowStore } from "./window/WindowStore";
+    import Posts, { type Data } from "./Posts.svelte";
+    // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
+    // const content = "\n\n";
 
-    const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
-    const content = "\n\n";
+    // const lineCount = (): number[] => {
+    //     const lineCount = content.match(/\n/g);
+    //     if (!lineCount) return [1];
+    //
+    //     const lines: number[] = [];
+    //     for (let i = 1; i < lineCount.length + 2; i++) lines.push(i);
+    //     return lines;
+    // };
 
-    const lineCount = (): number[] => {
-        const lineCount = content.match(/\n/g);
-        if (!lineCount) return [1];
-
-        const lines: number[] = [];
-        for (let i = 1; i < lineCount.length + 2; i++) lines.push(i);
-        return lines;
-    };
-
-    const wordCount = (): number => {
-        const wordCount = content.match(/\n| /g);
-        return wordCount ? wordCount.length : 1;
-    };
+    // const wordCount = (): number => {
+    //     const wordCount = content.match(/\n| /g);
+    //     return wordCount ? wordCount.length : 1;
+    // };
+    let data: Data;
 </script>
 
 <div class="main">
     <div class="body">
-        <div class="lines">
-            {#each lineCount() as line}
-                <p>{line}</p>
-            {/each}
-        </div>
+        <!-- <div class="lines"> -->
+        <!--     {#each lineCount() as line} -->
+        <!--         <p>{line}</p> -->
+        <!--     {/each} -->
+        <!-- </div> -->
         <div class="content">
-            <span class="heading">#+TITLE:</span> imre.al
-            <span class="heading">#+AUTHOR:</span> Lee Luppi
-            <span class="heading">#+EMAIL:</span> lee@imre.al
+            <Posts bind:data />
+            <!-- <span class="heading">#+TITLE:</span> imre.al -->
+            <!-- <span class="heading">#+AUTHOR:</span> Lee Luppi -->
+            <!-- <span class="heading">#+EMAIL:</span> lee@imre.al -->
         </div>
     </div>
 
@@ -37,11 +38,9 @@
         <span class="circle" />
         <span class="file-size" />
         <span class="footer-text">
-            <span style="color: #acbc68; margin-left: 9px;">imre.al/</span><span
-                class="file-name">{title}</span
-            >
+            <span style="color: #acbc68; margin-left: 9px;">imre.al/</span>
             <span class="word-count">
-                {lineCount()[lineCount().length - 1]}:{wordCount()}
+                <!-- {lineCount()[lineCount().length - 1]}:{wordCount()} -->
             </span>
         </span>
     </div>

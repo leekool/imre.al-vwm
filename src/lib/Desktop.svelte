@@ -7,7 +7,7 @@
     import _ from "lodash";
 
     // let desktopIcons: Window[] = [];
-    let desktopIcons = $windowStore;
+    export let desktopIcons = $windowStore;
 
     const toggleHighlight = (w: Window) => {
         w.options.highlight = !w.options.highlight;
@@ -40,18 +40,28 @@
         } else if (clickCount === 2) {
             const windowMatch = $windowStore.find(window => window.name === w.name);
 
-            if (!windowMatch) {
-                updateIcons();
-                openWindow(w);
-                return;
-            }
+            if (!windowMatch) return openWindow(w);
 
             if (windowMatch.options.minimised) windowMatch.toggleMinimise();
             else if (!windowMatch.options.focused) windowMatch.getFocus();
         }
     }
 
+    const updateIcons = (): void => {
+        const updatedIcons: Window[] = desktopIcons.map(icon => {
+            const match = $windowStore.find(window => window.name === icon.name);
+
+            return match ? ({ ...icon, ...match } as Window) : icon;
+        });
+
+        updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
+
+        desktopIcons = updatedIcons;
+    }
+
     const openWindow = (w: Window) => {
+        updateIcons();
+
         const contentDiv = document.querySelector("div[style='display: contents']")!;
         const target = document.createElement("div"); 
         contentDiv.appendChild(target);
@@ -67,18 +77,6 @@
             target,
             props: { name: w.name, options: w.options, position: w.position, slot: getSlot(w.options.type) }
         });
-    }
-
-    const updateIcons = (): void => {
-        const updatedIcons: Window[] = desktopIcons.map(icon => {
-            const match = $windowStore.find(window => window.name === icon.name);
-
-            return match ? ({ ...icon, ...match } as Window) : icon;
-        });
-
-        updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
-
-        desktopIcons = updatedIcons;
     }
 
     onMount(() => {

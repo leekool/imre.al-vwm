@@ -22,7 +22,7 @@
             run: () => (inputCommands.length = 0),
         },
         {
-            name: 'shutdown',
+            name: "shutdown",
             run: () => goto("/shutdown"),
         },
         {
@@ -90,6 +90,14 @@
         }
     };
 
+    // get last command entered
+    const lastCommand = (input: HTMLSpanElement): void => {
+        if (!inputCommands) return;
+        input.focus();
+
+        input.textContent = inputCommands[inputCommands.length - 1].name;
+    }
+
     const onEnter = (input: HTMLSpanElement) => {
         // prevent contenteditable adding <div> on chrome
         document.execCommand("insertLineBreak");
@@ -121,18 +129,14 @@
 
         handleCommand(command, commandArgs);
 
-        // scroll terminal to bottom
-        // cli.nativeElement.scrollTop = cli.nativeElement.scrollHeight - cli.nativeElement.clientHeight;
         input.textContent = "";
     };
 
-    // get last command entered
-    const lastCommand = (input: HTMLSpanElement): void => {
-        if (!inputCommands) return;
-        input.textContent = inputCommands[inputCommands.length - 1].name;
-    };
-
     const onKeyDown = (e: KeyboardEvent) => {
+        // move cursor to end
+        document.execCommand("selectAll", false);
+        document.getSelection()?.collapseToEnd();
+
         switch (e.key) {
             case "Enter":
                 onEnter(input);
