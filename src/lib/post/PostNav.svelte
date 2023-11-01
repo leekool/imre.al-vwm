@@ -37,41 +37,53 @@
     let path = "";
 </script>
 
-<!-- <div id="main" class="content"> -->
-<!--     <div class="posts"> -->
-<!--         <ul> -->
-<!--             {#each data.posts as post} -->
-<!--                 <li> -->
-<!--                     <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time> -->
-<!--                     <a class="clean-link" href={post.path}>{post.meta.title}</a> -->
-<!--                     <span class="tags"> -->
-<!--                         <a class="tag" href="/post/category/{post.meta.category}"> -->
-<!--                             {post.meta.category} -->
-<!--                         </a> -->
-<!--                     </span> -->
-<!--                 </li> -->
-<!--             {/each} -->
-<!--         </ul> -->
-<!--     </div> -->
-<!-- </div> -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div id="main" class="content">
+    <div class="posts">
+        <ul>
+            <Router>
+            {#each data.posts as post}
+                <li>
+                    <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
+                    <span 
+                        class="clean-link"
+                        on:click={() => {
+                            path = location.pathname;
+                            currentPost = findPost(post.meta.title);
+                        }}
+                    >
+                        <Link to={post.path}>{post.meta.title}</Link>        
+                    </span>
+                    <!-- <a class="clean-link" href={post.path}>{post.meta.title}</a> -->
+                    <!-- <span class="tags"> -->
+                    <!--     <a class="tag" href="/post/category/{post.meta.category}"> -->
+                    <!--         {post.meta.category} -->
+                    <!--     </a> -->
+                    <!-- </span> -->
+                </li>
+            {/each}
+            <Route path={path} component={currentPost} />
+            </Router>
+        </ul>
+    </div>
+</div>
+
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Router>
-    {#each data.posts as post}
-        <div on:click={async () => {
-            path = location.pathname;
-            currentPost = findPost(post.meta.title);
-        }}>
-            <Link to={post.path}>{post.meta.title}</Link>        
-        </div>
-    {/each}
-
-    <main>
-        <Route path={path} component={currentPost} />
-        you are {path}
-
-    </main>
-</Router>
+    <!-- {#each data.posts as post} -->
+    <!--     <div on:click={async () => { -->
+    <!--         path = location.pathname; -->
+    <!--         currentPost = findPost(post.meta.title); -->
+    <!--     }}> -->
+    <!--         <!-- <Link to={post.path}>{post.meta.title}</Link>         -->
+    <!--     </div> -->
+    <!-- {/each} -->
+    <!---->
+    <!-- <main> -->
+    <!--     <Route path={path} component={currentPost} /> -->
+    <!--     you are {path}
+    <!---->
+    <!-- </main> -->
 
 <style>
     #main {
@@ -79,12 +91,35 @@
         margin-bottom: 1rem;
     }
 
+    time {
+        color: #aeaeae;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none
+    }
+
+    /* a { */
+    /*     color: #78b0d3; */
+    /* } */
+
+    /* a:visited { */
+    /*     color: #db538e; */
+    /* } */
+
+    .clean-link {
+        color: #78b0d3;
+        text-decoration: none
+    }
+
     .content {
-        max-width: 900px;
+        /* max-width: 900px; */
         margin-left: auto;
         margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        /* padding-left: 1rem; */
+        /* padding-right: 1rem; */
     }
 
     .posts {
