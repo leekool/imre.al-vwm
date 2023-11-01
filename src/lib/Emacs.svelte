@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Posts, { type Data } from "./Posts.svelte";
+    import PostNav, { type Data } from "$lib/post/PostNav.svelte";
     // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
     // const content = "\n\n";
 
@@ -27,7 +27,7 @@
         <!--     {/each} -->
         <!-- </div> -->
         <div class="content">
-            <Posts bind:data />
+            <PostNav bind:data />
             <!-- <span class="heading">#+TITLE:</span> imre.al -->
             <!-- <span class="heading">#+AUTHOR:</span> Lee Luppi -->
             <!-- <span class="heading">#+EMAIL:</span> lee@imre.al -->

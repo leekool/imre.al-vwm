@@ -11,7 +11,7 @@
     import Taskbar from "../lib/Taskbar.svelte";
 
     onMount(() => {
-        console.log($windowStore)
+        // console.log($windowStore);
     });
 </script>
 
