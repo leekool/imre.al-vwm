@@ -1,12 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { windowStore, Window } from "./window/WindowStore";
+    import { assets } from "$app/paths";
+    import _ from "lodash";
+
     import WindowComponent from "./window/Window.svelte";
     import Emacs from "../lib/Emacs.svelte";
     import Terminal from "../lib/Terminal.svelte";
-    import _ from "lodash";
 
-    // let desktopIcons: Window[] = [];
     export let desktopIcons = $windowStore;
 
     const toggleHighlight = (w: Window) => {
@@ -87,7 +88,7 @@
 <!-- preload highlighted icons -->
 <svelte:head>
    {#each desktopIcons as window}
-        <link rel="preload" as="image" href={"images/icons/" + window.name + "-icon-desktop-highlight.png"} />
+        <link rel="preload" as="image" href={`${assets}/images/icons/${window.name}-icon-desktop-highlight.png`} />
    {/each}
 </svelte:head>
 
@@ -98,13 +99,13 @@
             <div
                 class="desktop-icon"
                 on:click|stopPropagation={() => handleClick(window)}
-
             >
             {#if !window.options.highlight}
-                <img src={"images/icons/" + window.name + "-icon-desktop.png"} alt={window.name} />
+                <!-- <img src={assets + "/images/icons/" + window.name + "-icon-desktop.png"} alt={window.name} /> -->
+                <img src={`${assets}/images/icons/${window.name}-icon-desktop.png`} alt={window.name} />
             {/if}
             {#if window.options.highlight}
-                <img src={"images/icons/" + window.name + "-icon-desktop-highlight.png"} alt={window.name} />
+                <img src={`${assets}/images/icons/${window.name}-icon-desktop-highlight.png`} alt={window.name} />
             {/if}
                 <span class:desktop-icon-highlight={window.options.highlight}>
                     {window.name}

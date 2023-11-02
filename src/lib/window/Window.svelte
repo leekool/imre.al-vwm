@@ -6,8 +6,8 @@
         Window,
         type Options,
         type Position
-    } from "./WindowStore";
-    import Navbar from "./Navbar.svelte";
+    } from "$lib/window/WindowStore";
+    import Navbar from "$lib/window/Navbar.svelte";
 
     $: $windowStore, window_ = window_; // trigger state management
 
@@ -115,7 +115,6 @@
 
         <div class="content">
             <svelte:component this={slot} />
-            <!-- <slot /> -->
         </div>
     </div>
 </div>
@@ -123,8 +122,6 @@
 <svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
 
 <style>
-    /* @import url("../../../static/pixel-corners.css"); */
-
     *::-webkit-scrollbar {
         display: none;
     }
