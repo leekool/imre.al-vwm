@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, type ComponentType } from "svelte";
     import { Router, Link, Route } from "svelte-routing";
     import { postStore } from "./PostStore";
 
@@ -15,7 +15,7 @@
 
     let data: any = { posts: [] };
 
-    const findPost = (title: string) => {
+    const getPost = (title: string): ComponentType => {
         const post = $postStore.find(post => post.meta.title === title);
         return post?.content ?? null;
     }
@@ -31,9 +31,7 @@
         data = await loadPosts();
     });
 
-    $: $postStore, console.log($postStore)
-
-    let currentPost: any = null;
+    let currentPost: ComponentType;
     let path = "";
 </script>
 
@@ -49,7 +47,7 @@
                         class="clean-link"
                         on:click={() => {
                             path = location.pathname;
-                            currentPost = findPost(post.meta.title);
+                            currentPost = getPost(post.meta.title);
                         }}
                     >
                         <Link to={post.path}>{post.meta.title}</Link>        
@@ -67,23 +65,6 @@
         </ul>
     </div>
 </div>
-
-
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- {#each data.posts as post} -->
-    <!--     <div on:click={async () => { -->
-    <!--         path = location.pathname; -->
-    <!--         currentPost = findPost(post.meta.title); -->
-    <!--     }}> -->
-    <!--         <!-- <Link to={post.path}>{post.meta.title}</Link>         -->
-    <!--     </div> -->
-    <!-- {/each} -->
-    <!---->
-    <!-- <main> -->
-    <!--     <Route path={path} component={currentPost} /> -->
-    <!--     you are {path}
-    <!---->
-    <!-- </main> -->
 
 <style>
     #main {

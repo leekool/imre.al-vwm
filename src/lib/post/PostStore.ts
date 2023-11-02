@@ -6,7 +6,6 @@ export class Post {
         date: string;
         category: string;
     };
-    // path: string;
     content: any;
 
     static store = writable<Post[]>([]);
@@ -17,7 +16,7 @@ export class Post {
             date: post.metadata?.date ?? "",
             category: post.metadata?.category ?? "",
         };
-        // this.path = "test";
+
         this.content = post.default ?? null;
         
         Post.store.update((store) => {
