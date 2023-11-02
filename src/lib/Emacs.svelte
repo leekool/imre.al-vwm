@@ -1,5 +1,5 @@
 <script lang="ts">
-    import PostNav, { type Data } from "$lib/post/PostNav.svelte";
+    import PostNav from "$lib/post/PostNav.svelte";
     // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
     // const content = "\n\n";
 
@@ -16,7 +16,7 @@
     //     const wordCount = content.match(/\n| /g);
     //     return wordCount ? wordCount.length : 1;
     // };
-    let data: Data;
+    // let data: Data;
 </script>
 
 <div class="main">
@@ -27,7 +27,8 @@
         <!--     {/each} -->
         <!-- </div> -->
         <div class="content">
-            <PostNav bind:data />
+            <PostNav />
+            <!-- <PostNav bind:data /> -->
             <!-- <span class="heading">#+TITLE:</span> imre.al -->
             <!-- <span class="heading">#+AUTHOR:</span> Lee Luppi -->
             <!-- <span class="heading">#+EMAIL:</span> lee@imre.al -->

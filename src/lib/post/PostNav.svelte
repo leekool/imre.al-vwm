@@ -13,11 +13,11 @@
         return new Date(date).toLocaleString("en-GB", dateOptions);
     };
 
-    let data: any = { posts: [] };
+    let data: { posts: any[] } = { posts: [] };
 
     const getPost = (title: string): ComponentType => {
         const post = $postStore.find(post => post.meta.title === title);
-        return post?.content ?? null;
+        return post?.content;
     }
 
     const loadPosts = async () => {
@@ -44,7 +44,6 @@
                 <li>
                     <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
                     <span 
-                        class="clean-link"
                         on:click={() => {
                             path = location.pathname;
                             currentPost = getPost(post.meta.title);
@@ -52,12 +51,10 @@
                     >
                         <Link to={post.path}>{post.meta.title}</Link>        
                     </span>
-                    <!-- <a class="clean-link" href={post.path}>{post.meta.title}</a> -->
-                    <!-- <span class="tags"> -->
-                    <!--     <a class="tag" href="/post/category/{post.meta.category}"> -->
-                    <!--         {post.meta.category} -->
-                    <!--     </a> -->
-                    <!-- </span> -->
+
+                    <span class="tags">
+                        <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link>
+                    </span>
                 </li>
             {/each}
             <Route path={path} component={currentPost} />
@@ -82,17 +79,18 @@
         list-style-type: none
     }
 
-    /* a { */
-    /*     color: #78b0d3; */
-    /* } */
-
-    /* a:visited { */
-    /*     color: #db538e; */
-    /* } */
-
-    .clean-link {
+    /* :global(a) affects <Link> */
+    :global(a) {
         color: #78b0d3;
-        text-decoration: none
+        text-decoration: none;
+    }
+
+    :global(a):hover {
+        text-decoration: underline;
+    }
+
+    :global(a):visited {
+        color: #db538e;
     }
 
     .content {
@@ -118,22 +116,10 @@
         margin-left: 0.5rem;
     }
 
-    .tags {
+    .tags :global(a) {
+        color: #5c6166;
         font-family: "Berkeley Mono", monospace;
         font-size: 0.8rem;
-        color: #5c6166;
-    }
-
-    .tags .tag {
         text-decoration: none;
-        color: inherit;
-    }
-
-    .tags .tag:hover {
-        text-decoration: underline;
-    }
-
-    .tags .tag:visited {
-        color: inherit;
     }
 </style>

@@ -63,6 +63,7 @@
     const openWindow = (w: Window) => {
         updateIcons();
 
+        // find the highest level div ("contents") and create a child div as the target
         const contentDiv = document.querySelector("div[style='display: contents']")!;
         const target = document.createElement("div"); 
         contentDiv.appendChild(target);
@@ -89,6 +90,7 @@
 <svelte:head>
    {#each desktopIcons as window}
         <link rel="preload" as="image" href={`${assets}/images/icons/${window.name}-icon-desktop-highlight.png`} />
+        <link rel="preload" as="image" href={`${assets}/images/icons/${window.name}-icon-desktop.png`} />
    {/each}
 </svelte:head>
 
@@ -101,7 +103,6 @@
                 on:click|stopPropagation={() => handleClick(window)}
             >
             {#if !window.options.highlight}
-                <!-- <img src={assets + "/images/icons/" + window.name + "-icon-desktop.png"} alt={window.name} /> -->
                 <img src={`${assets}/images/icons/${window.name}-icon-desktop.png`} alt={window.name} />
             {/if}
             {#if window.options.highlight}
