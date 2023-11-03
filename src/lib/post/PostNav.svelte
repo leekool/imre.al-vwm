@@ -13,8 +13,6 @@
         return new Date(date).toLocaleString("en-GB", dateOptions);
     };
 
-    let data: { posts: any[] } = { posts: [] };
-
     const getPost = (title: string): ComponentType => {
         const post = $postStore.find((post) => post.meta.title === title);
         if (post) postIndex = $postStore.indexOf(post) + 1;
@@ -22,19 +20,12 @@
         return post?.content;
     };
 
-    const loadPosts = async () => {
-        const response = await fetch("/api/posts");
-        const posts = await response.json();
-
-        return { posts };
-    };
-
     onMount(async () => {
-        data = await loadPosts();
+        // posts = await loadPosts();
     });
 
     let currentPost: ComponentType;
-    let path = "/";
+    let path = "";
 
     let postCount = $postStore.length;
     let postIndex = 1;
@@ -45,17 +36,17 @@
     <div class="find-bar">
         <span class="post-count">{postIndex}/{postCount}</span>
         <span style="padding-left: 10px;">
-            Find file: <span class="find-path">~/imre.al{path}</span>
+            Find file: <span class="find-path">~/imre.al/{path}</span>
         </span>
     </div>
     <div class="posts">
         <ul>
-            {#each data.posts as post}
-                <li>
+            {#each $postStore as post}
+                <li class="post-list-item">
                     <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
                     <span
                         on:click={() => {
-                            path = location.pathname.replace("/post", "");
+                            path = post.path.replace("/post/", "");
                             currentPost = getPost(post.meta.title);
                         }}
                     >
@@ -70,7 +61,7 @@
         </ul>
     </div>
      
-    <Route {path} component={currentPost} />
+    <Route component={currentPost} />
 </Router>
 
 <style>
@@ -90,6 +81,10 @@
 
     .find-path {
         color: #c0c3c1;
+    }
+
+    .post-list-item:hover {
+        background-color: #333537;
     }
 
     /* :global(a) affects <Link> */

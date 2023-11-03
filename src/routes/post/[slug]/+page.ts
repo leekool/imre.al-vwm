@@ -11,7 +11,7 @@ export async function load({ params }: any) {
         const content = post.default ?? "";
         const category = post.metadata?.category ?? "";
 
-        Post.createPost(post);
+        // Post.createPost(post);
         return { content, title, date, category };
 
         // throw redirect(307, "/");

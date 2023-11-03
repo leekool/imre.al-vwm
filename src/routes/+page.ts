@@ -2,11 +2,27 @@ import { Post } from "$lib/post/PostStore";
 
 export const prerender = true;
 
-export async function load() {
-    const postList = import.meta.glob("./post/*.md");
+const fetchPosts = async () => {
+    const allPostFiles = import.meta.glob("./post/*.md");
+    const iterablePostFiles = Object.entries(allPostFiles);
 
-    for (const item in postList) {
-        const post = await import(item);
-        Post.createPost(post);
-    }
+    const allPosts = await Promise.all(
+        iterablePostFiles.map(async ([path, resolver]) => {
+            const data: any = await resolver();
+
+            return {
+                meta: data.metadata,
+                content: data.default,
+                path: path.replace(".", "").replace(".md", ""),
+            };
+        })
+    );
+
+    return allPosts;
+};
+
+export async function load() {
+    const posts = await fetchPosts();
+
+    posts.forEach(post => new Post(post));
 }

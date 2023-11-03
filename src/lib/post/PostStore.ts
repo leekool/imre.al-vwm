@@ -1,3 +1,4 @@
+import type { ComponentType } from "svelte";
 import { writable, get } from "svelte/store";
 
 export class Post {
@@ -7,27 +8,19 @@ export class Post {
         category: string;
     };
     content: any;
+    path: string;
 
     static store = writable<Post[]>([]);
 
     constructor(post: any) {
-        this.meta = {
-            title: post.metadata?.title ?? "",
-            date: post.metadata?.date ?? "",
-            category: post.metadata?.category ?? "",
-        };
+        this.meta = post.meta;
+        this.content = post.content ?? null;
+        this.path = post.path;
 
-        this.content = post.default ?? null;
-        
         Post.store.update((store) => {
-            // this assumes two posts will never have the same title
             const postExists = store.some(post => post.meta.title === this.meta.title);
             return postExists ? store : [...store, this];
         });
-    }
-
-    static createPost(post: any) {
-       const newPost = new Post(post); 
     }
 }
 
