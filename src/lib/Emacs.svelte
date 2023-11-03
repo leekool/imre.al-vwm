@@ -76,10 +76,10 @@
     }
 
     .content {
-        width: 95%;
+        width: 100%;
         height: 100%;
         color: #e4e3d5;
-        padding-left: 10px;
+        padding: 0 10px;
         white-space: pre-line;
     }
 

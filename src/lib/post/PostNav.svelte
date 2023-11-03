@@ -16,9 +16,11 @@
     let data: { posts: any[] } = { posts: [] };
 
     const getPost = (title: string): ComponentType => {
-        const post = $postStore.find(post => post.meta.title === title);
+        const post = $postStore.find((post) => post.meta.title === title);
+        if (post) postIndex = $postStore.indexOf(post) + 1;
+
         return post?.content;
-    }
+    };
 
     const loadPosts = async () => {
         const response = await fetch("/api/posts");
@@ -32,24 +34,32 @@
     });
 
     let currentPost: ComponentType;
-    let path = "";
+    let path = "/";
+
+    let postCount = $postStore.length;
+    let postIndex = 1;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div id="main" class="content">
+<Router>
+    <div class="find-bar">
+        <span class="post-count">{postIndex}/{postCount}</span>
+        <span style="padding-left: 10px;">
+            Find file: <span class="find-path">~/imre.al{path}</span>
+        </span>
+    </div>
     <div class="posts">
         <ul>
-            <Router>
             {#each data.posts as post}
                 <li>
                     <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
-                    <span 
+                    <span
                         on:click={() => {
-                            path = location.pathname;
+                            path = location.pathname.replace("/post", "");
                             currentPost = getPost(post.meta.title);
                         }}
                     >
-                        <Link to={post.path}>{post.meta.title}</Link>        
+                        <Link to={post.path}>{post.meta.title}</Link>
                     </span>
 
                     <span class="tags">
@@ -57,18 +67,13 @@
                     </span>
                 </li>
             {/each}
-            <Route path={path} component={currentPost} />
-            </Router>
         </ul>
     </div>
-</div>
+     
+    <Route {path} component={currentPost} />
+</Router>
 
 <style>
-    #main {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-
     time {
         color: #aeaeae;
     }
@@ -76,7 +81,15 @@
     ul {
         margin: 0;
         padding: 0;
-        list-style-type: none
+        list-style-type: none;
+    }
+
+    .find-bar {
+        color: #81a2be;
+    }
+
+    .find-path {
+        color: #c0c3c1;
     }
 
     /* :global(a) affects <Link> */
