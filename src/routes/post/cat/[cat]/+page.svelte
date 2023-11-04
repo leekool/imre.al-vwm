@@ -1,6 +1,5 @@
 <script lang="ts">
     import PostNav from "$lib/post/PostNav.svelte";
-
 </script>
 
 <svelte:head>

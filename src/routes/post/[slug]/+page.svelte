@@ -2,7 +2,7 @@
     import { page } from "$app/stores";
 
     export let data;
-    const categoryHref = `cat/${data.category}`;
+    const categoryHref = `../cat/${data.category}`;
 </script>
 
 <svelte:head>
