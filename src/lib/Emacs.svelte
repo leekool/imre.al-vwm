@@ -80,7 +80,7 @@
         height: 100%;
         color: #e4e3d5;
         padding: 0 10px;
-        white-space: pre-line;
+        /* white-space: pre-line; */
     }
 
     .content .heading {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, type ComponentType } from "svelte";
+    import type { ComponentType } from "svelte";
     import { Router, Link, Route } from "svelte-routing";
     import { postStore } from "./PostStore";
 
@@ -8,9 +8,11 @@
             day: "numeric",
             month: "short",
             year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
         };
 
-        return new Date(date).toLocaleString("en-GB", dateOptions);
+        return new Date(date).toLocaleString("en-GB", dateOptions).replace(",", "");
     };
 
     const getPost = (title: string): ComponentType => {
@@ -19,10 +21,6 @@
 
         return post?.content;
     };
-
-    onMount(async () => {
-        // posts = await loadPosts();
-    });
 
     let currentPost: ComponentType;
     let path = "";
@@ -43,15 +41,16 @@
         <ul>
             {#each $postStore as post}
                 <li class="post-list-item">
-                    <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
                     <span
                         on:click={() => {
-                            path = post.path.replace("/post/", "");
+                            path = post.path.replace("/post/", "") + ".md";
                             currentPost = getPost(post.meta.title);
                         }}
                     >
-                        <Link to={post.path}>{post.meta.title}</Link>
+                        <Link to={post.path}>{post.path.replace("/post/", "") + ".md"}</Link>
                     </span>
+
+                    <time datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
 
                     <span class="tags">
                         <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link>
