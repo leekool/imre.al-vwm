@@ -26,7 +26,9 @@
 <Window 
     name="terminal"
     options={{
-        type: "terminal"
+        type: "terminal",
+        minimised: true,
+        focused: false,
     }}
     position={{
         topPercent: 50,

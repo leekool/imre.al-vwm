@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ComponentType } from "svelte";
     import { Router, Link, Route } from "svelte-routing";
-    import { postStore } from "./PostStore";
+    import { Post, postStore } from "./PostStore";
 
     const formatDate = (date: string) => {
         const dateOptions: Intl.DateTimeFormatOptions = {
@@ -15,15 +15,29 @@
         return new Date(date).toLocaleString("en-GB", dateOptions).replace(",", "");
     };
 
-    const getPost = (title: string): void => {
-        const post = $postStore.find((post) => post.meta.title === title);
-        if (post) selectedPostIndex = $postStore.indexOf(post) + 1;
+    // const togglePost = (title: string): void => {
+    //     const post = $postStore.find((post) => post.meta.title === title);
+    //     if (post) selectedPostIndex = $postStore.indexOf(post);
+    //
+    //     selectedPost = post?.content;
+    // };
 
-        selectedPost = post?.content;
+    const togglePost = (post: Post): void => {
+        const postIndex = $postStore.indexOf(post);
+
+        if (selectedPostIndex === postIndex) {
+            selectedPostIndex = null;
+            selectedPost = (undefined as unknown) as ComponentType;
+            path = "";
+        } else {
+            selectedPostIndex = postIndex;
+            selectedPost = post.content;
+            path = post.path.replace("/post/", "") + ".md";
+        }
     };
 
     let selectedPost: ComponentType;
-    let selectedPostIndex = 1;
+    let selectedPostIndex: number | null = null;
     let path = "";
 
     let postCount = $postStore.length;
@@ -32,19 +46,17 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <Router>
     <div class="find-bar">
-        <span class="post-count">{selectedPostIndex}/{postCount}</span>
+        <span class="post-count">{selectedPostIndex !== null ? selectedPostIndex + 1 : "*"}/{postCount}</span>
         <span style="padding-left: 10px;">
             Find file: <span class="find-path">~/imre.al/{path}</span>
         </span>
     </div>
 
-    {#each $postStore as post}
+    {#each $postStore as post, i}
         <div 
             class="post-row"
-            on:click={() => {
-                path = post.path.replace("/post/", "") + ".md";
-                getPost(post.meta.title);              
-            }}
+            class:selected={selectedPostIndex === i}
+            on:click={() => togglePost(post)}
         >
             <Link to={post.path}>
                 <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
@@ -62,10 +74,11 @@
                 </span>
 
                 <span class="post-cat">
-                    <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link>
+                    <!-- <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link> -->
+                    {post.meta.category}
                 </span>
 
-                <time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time>
+                <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
             </Link>
         </div>
     {/each}
@@ -74,8 +87,13 @@
 </Router>
 
 <style>
+    .selected {
+        background-color: #333537;
+    }
+
     .post-row {
         display: flex;
+        width: 100%;
         height: 22px;
         align-items: center;
         justify-content: space-between;
@@ -98,7 +116,6 @@
 
     .post-title :global(a) {
         color: #b0b2b1;
-
     }
 
     .post-perms {
@@ -107,7 +124,7 @@
     }
     
     .post-cat {
-        width: 10%;
+        width: 5%;
     }
 
     .post-date, .post-cat :global(a) {
