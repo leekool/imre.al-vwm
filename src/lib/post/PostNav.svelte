@@ -112,9 +112,6 @@
 
     .post-title {
         width: 30%;
-    }
-
-    .post-title :global(a) {
         color: #b0b2b1;
     }
 
@@ -125,6 +122,7 @@
     
     .post-cat {
         width: 5%;
+        color: #a88cb1;
     }
 
     .post-date, .post-cat :global(a) {
