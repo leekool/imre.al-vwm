@@ -3,13 +3,13 @@
     import { Router, Link, Route } from "svelte-routing";
     import { postStore } from "./PostStore";
 
-    const getLongDate = (date: string) => {
+    const formatDate = (date: string) => {
         const dateOptions: Intl.DateTimeFormatOptions = {
             day: "numeric",
             month: "short",
             year: "numeric",
-            hour: "numeric",
-            minute: "numeric",
+            // hour: "numeric",
+            // minute: "numeric",
         };
 
         return new Date(date).toLocaleString("en-GB", dateOptions).replace(",", "");
@@ -66,7 +66,7 @@
                     <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link>
                 </span>
 
-                <time class="post-date" datetime={post.meta.date}>{getLongDate(post.meta.date)}</time>
+                <time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time>
             </Link>
         </div>
     {/each}
@@ -78,23 +78,23 @@
     .post-row {
         display: flex;
         height: 22px;
-        min-width: 100%;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
+        white-space: nowrap;
     }
 
     .post-row :global(a) {
         display: flex;
+        width: 100%;
         height: 22px;
-        min-width: 100%;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
     }
 
     .post-title {
-        width: 40%;
+        width: 30%;
     }
 
     .post-title :global(a) {

@@ -133,6 +133,7 @@
         font-family: "Tamzen", sans-serif;
         /* background-color: #1d1f21; */
         min-height: 100%;
+        max-width: 100%;
     }
 
     .border {

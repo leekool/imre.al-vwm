@@ -1,4 +1,3 @@
-import type { ComponentType } from "svelte";
 import { writable, get } from "svelte/store";
 
 export class Post {
@@ -9,6 +8,7 @@ export class Post {
     };
     content: any;
     path: string;
+    selected = false;
 
     static store = writable<Post[]>([]);
 
