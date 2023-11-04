@@ -48,7 +48,6 @@
         >
             <Link to={post.path}>
                 <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
-
                 <span class="post-perms">
                     <span style="color: #7d9db7;">d</span>
                     <span style="color: #f0c674;">r</span>
@@ -122,6 +121,7 @@
     .find-bar {
         height: 22px;
         color: #81a2be;
+        white-space: nowrap;
     }
 
     .find-path {

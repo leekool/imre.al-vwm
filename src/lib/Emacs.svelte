@@ -76,10 +76,10 @@
     }
 
     .content {
-        width: 100%;
+        width: calc(100% - 20px);
         height: 100%;
         color: #e4e3d5;
-        padding: 0 10px;
+        margin: 0 10px;
         /* white-space: pre-line; */
     }
 
