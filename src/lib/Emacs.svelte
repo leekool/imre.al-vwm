@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Router, Link, Route } from "svelte-routing";
     import PostNav from "$lib/post/PostNav.svelte";
+    import type { ComponentType } from "svelte";
     // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
     // const content = "\n\n";
 
@@ -18,7 +19,7 @@
     //     return wordCount ? wordCount.length : 1;
     // };
     // let data: Data;
-    let selectedPost: any;
+    let selectedPost: { index: number | null, content: ComponentType, path: string };
 </script>
 
 <div class="main">
@@ -30,7 +31,7 @@
         <!-- </div> -->
         <div class="content">
             <Router>
-                <Route component={selectedPost} />
+                <Route component={selectedPost?.content} />
             </Router>
             <!-- <PostNav bind:data /> -->
             <!-- <span class="heading">#+TITLE:</span> imre.al -->
@@ -43,7 +44,7 @@
         <span class="circle" />
         <span class="file-size" />
         <span class="footer-text">
-            <span style="color: #acbc68; margin-left: 9px;">imre.al/</span>
+            <span style="color: #acbc68; margin-left: 9px;">imre.al/{selectedPost?.path}</span>
             <span class="word-count">
                 <!-- {lineCount()[lineCount().length - 1]}:{wordCount()} -->
             </span>
@@ -63,7 +64,7 @@
     }
 
     .body {
-        padding: 15px 0 10px 0;
+        padding: 10px 0 10px 0;
         display: flex;
         flex: 1 1 auto;
         position: relative;

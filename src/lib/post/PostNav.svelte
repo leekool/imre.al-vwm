@@ -3,6 +3,14 @@
     import { Router, Link, Route } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
 
+    export let selectedPost: { index: number | null, content: ComponentType, path: string } = { 
+        index: null,
+        content: (undefined as unknown) as ComponentType,
+        path: ""
+    };
+
+    let postCount = $postStore.length;
+
     const formatDate = (date: string) => {
         const dateOptions: Intl.DateTimeFormatOptions = {
             day: "numeric",
@@ -15,48 +23,29 @@
         return new Date(date).toLocaleString("en-GB", dateOptions).replace(",", "");
     };
 
-    // const togglePost = (title: string): void => {
-    //     const post = $postStore.find((post) => post.meta.title === title);
-    //     if (post) selectedPostIndex = $postStore.indexOf(post);
-    //
-    //     selectedPost = post?.content;
-    // };
-
     const togglePost = (post: Post): void => {
         const postIndex = $postStore.indexOf(post);
 
-        if (selectedPostIndex === postIndex) {
-            selectedPostIndex = null;
-            selectedPost = (undefined as unknown) as ComponentType;
-            path = "";
-        } else {
-            selectedPostIndex = postIndex;
-            selectedPost = post.content;
-            path = post.path.replace("/post/", "") + ".md";
-        }
+        selectedPost = selectedPost.index === postIndex
+            ? { index: null, content: undefined as unknown as ComponentType, path: "" }
+            : { index: postIndex, content: post.content, path: post.path.replace("/post/", "") + ".md" };
     };
-
-    export let selectedPost: ComponentType;
-    let selectedPostIndex: number | null = null;
-    let path = "";
-
-    let postCount = $postStore.length;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="main">
     <Router>
         <div class="find-bar">
-            <span class="post-count">{selectedPostIndex !== null ? selectedPostIndex + 1 : "*"}/{postCount}</span>
+            <span class="post-count">{selectedPost.index !== null ? selectedPost.index + 1 : "*"}/{postCount}</span>
             <span style="margin-left: 20px;">
-                Find file: <span class="find-path">~/imre.al/{path}</span>
+                Find file: <span class="find-path">~/imre.al/{selectedPost.path}</span>
             </span>
         </div>
     
         {#each $postStore as post, i}
             <div 
                 class="post-row"
-                class:selected={selectedPostIndex === i}
+                class:selected={selectedPost.index === i}
                 on:click={() => togglePost(post)}
             >
                 <Link to={post.path}>
@@ -83,10 +72,6 @@
                 </Link>
             </div>
         {/each}
-         
-        <!-- <div class="content"> -->
-        <!--     <Route component={selectedPost} /> -->
-        <!-- </div> -->
     </Router>
 </div>
 
@@ -113,7 +98,7 @@
         display: flex;
         width: 100%;
         height: 22px;
-        padding: 0 10px;
+        padding: 0 6px;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
@@ -146,7 +131,7 @@
         display: flex;
         align-items: center;
         height: 22px;
-        padding: 0 10px;
+        padding: 0 6px;
         color: #81a2be;
         white-space: nowrap;
     }
