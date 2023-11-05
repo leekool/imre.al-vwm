@@ -83,10 +83,16 @@
         </div>
     {/each}
      
-    <Route component={selectedPost} />
+    <div class="content">
+        <Route component={selectedPost} />
+    </div>
 </Router>
 
 <style>
+    .content {
+        padding: 0 10px;
+    }
+
     .selected {
         background-color: #333537;
     }
@@ -105,6 +111,7 @@
         display: flex;
         width: 100%;
         height: 22px;
+        padding: 0 10px;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
@@ -135,6 +142,7 @@
 
     .find-bar {
         height: 22px;
+        padding: 0 10px;
         color: #81a2be;
         white-space: nowrap;
     }

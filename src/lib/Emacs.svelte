@@ -76,10 +76,11 @@
     }
 
     .content {
-        width: calc(100% - 20px);
         height: 100%;
+        width: 100%;
+        /* width: calc(100% - 20px); */
+        /* margin: 0 10px; */
         color: #e4e3d5;
-        margin: 0 10px;
         /* white-space: pre-line; */
     }
 
