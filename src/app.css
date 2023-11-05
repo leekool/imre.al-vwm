@@ -27,3 +27,7 @@ body {
         background-position: left top;
     }
 }
+
+p:first-child {
+    margin: 0;
+}
