@@ -59,7 +59,12 @@
         $windowStore = $windowStore;
     };
 
-    // draggable navbar functions
+    const clickNavbar = (): void => {
+        if (!window_.options.focusEle) return;
+        window_.options.focusEle.focus();
+    }
+
+    // --- draggable navbar functions for mouse events ---
     let moving = false;
 
     const dragMouseDown = () => { moving = true; windowClick(); };
@@ -74,12 +79,37 @@
         getTopLeftPercent();
     };
 
-    // -----
+    // --- draggable navbar functions for touch events ---
+    let movingTouch: Touch | null = null;
 
-    const clickNavbar = (): void => {
-        if (!window_.options.focusEle) return;
-        window_.options.focusEle.focus();
+    const dragTouchStart = (e: TouchEvent) => {
+        moving = true;
+        movingTouch = e.touches[0];
+
+        windowClick();
     }
+
+    const dragTouchEnd = () => {
+        moving = false;
+        movingTouch = null;
+    }
+
+    const dragTouchMove = (e: TouchEvent) => {
+        if (!moving) return;
+
+        const initialTouch = movingTouch;
+
+        if (initialTouch) {
+            window_.position.top += e.touches[0].clientY - initialTouch.clientY;
+            window_.position.left += e.touches[0].clientX - initialTouch.clientX;
+    
+            getTopLeftPercent();
+        }
+
+        movingTouch = e.touches[0];
+    }
+
+    // -----
 
     onMount(async () => {
         getPosition();
@@ -109,6 +139,7 @@
         <div 
             class="drag-bar" 
             on:mousedown={dragMouseDown}
+            on:touchstart|preventDefault={dragTouchStart}
             on:click={() => clickNavbar()}
         />
         <Navbar {window_} />
@@ -119,7 +150,12 @@
     </div>
 </div>
 
-<svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
+<svelte:window 
+    on:mouseup={dragMouseUp} 
+    on:touchend={dragTouchEnd}
+    on:mousemove={dragMouseMove} 
+    on:touchmove|preventDefault={dragTouchMove}
+/>
 
 <style>
     *::-webkit-scrollbar {

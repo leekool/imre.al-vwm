@@ -110,7 +110,7 @@
     }
 
     .footer-text {
-        margin-top: 2px;
+        /* margin-top: 2px; */
         white-space: pre;
     }
 

@@ -97,6 +97,7 @@
     .post-row :global(a) {
         display: flex;
         width: 100%;
+        max-width: calc(100% - 12px);
         height: 22px;
         padding: 0 6px;
         align-items: center;
