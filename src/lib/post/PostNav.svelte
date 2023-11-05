@@ -36,7 +36,7 @@
         }
     };
 
-    let selectedPost: ComponentType;
+    export let selectedPost: ComponentType;
     let selectedPostIndex: number | null = null;
     let path = "";
 
@@ -44,53 +44,55 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Router>
-    <div class="find-bar">
-        <span class="post-count">{selectedPostIndex !== null ? selectedPostIndex + 1 : "*"}/{postCount}</span>
-        <span style="padding-left: 10px;">
-            Find file: <span class="find-path">~/imre.al/{path}</span>
-        </span>
-    </div>
-
-    {#each $postStore as post, i}
-        <div 
-            class="post-row"
-            class:selected={selectedPostIndex === i}
-            on:click={() => togglePost(post)}
-        >
-            <Link to={post.path}>
-                <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
-                <span class="post-perms">
-                    <span style="color: #7d9db7;">d</span>
-                    <span style="color: #f0c674;">r</span>
-                    <span style="color: #cc6666;">w</span>
-                    <span style="color: #a5ad60;">x</span>
-                    <span style="color: #f0c674;">r</span>
-                    <span style="color: #5c5e5e;">-</span>
-                    <span style="color: #a5ad60;">x</span>
-                    <span style="color: #f0c674;">r</span>
-                    <span style="color: #5c5e5e;">-</span>
-                    <span style="color: #a5ad60;">x</span>
-                </span>
-
-                <span class="post-cat">
-                    <!-- <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link> -->
-                    {post.meta.category}
-                </span>
-
-                <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
-            </Link>
+<div class="main">
+    <Router>
+        <div class="find-bar">
+            <span class="post-count">{selectedPostIndex !== null ? selectedPostIndex + 1 : "*"}/{postCount}</span>
+            <span style="margin-left: 20px;">
+                Find file: <span class="find-path">~/imre.al/{path}</span>
+            </span>
         </div>
-    {/each}
-     
-    <div class="content">
-        <Route component={selectedPost} />
-    </div>
-</Router>
+    
+        {#each $postStore as post, i}
+            <div 
+                class="post-row"
+                class:selected={selectedPostIndex === i}
+                on:click={() => togglePost(post)}
+            >
+                <Link to={post.path}>
+                    <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
+                    <span class="post-perms">
+                        <span style="color: #7d9db7;">d</span>
+                        <span style="color: #f0c674;">r</span>
+                        <span style="color: #cc6666;">w</span>
+                        <span style="color: #a5ad60;">x</span>
+                        <span style="color: #f0c674;">r</span>
+                        <span style="color: #5c5e5e;">-</span>
+                        <span style="color: #a5ad60;">x</span>
+                        <span style="color: #f0c674;">r</span>
+                        <span style="color: #5c5e5e;">-</span>
+                        <span style="color: #a5ad60;">x</span>
+                    </span>
+    
+                    <span class="post-cat">
+                        <!-- <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link> -->
+                        {post.meta.category}
+                    </span>
+    
+                    <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
+                </Link>
+            </div>
+        {/each}
+         
+        <!-- <div class="content"> -->
+        <!--     <Route component={selectedPost} /> -->
+        <!-- </div> -->
+    </Router>
+</div>
 
 <style>
-    .content {
-        padding: 0 10px;
+    .main {
+        background-color: #1d1f21;
     }
 
     .selected {
@@ -141,6 +143,8 @@
     }
 
     .find-bar {
+        display: flex;
+        align-items: center;
         height: 22px;
         padding: 0 10px;
         color: #81a2be;

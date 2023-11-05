@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Router, Link, Route } from "svelte-routing";
     import PostNav from "$lib/post/PostNav.svelte";
     // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
     // const content = "\n\n";
@@ -17,6 +18,7 @@
     //     return wordCount ? wordCount.length : 1;
     // };
     // let data: Data;
+    let selectedPost: any;
 </script>
 
 <div class="main">
@@ -27,7 +29,9 @@
         <!--     {/each} -->
         <!-- </div> -->
         <div class="content">
-            <PostNav />
+            <Router>
+                <Route component={selectedPost} />
+            </Router>
             <!-- <PostNav bind:data /> -->
             <!-- <span class="heading">#+TITLE:</span> imre.al -->
             <!-- <span class="heading">#+AUTHOR:</span> Lee Luppi -->
@@ -45,6 +49,9 @@
             </span>
         </span>
     </div>
+
+    <PostNav bind:selectedPost />
+
 </div>
 
 <style>
@@ -77,9 +84,9 @@
 
     .content {
         height: 100%;
-        width: 100%;
-        /* width: calc(100% - 20px); */
-        /* margin: 0 10px; */
+        /* width: 100%; */
+        width: calc(100% - 20px);
+        margin: 0 10px;
         color: #e4e3d5;
         /* white-space: pre-line; */
     }
