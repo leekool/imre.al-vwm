@@ -28,7 +28,7 @@
     options={{
         type: "terminal",
         minimised: true,
-        focused: false,
+        focused: false
     }}
     position={{
         topPercent: 50,

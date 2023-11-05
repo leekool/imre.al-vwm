@@ -55,7 +55,8 @@ export class Window {
         this.id = count; // simple ID system for now
         count++
 
-        if (this.options.focused) this.getFocus();
+        // if (this.options.focused) this.getFocus();
+        if (!this.options.minimised) this.getFocus();
 
         Window.windowStore.update((store) => {
             // windowExists prevents duplication on navigation, need to have a better check rather than name though 
