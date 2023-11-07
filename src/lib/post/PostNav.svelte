@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { onMount, type ComponentType } from "svelte";
+    import { onMount } from "svelte";
     import { Router, Link, Route } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
 
-    export let selectedPost: { index: number | null, meta: any, content: ComponentType, path: string } | null = null;
     let findText: string = "Find file: ";
 
-    $: postCount = (selectedPost ? (selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
+    $: postCount = (Post.selectedPost ? (Post.selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
 
     const formatDate = (date: string) => {
         const dateOptions: Intl.DateTimeFormatOptions = {
@@ -22,14 +21,9 @@
 
     const togglePost = (post: Post)  => {
         const postIndex = $postStore.indexOf(post);
-        if (selectedPost?.index === postIndex) return selectedPost = null;
+        if (Post.selectedPost?.index === postIndex) return Post.selectedPost = null;
 
-        selectedPost = { 
-            index: postIndex, 
-            meta: post.meta,
-            content: post.content, 
-            path: post.path.replace("/post/", "") + ".md" 
-        };
+        Post.selectedPost = post;
     };
 
     onMount(() => {
@@ -43,15 +37,18 @@
         <div class="find-bar">
             <span class="post-count">{postCount}</span>
             <span style="margin-left: 20px;">
-                {findText}<span class="find-path">~/imre.al/{selectedPost?.path ?? ""}</span>
+                {findText}<span class="find-path">~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""}</span>
             </span>
         </div>
     
         {#each $postStore as post, i}
             <div 
                 class="post-row"
-                class:selected={selectedPost?.index === i}
-                on:click={() => togglePost(post)}
+                class:selected={Post.selectedPost?.index === i}
+                on:click={() => {
+                    togglePost(post);
+                    $postStore = $postStore;
+                }}
             >
                 <Link to={post.path}>
                     <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>

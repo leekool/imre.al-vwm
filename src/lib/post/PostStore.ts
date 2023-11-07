@@ -8,9 +8,10 @@ export class Post {
     };
     content: any;
     path: string;
-    selected = false;
+    index: number;
 
     static store = writable<Post[]>([]);
+    static selectedPost: Post | null = null;
 
     constructor(post: any) {
         this.meta = post.meta;
@@ -18,9 +19,12 @@ export class Post {
         this.path = post.path;
 
         Post.store.update((store) => {
+            // assuming no posts have the same title
             const postExists = store.some(post => post.meta.title === this.meta.title);
             return postExists ? store : [...store, this];
         });
+
+        this.index = get(Post.store).indexOf(this);
     }
 }
 

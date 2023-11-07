@@ -2,6 +2,8 @@
     import { Router, Link, Route } from "svelte-routing";
     import PostNav from "$lib/post/PostNav.svelte";
     import type { ComponentType } from "svelte";
+    import PostContent from "./post/Post.svelte";
+    import { Post, postStore } from "./post/PostStore";
     // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
     // const content = "\n\n";
 
@@ -19,7 +21,8 @@
     //     return wordCount ? wordCount.length : 1;
     // };
     // let data: Data;
-    let selectedPost: { index: number, meta: any, content: ComponentType, path: string } | null;
+    // let selectedPost: { index: number, meta: any, content: ComponentType, path: string } | null;
+    $: $postStore, Post.selectedPost = Post.selectedPost;
 </script>
 
 <div class="main">
@@ -30,9 +33,10 @@
         <!--     {/each} -->
         <!-- </div> -->
         <div class="content">
-            <Router>
-                <Route component={selectedPost?.content} />
-            </Router>
+            <!-- <Router> -->
+            <!--     <Route component={selectedPost?.content} /> -->
+            <!-- </Router> -->
+            <PostContent />
             <!-- <PostNav bind:data /> -->
             <!-- <span class="heading">#+TITLE:</span> imre.al -->
             <!-- <span class="heading">#+AUTHOR:</span> Lee Luppi -->
@@ -44,14 +48,16 @@
         <span class="circle" />
         <span class="file-size" />
         <span class="footer-text">
-            <span style="color: #acbc68; margin-left: 9px;">imre.al/{selectedPost?.path ?? ""}</span>
+            <span style="color: #acbc68; margin-left: 9px;">
+                imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""}
+            </span>
             <!-- <span class="word-count"> -->
                 <!-- {lineCount()[lineCount().length - 1]}:{wordCount()} -->
             <!-- </span> -->
         </span>
     </div>
 
-    <PostNav bind:selectedPost />
+    <PostNav />
 
 </div>
 
