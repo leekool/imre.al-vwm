@@ -1,15 +1,12 @@
 <script lang="ts">
-    import type { ComponentType } from "svelte";
+    import { onMount, type ComponentType } from "svelte";
     import { Router, Link, Route } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
 
-    export let selectedPost: { index: number | null, content: ComponentType, path: string } = { 
-        index: null,
-        content: (undefined as unknown) as ComponentType,
-        path: ""
-    };
+    export let selectedPost: { index: number | null, meta: any, content: ComponentType, path: string } | null = null;
+    let findText: string = "Find file: ";
 
-    let postCount = $postStore.length;
+    $: postCount = (selectedPost ? (selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
 
     const formatDate = (date: string) => {
         const dateOptions: Intl.DateTimeFormatOptions = {
@@ -23,29 +20,37 @@
         return new Date(date).toLocaleString("en-GB", dateOptions).replace(",", "");
     };
 
-    const togglePost = (post: Post): void => {
+    const togglePost = (post: Post)  => {
         const postIndex = $postStore.indexOf(post);
+        if (selectedPost?.index === postIndex) return selectedPost = null;
 
-        selectedPost = selectedPost.index === postIndex
-            ? { index: null, content: undefined as unknown as ComponentType, path: "" }
-            : { index: postIndex, content: post.content, path: post.path.replace("/post/", "") + ".md" };
+        selectedPost = { 
+            index: postIndex, 
+            meta: post.meta,
+            content: post.content, 
+            path: post.path.replace("/post/", "") + ".md" 
+        };
     };
+
+    onMount(() => {
+        if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="main">
     <Router>
         <div class="find-bar">
-            <span class="post-count">{selectedPost.index !== null ? selectedPost.index + 1 : "*"}/{postCount}</span>
+            <span class="post-count">{postCount}</span>
             <span style="margin-left: 20px;">
-                Find file: <span class="find-path">~/imre.al/{selectedPost.path}</span>
+                {findText}<span class="find-path">~/imre.al/{selectedPost?.path ?? ""}</span>
             </span>
         </div>
     
         {#each $postStore as post, i}
             <div 
                 class="post-row"
-                class:selected={selectedPost.index === i}
+                class:selected={selectedPost?.index === i}
                 on:click={() => togglePost(post)}
             >
                 <Link to={post.path}>
@@ -131,6 +136,7 @@
     .find-bar {
         display: flex;
         align-items: center;
+        overflow: hidden;
         height: 22px;
         padding: 0 6px;
         color: #81a2be;

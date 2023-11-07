@@ -67,8 +67,14 @@
     // --- draggable navbar functions for mouse events ---
     let moving = false;
 
-    const dragMouseDown = () => { moving = true; windowClick(); };
-    const dragMouseUp = () => moving = false;
+    const dragMouseDown = () => { 
+        moving = true; 
+        windowClick(); 
+    };
+
+    const dragMouseUp = () => {
+        moving = false;
+    }
 
     const dragMouseMove = (e: MouseEvent) => {
         if (!moving) return;

@@ -19,7 +19,7 @@
     //     return wordCount ? wordCount.length : 1;
     // };
     // let data: Data;
-    let selectedPost: { index: number | null, content: ComponentType, path: string };
+    let selectedPost: { index: number, meta: any, content: ComponentType, path: string } | null;
 </script>
 
 <div class="main">
@@ -44,10 +44,10 @@
         <span class="circle" />
         <span class="file-size" />
         <span class="footer-text">
-            <span style="color: #acbc68; margin-left: 9px;">imre.al/{selectedPost?.path}</span>
-            <span class="word-count">
+            <span style="color: #acbc68; margin-left: 9px;">imre.al/{selectedPost?.path ?? ""}</span>
+            <!-- <span class="word-count"> -->
                 <!-- {lineCount()[lineCount().length - 1]}:{wordCount()} -->
-            </span>
+            <!-- </span> -->
         </span>
     </div>
 
@@ -112,12 +112,13 @@
     .footer-text {
         /* margin-top: 2px; */
         white-space: pre;
+        height: 21px;
     }
 
     .circle {
         height: 12px;
         width: 12px;
-        margin: 1px 5px 2px 20px;
+        margin: 0 5px 2px 20px;
         background-color: #b294bb;
         border-radius: 50%;
     }

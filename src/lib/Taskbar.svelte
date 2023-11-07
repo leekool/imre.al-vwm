@@ -28,13 +28,12 @@
         position: fixed;
         height: 30px;
         width: 100%;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         left: 50%;
         bottom: 0;
         margin-left: -50%;
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
-        /* font-weight: bold; */
         color: #222020;
         background-image: url("/images/footer-tile.svg");
         background-repeat: repeat;

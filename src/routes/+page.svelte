@@ -1,18 +1,10 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-
-    import Window from "../lib/window/Window.svelte";
-    import { windowStore } from "$lib/window/WindowStore";
-
     import Desktop from "../lib/Desktop.svelte";
-    import Emacs from "../lib/Emacs.svelte";
-    import Terminal from "../lib/Terminal.svelte";
-
+    import Window from "../lib/window/Window.svelte";
     import Taskbar from "../lib/Taskbar.svelte";
 
-    onMount(() => {
-        // console.log($windowStore);
-    });
+    import Emacs from "../lib/Emacs.svelte";
+    import Terminal from "../lib/Terminal.svelte";
 </script>
 
 <svelte:head>
