@@ -52,7 +52,7 @@
     }
 
     const windowClick = () => {
-        if (window_.options.focused || window_.options.minimised) return;
+        // if (window_.options.focused || window_.options.minimised) return;
 
         window_.getFocus();
 

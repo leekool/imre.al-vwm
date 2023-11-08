@@ -93,9 +93,10 @@ export class Window {
 
         this.options.focused = true;
 
-        console.log(this.options.type, this.options.focusEle)
-        // focus element
-        if (this.options.focusEle) this.options.focusEle.focus();
+        // focus element (after 100 seconds to account for opening windows)
+        setTimeout(() => {
+            this.options.focusEle?.focus();
+        }, 100)
 
         // update focusList
         const index = Window.focusList.indexOf(this.id);

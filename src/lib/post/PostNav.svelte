@@ -48,7 +48,10 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="main">
+<div 
+    class="main"
+    on:click={() => findInput.focus()}
+>
     <Router>
         <div class="find-bar">
             <span class="post-count">{postCount}</span>
