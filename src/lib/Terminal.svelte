@@ -115,7 +115,7 @@
         const commandArgs = input.textContent.split(" ").slice(1).join(" ");
 
         /* checks if command exists - cannot use validCommand() as it
-       returns false if command exists but it's arguments are invalid */
+           returns false if command exists but it's arguments are invalid */
         if (!commands.some((x) => x.name === command)) {
             inputCommands.push({
                 name: command,
@@ -152,7 +152,7 @@
         input.focus();
 
         for (let window of $windowStore) {
-            if (window.options.type === "window-terminal") {
+            if (window.options.type === "terminal") {
                 window.options.focusEle = input;
             }
         }

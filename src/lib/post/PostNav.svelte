@@ -2,9 +2,10 @@
     import { onMount } from "svelte";
     import { Router, Link } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
+    import { windowStore } from "$lib/window/WindowStore";
 
     let findText: string = "Find file: ";
-    let find: HTMLSpanElement;
+    let findInput: HTMLSpanElement;
 
     $: postCount = (Post.selectedPost ? (Post.selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
 
@@ -28,11 +29,21 @@
     };
 
     const onKeyDown = () => {
-
+        // move cursor to end
+        document.execCommand("selectAll", false);
+        document.getSelection()?.collapseToEnd();
     }
 
     onMount(() => {
         if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
+
+        findInput.focus();
+
+        for (let window of $windowStore) {
+            if (window.options.type === "emacs") {
+                window.options.focusEle = findInput;
+            }
+        }
     });
 </script>
 
@@ -47,7 +58,7 @@
             <span style="color: #b0b2b1;">~/imre.al/</span>
             <span 
                 class="find-path"
-                bind:this={find}
+                bind:this={findInput}
                 role="textbox"
                 tabindex="0"
                 contenteditable="true"
@@ -56,6 +67,7 @@
                 test
                     <!-- ~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""} -->
             </span>
+            <span class="caret" />
         </div>
     
         {#each $postStore as post, i}
@@ -158,7 +170,7 @@
     }
 
     .find-path {
-        color: #c0c3c1;
+        color: #c0c0c0;
         word-break: normal;
         background: transparent;
         overflow: hidden;
@@ -166,6 +178,13 @@
         outline: none;
         caret-color: transparent;
         -webkit-line-clamp: 1;
+    }
+
+    .caret {
+        margin: 0 0 2px 2px;
+        height: 13px;
+        width: 7px;
+        background-color: #c0c0c0;
     }
 
     /* :global(a) affects <Link> */

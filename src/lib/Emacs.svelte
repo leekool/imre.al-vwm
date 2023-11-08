@@ -1,11 +1,7 @@
 <script lang="ts">
-    import { Router, Link, Route } from "svelte-routing";
     import PostNav from "$lib/post/PostNav.svelte";
-    import type { ComponentType } from "svelte";
     import PostContent from "./post/Post.svelte";
     import { Post, postStore } from "./post/PostStore";
-    // const title = new Date().toLocaleDateString("en-GB").replace(/\//g, "") + ".org";
-    // const content = "\n\n";
 
     // const lineCount = (): number[] => {
     //     const lineCount = content.match(/\n/g);
@@ -20,18 +16,12 @@
     //     const wordCount = content.match(/\n| /g);
     //     return wordCount ? wordCount.length : 1;
     // };
-    // let data: Data;
-    // let selectedPost: { index: number, meta: any, content: ComponentType, path: string } | null;
+
     $: $postStore, Post.selectedPost = Post.selectedPost;
 </script>
 
 <div class="main">
     <div class="body">
-        <!-- <div class="lines"> -->
-        <!--     {#each lineCount() as line} -->
-        <!--         <p>{line}</p> -->
-        <!--     {/each} -->
-        <!-- </div> -->
         <div class="content">
             <PostContent />
         </div>

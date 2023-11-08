@@ -93,6 +93,7 @@ export class Window {
 
         this.options.focused = true;
 
+        console.log(this.options.type, this.options.focusEle)
         // focus element
         if (this.options.focusEle) this.options.focusEle.focus();
 
