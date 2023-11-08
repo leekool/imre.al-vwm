@@ -9,6 +9,7 @@
     let directory = "~";
     let inputCommands: any[] = [];
 
+    // these will need their own file to pull from
     const commands: {
         name: string;
         run: (input?: string, windowList?: Window[]) => void;

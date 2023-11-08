@@ -109,9 +109,8 @@
     }
 
     .footer-text {
-        /* margin-top: 2px; */
+        display: flex;
         white-space: pre;
-        height: 21px;
     }
 
     .circle {

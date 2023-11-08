@@ -1,9 +1,10 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { Router, Link, Route } from "svelte-routing";
+    import { Router, Link } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
 
     let findText: string = "Find file: ";
+    let find: HTMLSpanElement;
 
     $: postCount = (Post.selectedPost ? (Post.selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
 
@@ -26,6 +27,10 @@
         Post.selectedPost = post;
     };
 
+    const onKeyDown = () => {
+
+    }
+
     onMount(() => {
         if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
     });
@@ -36,8 +41,20 @@
     <Router>
         <div class="find-bar">
             <span class="post-count">{postCount}</span>
-            <span style="margin-left: 20px;">
-                {findText}<span class="find-path">~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""}</span>
+            <span style="margin-left: 20px; margin-right: 6px;">
+                {findText}
+            </span>
+            <span style="color: #b0b2b1;">~/imre.al/</span>
+            <span 
+                class="find-path"
+                bind:this={find}
+                role="textbox"
+                tabindex="0"
+                contenteditable="true"
+                on:keydown={onKeyDown}
+            >
+                test
+                    <!-- ~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""} -->
             </span>
         </div>
     
