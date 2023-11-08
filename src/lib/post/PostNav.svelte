@@ -5,7 +5,8 @@
     import { windowStore } from "$lib/window/WindowStore";
 
     let findText: string = "Find file: ";
-    let findInput: HTMLSpanElement;
+    let inputEl: HTMLSpanElement;
+    let filteredPosts: any = [];
 
     $: postCount = (Post.selectedPost ? (Post.selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
 
@@ -34,23 +35,35 @@
         document.getSelection()?.collapseToEnd();
     }
 
+    const handleKey = (event: KeyboardEvent) => {
+        // if (!inputEl.textContent || event.code !== "Enter") return;
+        if (!inputEl.textContent) return;
+
+        const input = inputEl.textContent;
+
+        filteredPosts = $postStore.filter((post) => (post.path.replace("/post/", "") + ".md").toLowerCase().match(input));
+
+        console.log(filteredPosts)
+    }
+
+    const handleInput = () => {
+
+    }
+
     onMount(() => {
         if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
 
-        findInput.focus();
+        inputEl.focus();
 
-        for (let window of $windowStore) {
-            if (window.options.type === "emacs") {
-                window.options.focusEle = findInput;
-            }
-        }
+        const emacs = $windowStore.find(window => window.options.type === "emacs");
+        if (emacs) emacs.options.focusEle = inputEl;
     });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div 
     class="main"
-    on:click={() => findInput.focus()}
+    on:click={() => inputEl.focus()}
 >
     <Router>
         <div class="find-bar">
@@ -61,14 +74,14 @@
             <span style="color: #b0b2b1;">~/imre.al/</span>
             <span 
                 class="find-path"
-                bind:this={findInput}
+                bind:this={inputEl}
                 role="textbox"
                 tabindex="0"
                 contenteditable="true"
                 on:keydown={onKeyDown}
+                on:keyup={handleKey}
             >
-                test
-                    <!-- ~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""} -->
+                <!-- ~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""} -->
             </span>
             <span class="caret" />
         </div>
