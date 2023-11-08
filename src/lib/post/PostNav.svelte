@@ -159,6 +159,13 @@
 
     .find-path {
         color: #c0c3c1;
+        word-break: normal;
+        background: transparent;
+        overflow: hidden;
+        border: none;
+        outline: none;
+        caret-color: transparent;
+        -webkit-line-clamp: 1;
     }
 
     /* :global(a) affects <Link> */

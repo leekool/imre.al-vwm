@@ -60,6 +60,7 @@
         flex: 1 1 auto;
         height: 100%;
         flex-direction: column;
+        background-color: #1d1f21;
     }
 
     .body {
@@ -104,8 +105,16 @@
         width: 100%;
         height: 22px;
         background-color: #0f1011;
-        box-shadow: 8px 0 0 0 #81a2be inset;
         user-select: none;
+        /* box-shadow: 8px 0 0 0 #81a2be inset; */
+    }
+
+    .footer:before {
+        content: "";
+        height: 100%;
+        width: 8px;
+        padding-top: 1px;
+        background-color: #81a2be;
     }
 
     .footer-text {
@@ -116,7 +125,7 @@
     .circle {
         height: 12px;
         width: 12px;
-        margin: 0 5px 2px 20px;
+        margin: 0 5px 2px 12px;
         background-color: #b294bb;
         border-radius: 50%;
     }
