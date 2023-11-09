@@ -1,10 +1,17 @@
 <script lang="ts">
     import Desktop from "../lib/Desktop.svelte";
-    import Window from "../lib/window/Window.svelte";
+    import WindowComp from "../lib/window/Window.svelte";
     import Taskbar from "../lib/Taskbar.svelte";
+    import { Window } from "$lib/window/WindowStore";
 
     import Emacs from "../lib/Emacs.svelte";
     import Terminal from "../lib/Terminal.svelte";
+
+    import { onMount } from "svelte";
+
+    onMount(() => {
+        Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
+    });
 </script>
 
 <svelte:head>
@@ -13,9 +20,9 @@
 
 <Desktop />
 
-<Window name="imre.al" slot={Emacs} />
+<WindowComp name="imre.al" slot={Emacs} />
 
-<Window 
+<WindowComp 
     name="terminal"
     options={{
         type: "terminal",

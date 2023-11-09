@@ -42,6 +42,7 @@ export class Window {
 
     static windowStore = writable<Window[]>([]);
     static focusList: number[] = [];
+    static isMobile = false;
 
     constructor(name: string, component: any, options?: Partial<Options>, position?: Partial<Position>) {
         this.options = new Options();
@@ -81,7 +82,7 @@ export class Window {
         this.options.maximised = !this.options.maximised;
     }
 
-    taskbarClk(): void {
+    taskbarClk(): void { 
         !this.options.focused && !this.options.minimised
             ? this.getFocus()
             : this.toggleMinimise();
@@ -93,10 +94,10 @@ export class Window {
 
         this.options.focused = true;
 
-        // focus element (after 100 seconds to account for opening windows)
-        setTimeout(() => {
-            this.options.focusEle?.focus();
-        }, 100)
+        if (!Window.isMobile) {
+            // focus element (after 100ms to account for opening windows)
+            setTimeout(() => this.options.focusEle?.focus(), 100);
+        }
 
         // update focusList
         const index = Window.focusList.indexOf(this.id);

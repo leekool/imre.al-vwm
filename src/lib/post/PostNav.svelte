@@ -6,7 +6,7 @@
 
     let findText: string = "Find file: ";
     let inputEl: HTMLSpanElement;
-    let filteredPosts: any = [];
+    let filteredPosts: Post[] = [];
 
     $: postCount = (Post.selectedPost ? (Post.selectedPost?.index! + 1) : "*") + "/" + $postStore.length;
 
@@ -35,19 +35,33 @@
         document.getSelection()?.collapseToEnd();
     }
 
+    const onEnter = () => {
+        // prevent contenteditable adding <div> on chrome
+        document.execCommand("insertLineBreak");
+        event?.preventDefault();
+
+        // remove <br> created by contenteditable
+        inputEl.children[0].remove();
+        inputEl.children[inputEl.children.length - 1].remove();
+
+        // select post
+        if (filteredPosts.length > 0) {
+            const post = $postStore.find((post) => post.meta.title === filteredPosts[0].meta.title)!;
+            togglePost(post);
+        } else {
+            togglePost($postStore[0]);
+        }
+
+        $postStore = $postStore;
+    }
+
     const handleKey = (event: KeyboardEvent) => {
-        // if (!inputEl.textContent || event.code !== "Enter") return;
-        if (!inputEl.textContent) return;
+        if (event.code === "Enter") return onEnter();
+        if (!inputEl.textContent) return filteredPosts = [];
 
         const input = inputEl.textContent;
 
         filteredPosts = $postStore.filter((post) => (post.path.replace("/post/", "") + ".md").toLowerCase().match(input));
-
-        console.log(filteredPosts)
-    }
-
-    const handleInput = () => {
-
     }
 
     onMount(() => {
@@ -81,44 +95,80 @@
                 on:keydown={onKeyDown}
                 on:keyup={handleKey}
             >
-                <!-- ~/imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""} -->
             </span>
             <span class="caret" />
+            <!-- <span class:caret={document ? document.activeElement === inputEl : false} /> -->
         </div>
     
-        {#each $postStore as post, i}
-            <div 
-                class="post-row"
-                class:selected={Post.selectedPost?.index === i}
-                on:click={() => {
-                    togglePost(post);
-                    $postStore = $postStore;
-                }}
-            >
-                <Link to={post.path}>
-                    <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
-                    <span class="post-perms">
-                        <span style="color: #7d9db7;">d</span>
-                        <span style="color: #f0c674;">r</span>
-                        <span style="color: #cc6666;">w</span>
-                        <span style="color: #a5ad60;">x</span>
-                        <span style="color: #f0c674;">r</span>
-                        <span style="color: #5c5e5e;">-</span>
-                        <span style="color: #a5ad60;">x</span>
-                        <span style="color: #f0c674;">r</span>
-                        <span style="color: #5c5e5e;">-</span>
-                        <span style="color: #a5ad60;">x</span>
-                    </span>
+        {#if filteredPosts.length > 0}
+            {#each filteredPosts as post}
+                <div 
+                    class="post-row"
+                    class:selected={Post.selectedPost?.index === post.index}
+                    on:click={() => {
+                        togglePost(post);
+                        $postStore = $postStore;
+                    }}
+                >
+                    <Link to={post.path}>
+                        <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
+                        <span class="post-perms">
+                            <span style="color: #7d9db7;">d</span>
+                            <span style="color: #f0c674;">r</span>
+                            <span style="color: #cc6666;">w</span>
+                            <span style="color: #a5ad60;">x</span>
+                            <span style="color: #f0c674;">r</span>
+                            <span style="color: #5c5e5e;">-</span>
+                            <span style="color: #a5ad60;">x</span>
+                            <span style="color: #f0c674;">r</span>
+                            <span style="color: #5c5e5e;">-</span>
+                            <span style="color: #a5ad60;">x</span>
+                        </span>
     
-                    <span class="post-cat">
-                        <!-- <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link> -->
-                        {post.meta.category}
-                    </span>
+                        <span class="post-cat">
+                            <!-- <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link> -->
+                            {post.meta.category}
+                        </span>
     
-                    <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
-                </Link>
-            </div>
-        {/each}
+                        <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
+                    </Link>
+                </div>
+            {/each}
+        {:else}
+            {#each $postStore as post}
+                <div 
+                    class="post-row"
+                    class:selected={Post.selectedPost?.index === post.index}
+                    on:click={() => {
+                        togglePost(post);
+                        $postStore = $postStore;
+                    }}
+                >
+                    <Link to={post.path}>
+                        <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
+                        <span class="post-perms">
+                            <span style="color: #7d9db7;">d</span>
+                            <span style="color: #f0c674;">r</span>
+                            <span style="color: #cc6666;">w</span>
+                            <span style="color: #a5ad60;">x</span>
+                            <span style="color: #f0c674;">r</span>
+                            <span style="color: #5c5e5e;">-</span>
+                            <span style="color: #a5ad60;">x</span>
+                            <span style="color: #f0c674;">r</span>
+                            <span style="color: #5c5e5e;">-</span>
+                            <span style="color: #a5ad60;">x</span>
+                        </span>
+    
+                        <span class="post-cat">
+                            <!-- <Link to="/post/cat/{post.meta.category}">{post.meta.category}</Link> -->
+                            {post.meta.category}
+                        </span>
+    
+                        <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
+                    </Link>
+                </div>
+            {/each}
+        {/if}
     </Router>
 </div>
 
