@@ -56,12 +56,16 @@
         document.execCommand("selectAll", false);
         document.getSelection()?.collapseToEnd();
 
+        console.log(inputEl.textContent, event.code)
+
         if (event.code === "Enter") return onEnter();
         if (!inputEl.textContent) return filteredPosts = [];
 
         const input = inputEl.textContent;
 
         filteredPosts = $postStore.filter((post) => (post.path.replace("/post/", "") + ".md").toLowerCase().match(input));
+
+        console.log(filteredPosts)
     }
 
     // $: globalDocument, console.log(globalDocument?.activeElement)
@@ -95,7 +99,7 @@
                 spellcheck="false"
                 tabindex="0"
                 contenteditable="true"
-                on:keydown={handleKey}
+                on:keyup={handleKey}
             >
             </span>
             <span class="caret" />
