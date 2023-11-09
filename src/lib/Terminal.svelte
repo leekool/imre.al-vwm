@@ -208,6 +208,7 @@
                 bind:this={input}
                 class="input command"
                 role="textbox"
+                spellcheck="false"
                 tabindex="0"
                 contenteditable="true"
                 on:keydown={onKeyDown}

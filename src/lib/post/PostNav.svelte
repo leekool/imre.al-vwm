@@ -29,12 +29,6 @@
         Post.selectedPost = post;
     };
 
-    const onKeyDown = () => {
-        // move cursor to end
-        document.execCommand("selectAll", false);
-        document.getSelection()?.collapseToEnd();
-    }
-
     const onEnter = () => {
         // prevent contenteditable adding <div> on chrome
         document.execCommand("insertLineBreak");
@@ -48,14 +42,20 @@
         if (filteredPosts.length > 0) {
             const post = $postStore.find((post) => post.meta.title === filteredPosts[0].meta.title)!;
             togglePost(post);
+            inputEl.textContent = post.path.replace("/post/", "") + ".md";
         } else {
             togglePost($postStore[0]);
+            inputEl.textContent = $postStore[0].path.replace("/post/", "") + ".md";
         }
 
         $postStore = $postStore;
     }
 
     const handleKey = (event: KeyboardEvent) => {
+        // move cursor to end
+        document.execCommand("selectAll", false);
+        document.getSelection()?.collapseToEnd();
+
         if (event.code === "Enter") return onEnter();
         if (!inputEl.textContent) return filteredPosts = [];
 
@@ -63,6 +63,8 @@
 
         filteredPosts = $postStore.filter((post) => (post.path.replace("/post/", "") + ".md").toLowerCase().match(input));
     }
+
+    // $: globalDocument, console.log(globalDocument?.activeElement)
 
     onMount(() => {
         if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
@@ -90,14 +92,13 @@
                 class="find-path"
                 bind:this={inputEl}
                 role="textbox"
+                spellcheck="false"
                 tabindex="0"
                 contenteditable="true"
-                on:keydown={onKeyDown}
-                on:keyup={handleKey}
+                on:keydown={handleKey}
             >
             </span>
             <span class="caret" />
-            <!-- <span class:caret={document ? document.activeElement === inputEl : false} /> -->
         </div>
     
         <div class="post-row-container">
@@ -238,6 +239,7 @@
         align-items: center;
         overflow: hidden;
         height: 22px;
+        max-height: 22px;
         padding: 0 6px;
         color: #81a2be;
         white-space: nowrap;
