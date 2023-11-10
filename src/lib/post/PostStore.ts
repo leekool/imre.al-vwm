@@ -11,7 +11,7 @@ export class Post {
     index: number;
 
     static store = writable<Post[]>([]);
-    static selectedPost: Post | null = null;
+    static selectedPost: Post | null;
 
     constructor(post: any) {
         this.meta = post.meta;
@@ -25,6 +25,8 @@ export class Post {
         });
 
         this.index = get(Post.store).indexOf(this);
+
+        Post.selectedPost = get(Post.store)[0];
     }
 }
 

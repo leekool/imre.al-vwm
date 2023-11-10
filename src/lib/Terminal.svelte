@@ -105,7 +105,7 @@
         event?.preventDefault();
 
         // remove <br> created by contenteditable
-        if (input.children[input.children.length - 1].tagName === "BR") input.children[input.children.length - 1].remove();
+        while (input.children.length) input.children[0].remove();
 
         if (!input.textContent) return;
 

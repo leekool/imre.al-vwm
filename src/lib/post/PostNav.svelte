@@ -3,7 +3,6 @@
     import { Router, Link } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
     import { windowStore } from "$lib/window/WindowStore";
-    import { goto } from "$app/navigation";
 
     let findText: string = "Find file: ";
     let inputEl: HTMLSpanElement;
@@ -71,10 +70,10 @@
     onMount(() => {
         if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
 
-        inputEl.focus();
-
         const emacs = $windowStore.find(window => window.options.type === "emacs");
         if (emacs) emacs.options.focusEle = inputEl;
+
+        inputEl.focus();
     });
 </script>
 
@@ -179,11 +178,11 @@
 
 <style>
     .main {
-        background-color: #1d1f21;
+        background-color: #161719;
     }
 
     .selected {
-        background-color: #333537;
+        background-color: #1d1f20;
     }
 
     .post-row-container {
