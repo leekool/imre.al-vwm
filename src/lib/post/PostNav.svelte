@@ -26,6 +26,7 @@
         const postIndex = $postStore.indexOf(post);
         if (Post.selectedPost?.index === postIndex) return Post.selectedPost = null;
 
+        inputEl.textContent = post.path.replace("/post/", "") + ".md";
         Post.selectedPost = post;
     };
 
@@ -35,17 +36,14 @@
         event?.preventDefault();
 
         // remove <br> created by contenteditable
-        inputEl.children[0].remove();
-        inputEl.children[inputEl.children.length - 1].remove();
+        while (inputEl.children.length) inputEl.children[0].remove();
 
         // select post
         if (filteredPosts.length > 0) {
             const post = $postStore.find((post) => post.meta.title === filteredPosts[0].meta.title)!;
             togglePost(post);
-            inputEl.textContent = post.path.replace("/post/", "") + ".md";
         } else {
             togglePost($postStore[0]);
-            inputEl.textContent = $postStore[0].path.replace("/post/", "") + ".md";
         }
 
         $postStore = $postStore;
@@ -56,7 +54,7 @@
         document.execCommand("selectAll", false);
         document.getSelection()?.collapseToEnd();
 
-        console.log(inputEl.textContent, event.code)
+        console.log(event.key)
 
         if (event.key === "Enter") return onEnter();
         if (!inputEl.textContent) return filteredPosts = [];
@@ -64,11 +62,7 @@
         const input = inputEl.textContent;
 
         filteredPosts = $postStore.filter((post) => (post.path.replace("/post/", "") + ".md").toLowerCase().match(input));
-
-        console.log(filteredPosts)
     }
-
-    // $: globalDocument, console.log(globalDocument?.activeElement)
 
     onMount(() => {
         if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
@@ -81,12 +75,12 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div 
-    class="main"
-    on:click={() => inputEl.focus()}
->
+<div class="main">
     <Router>
-        <div class="find-bar">
+        <div 
+            class="find-bar"
+            on:click={() => inputEl.focus()}
+        >
             <span class="post-count">{postCount}</span>
             <span style="margin-left: 20px; margin-right: 6px;">
                 {findText}
