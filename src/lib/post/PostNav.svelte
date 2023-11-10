@@ -58,7 +58,7 @@
 
         console.log(inputEl.textContent, event.code)
 
-        if (event.code === "Enter") return onEnter();
+        if (event.key === "Enter") return onEnter();
         if (!inputEl.textContent) return filteredPosts = [];
 
         const input = inputEl.textContent;
