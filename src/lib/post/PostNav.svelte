@@ -3,6 +3,7 @@
     import { Router, Link } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
     import { windowStore } from "$lib/window/WindowStore";
+    import { goto } from "$app/navigation";
 
     let findText: string = "Find file: ";
     let inputEl: HTMLSpanElement;
@@ -24,9 +25,14 @@
 
     const togglePost = (post: Post)  => {
         const postIndex = $postStore.indexOf(post);
-        if (Post.selectedPost?.index === postIndex) return Post.selectedPost = null;
+
+        if (Post.selectedPost?.index === postIndex) {
+            window.history.replaceState(history.state, "", "/");
+            return Post.selectedPost = null;
+        }
 
         inputEl.textContent = post.path.replace("/post/", "") + ".md";
+        window.history.replaceState(history.state, "", post.path);
         Post.selectedPost = post;
     };
 
@@ -53,8 +59,6 @@
         // move cursor to end
         document.execCommand("selectAll", false);
         document.getSelection()?.collapseToEnd();
-
-        console.log(event.key)
 
         if (event.key === "Enter") return onEnter();
         if (!inputEl.textContent) return filteredPosts = [];
