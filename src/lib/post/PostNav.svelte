@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { Router, Link } from "svelte-routing";
     import { Post, postStore } from "./PostStore";
     import { windowStore } from "$lib/window/WindowStore";
+    // import { Router, Link } from "svelte-routing";
 
     let findText: string = "Find file: ";
     let inputEl: HTMLSpanElement;
@@ -30,7 +30,7 @@
             return Post.selectedPost = null;
         }
 
-        inputEl.textContent = post.path.replace("/post/", "") + ".md";
+        inputEl.textContent = post.file;
         window.history.replaceState(history.state, "", post.path);
         Post.selectedPost = post;
     };
@@ -43,14 +43,9 @@
         // remove <br> created by contenteditable
         while (inputEl.children.length) inputEl.children[0].remove();
 
-        // select post
-        if (filteredPosts.length > 0) {
-            const post = $postStore.find((post) => post.meta.title === filteredPosts[0].meta.title)!;
-            togglePost(post);
-        } else {
-            togglePost($postStore[0]);
-        }
+        const post = $postStore.find((post) => post.meta.title === filteredPosts[0].meta.title) || $postStore[0];
 
+        togglePost(post);
         $postStore = $postStore;
     }
 
@@ -64,7 +59,7 @@
 
         const input = inputEl.textContent;
 
-        filteredPosts = $postStore.filter((post) => (post.path.replace("/post/", "") + ".md").toLowerCase().match(input));
+        filteredPosts = $postStore.filter((post) => post.file.toLowerCase().match(input));
     }
 
     onMount(() => {
@@ -79,7 +74,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="main">
-    <Router>
+    <!-- <Router> -->
         <div 
             class="find-bar"
             on:click={() => inputEl.focus()}
@@ -113,8 +108,8 @@
                             $postStore = $postStore;
                         }}
                     >
-                        <Link to={post.path}>
-                            <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
+                        <!-- <Link to={post.path}> -->
+                            <span class="post-title">{post.file}</span>
                             <span class="post-perms">
                                 <span style="color: #7d9db7;">d</span>
                                 <span style="color: #f0c674;">r</span>
@@ -134,7 +129,7 @@
                             </span>
     
                             <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
-                        </Link>
+                        <!-- </Link> -->
                     </div>
                 {/each}
             {:else}
@@ -147,8 +142,8 @@
                             $postStore = $postStore;
                         }}
                     >
-                        <Link to={post.path}>
-                            <span class="post-title">{post.path.replace("/post/", "") + ".md"}</span>
+                        <!-- <Link to={post.path}> -->
+                            <span class="post-title">{post.file}</span>
                             <span class="post-perms">
                                 <span style="color: #7d9db7;">d</span>
                                 <span style="color: #f0c674;">r</span>
@@ -168,12 +163,12 @@
                             </span>
     
                             <span><time class="post-date" datetime={post.meta.date}>{formatDate(post.meta.date)}</time></span>
-                        </Link>
+                        <!-- </Link> -->
                     </div>
                 {/each}
             {/if}
         </div>
-    </Router>
+    <!-- </Router> -->
 </div>
 
 <style>
@@ -194,11 +189,14 @@
     .post-row {
         display: flex;
         width: 100%;
+        max-width: calc(100% - 12px);
         height: 22px;
+        padding: 0 6px;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
         white-space: nowrap;
+        user-select: none;
     }
 
     .post-row :global(a) {

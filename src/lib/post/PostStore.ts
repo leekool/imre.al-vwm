@@ -8,6 +8,7 @@ export class Post {
     };
     content: any;
     path: string;
+    file: string;
     index: number;
 
     static store = writable<Post[]>([]);
@@ -17,6 +18,7 @@ export class Post {
         this.meta = post.meta;
         this.content = post.content ?? null;
         this.path = post.path;
+        this.file = post.path.replace("/post/", "") + ".md";
 
         Post.store.update((store) => {
             // assuming no posts have the same title

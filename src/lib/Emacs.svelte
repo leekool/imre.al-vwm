@@ -32,7 +32,7 @@
         <span class="file-size" />
         <span class="footer-text">
             <span style="color: #acbc68; margin-left: 9px;">
-                imre.al/{Post.selectedPost ? Post.selectedPost?.path.replace("/post/", "") + ".md" : ""}
+                imre.al/{Post.selectedPost?.file ?? ""}
             </span>
             <!-- <span class="word-count"> -->
                 <!-- {lineCount()[lineCount().length - 1]}:{wordCount()} -->
