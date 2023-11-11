@@ -33,7 +33,10 @@
         </div>
     </div>
 
-    <div class="footer">
+    <div 
+        class="footer"
+        on:click={() => toggleNav()}
+    >
         <span class="circle" />
         <span class="file-size" />
         <span class="footer-text">
@@ -48,7 +51,6 @@
             class="folder"
             class:ri-folder-open={navVisible}
             class:ri-folder={!navVisible}
-            on:click={() => toggleNav()}
         />
     </div>
 
@@ -158,7 +160,9 @@
         margin-left: 10px;
     }
 
-    p {
-        margin: 0;
-    }
+    /* @media screen and (max-width: 700px) { */
+    /*     .footer-text { */
+    /*         padding-top: 1px; */
+    /*     } */
+    /* } */
 </style>
