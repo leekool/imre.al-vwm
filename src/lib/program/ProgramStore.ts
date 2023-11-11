@@ -30,8 +30,7 @@ export class Program {
         this.position = new Position(position?.topPercent || 50, position?.leftPercent || 50);
 
         Program.store.update((store) => {
-            const programExists = store.some(item => item.name === this.name);
-            return programExists ? store : [...store, this];
+            return [...store, this].sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
         });
     }
 }

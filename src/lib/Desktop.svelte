@@ -3,21 +3,23 @@
     import { windowStore, Window } from "$lib/window/WindowStore";
     import { assets } from "$app/paths";
     import _ from "lodash";
+    import { Program, programStore } from "./program/ProgramStore";
 
     import WindowComponent from "$lib/window/Window.svelte";
     import Emacs from "$lib/Emacs.svelte";
     import Terminal from "$lib/Terminal.svelte";
 
-    export let desktopIcons = $windowStore;
+    // export let desktopIcons = $windowStore;
+    export let desktopIcons = $programStore;
 
-    const toggleHighlight = (w: Window) => {
+    const toggleHighlight = (w: Program) => {
         w.options.highlight = !w.options.highlight;
         desktopIcons = desktopIcons; // trigger change detection
         $windowStore = $windowStore;
     }
 
     const clearHighlight = () => {
-        desktopIcons.forEach((w: Window) => {
+        $programStore.forEach((w: Program) => {
             w.options.highlight = false;
         });
 
@@ -26,7 +28,7 @@
 
     let clickCount = 0;
 
-    const handleClick = (w: Window) => {
+    const handleClick = (w: Program) => {
         let clickTimer: ReturnType<typeof setTimeout>;
 
         toggleHighlight(w);
@@ -48,41 +50,46 @@
         }
     }
 
-    const updateIcons = (): void => {
-        const updatedIcons: Window[] = desktopIcons.map(icon => {
-            const match = $windowStore.find(window => window.name === icon.name);
+    // const updateIcons = (): void => {
+    //     const updatedIcons: Window[] = desktopIcons.map(icon => {
+    //         const match = $windowStore.find(window => window.name === icon.name);
+    //
+    //         return match ? ({ ...icon, ...match } as Window) : icon;
+    //     });
+    //
+    //     updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
+    //
+    //     desktopIcons = updatedIcons;
+    // }
 
-            return match ? ({ ...icon, ...match } as Window) : icon;
-        });
-
-        updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
-
-        desktopIcons = updatedIcons;
-    }
-
-    const openWindow = (w: Window) => {
-        updateIcons();
+    const openWindow = (w: Program) => {
+        // updateIcons();
 
         // find the highest level div ("contents") and create a child div as the target
         const contentDiv = document.querySelector("div[style='display: contents']")!;
         const target = document.createElement("div"); 
         contentDiv.appendChild(target);
 
-        const getSlot = (type: string) => {
-            switch (type) {
-                case "emacs": return Emacs;
-                case "terminal": return Terminal
-            }
-        }
+        // const getSlot = (type: string) => {
+        //     switch (type) {
+        //         case "emacs": return Emacs;
+        //         case "terminal": return Terminal
+        //     }
+        // }
+
+        // new WindowComponent({
+        //     target,
+        //     props: { name: w.name, options: w.options, position: w.position, slot: getSlot(w.options.type) }
+        // });
 
         new WindowComponent({
             target,
-            props: { name: w.name, options: w.options, position: w.position, slot: getSlot(w.options.type) }
+            props: w
         });
     }
 
     onMount(() => {
-        desktopIcons = $windowStore;
+        desktopIcons = $programStore;
     });
 </script>
 
@@ -97,19 +104,19 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="desktop" on:click={() => clearHighlight()}>
     <div class="icon-container" on:click|stopPropagation>
-        {#each desktopIcons as window}
+        {#each desktopIcons as icon}
             <div
                 class="desktop-icon"
-                on:click|stopPropagation={() => handleClick(window)}
+                on:click|stopPropagation={() => handleClick(icon)}
             >
-            {#if !window.options.highlight}
-                <img src={`${assets}/images/icons/${window.name}-icon-desktop.png`} alt={window.name} />
+            {#if !icon.options.highlight}
+                <img src={`${assets}/images/icons/${icon.name}-icon-desktop.png`} alt={icon.name} />
             {/if}
-            {#if window.options.highlight}
-                <img src={`${assets}/images/icons/${window.name}-icon-desktop-highlight.png`} alt={window.name} />
+            {#if icon.options.highlight}
+                <img src={`${assets}/images/icons/${icon.name}-icon-desktop-highlight.png`} alt={icon.name} />
             {/if}
-                <span class:desktop-icon-highlight={window.options.highlight}>
-                    {window.name}
+                <span class:desktop-icon-highlight={icon.options.highlight}>
+                    {icon.name}
                 </span>
             </div>
         {/each}
