@@ -90,6 +90,10 @@
         cursor: pointer;
     }
 
+    .folder:hover {
+        color: #a7b83d;
+    }
+
     .lines {
         width: 25px;
         height: 100%;
