@@ -1,10 +1,11 @@
 @font-face {
   font-family: 'real-icons';
-  src:  url('fonts/real-icons.eot?n10bkq');
-  src:  url('fonts/real-icons.eot?n10bkq#iefix') format('embedded-opentype'),
-    url('fonts/real-icons.ttf?n10bkq') format('truetype'),
-    url('fonts/real-icons.woff?n10bkq') format('woff'),
-    url('fonts/real-icons.svg?n10bkq#real-icons') format('svg');
+  src:  url('/fonts/real-icons.eot?n10bkq');
+  src:  
+    url('/fonts/real-icons.eot?n10bkq#iefix') format('embedded-opentype'),
+    url('/fonts/real-icons.ttf?n10bkq') format('truetype'),
+    url('/fonts/real-icons.woff?n10bkq') format('woff'),
+    url('/fonts/real-icons.svg?n10bkq#real-icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
