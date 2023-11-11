@@ -16,10 +16,16 @@
     //     const wordCount = content.match(/\n| /g);
     //     return wordCount ? wordCount.length : 1;
     // };
+    let navVisible = true;
+
+    const toggleNav = () => {
+        navVisible = !navVisible;
+    }
 
     $: $postStore, Post.selectedPost = Post.selectedPost;
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="main">
     <div class="body">
         <div class="content">
@@ -38,13 +44,23 @@
                 <!-- {lineCount()[lineCount().length - 1]}:{wordCount()} -->
             <!-- </span> -->
         </span>
+        <span 
+            class="folder"
+            class:ri-folder-open={navVisible}
+            class:ri-folder={!navVisible}
+            on:click={() => toggleNav()}
+        />
     </div>
 
-    <PostNav />
+    {#if navVisible}
+        <PostNav />
+    {/if}
 
 </div>
 
 <style>
+    @import url("/fonts/real-icons.css");
+
     .main {
         display: flex;
         flex: 1 1 auto;
@@ -62,6 +78,16 @@
         background-color: #1d1f21;
         -ms-overflow-style: none; /* ie & edge */
         scrollbar-width: none; /* firefox */
+    }
+
+    .folder {
+        display: flex;
+        position: absolute;
+        right: 0;
+        padding: 4px 4px 7px 4px;
+        font-size: 0.8rem;
+        color: #93a643;
+        cursor: pointer;
     }
 
     .lines {
