@@ -17,8 +17,8 @@ export class Post {
     constructor(post: any) {
         this.meta = post.meta;
         this.content = post.content ?? null;
-        this.path = post.path;
-        this.file = post.path.replace("/post/", "") + ".md";
+        this.path = post.path.replace(/^\.\/|\/post\//g, '');
+        this.file = this.path + ".md"; // probably redundant
 
         Post.store.update((store) => {
             // assuming no posts have the same title

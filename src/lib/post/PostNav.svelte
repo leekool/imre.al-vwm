@@ -31,7 +31,8 @@
         }
 
         changeTextContent(post.file);
-        window.history.replaceState(history.state, "", post.path);
+        window.history.replaceState(history.state, "", "/");
+        window.history.replaceState(history.state, "", `post/${post.path}`);
         Post.selectedPost = post;
     };
 

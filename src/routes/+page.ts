@@ -1,5 +1,4 @@
 import { Post } from "$lib/post/PostStore";
-// import { promises as fsPromises } from "fs";
 
 export const prerender = true;
 
@@ -10,9 +9,6 @@ const fetchPosts = async () => {
     const allPosts = await Promise.all(
         iterablePostFiles.map(async ([path, resolver]) => {
             const data: any = await resolver();
-
-            // const absPath = new URL(path, import.meta.url).pathname;
-            // const stats: any = await fsPromises.stat(absPath);
 
             return {
                 meta: data.metadata,
