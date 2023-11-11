@@ -1,4 +1,5 @@
 import { Post } from "$lib/post/PostStore";
+import { redirect } from "@sveltejs/kit";
 
 export const prerender = true;
 
@@ -26,7 +27,10 @@ const fetchPosts = async () => {
 };
 
 export async function load() {
-    const posts = await fetchPosts();
-
-    posts.forEach(post => new Post(post));
+    try {
+        const posts = await fetchPosts();
+        posts.forEach(post => new Post(post));
+    } catch {
+        throw redirect(307, "/");
+    }
 }

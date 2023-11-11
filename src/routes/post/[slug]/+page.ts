@@ -1,24 +1,10 @@
 import { Post } from "$lib/post/PostStore";
 import { redirect } from "@sveltejs/kit";
 
-// export async function load({ params }: any) {
-//     try {
-//         const post = await import(`../${params.slug}.md`);
-//         const title = post.metadata?.title ?? "";
-//         const date = post.metadata?.date ?? "";
-//         const content = post.default ?? "";
-//         const category = post.metadata?.category ?? "";
-//
-//         return { content, title, date, category };
-//     } catch (e) {
-//         throw redirect(307, "/");
-//     }
-// }
-
 export const prerender = true;
 
 const fetchPosts = async () => {
-    const allPostFiles = import.meta.glob("../../post/*.md");
+    const allPostFiles = import.meta.glob("../*.md");
     const iterablePostFiles = Object.entries(allPostFiles);
 
     const allPosts = await Promise.all(
@@ -28,7 +14,7 @@ const fetchPosts = async () => {
             return {
                 meta: data.metadata,
                 content: data.default,
-                path: path.replace(".", "").replace(".md", ""),
+                path: path.replace("../", "").replace(".md", "")
             };
         })
     );
@@ -44,12 +30,15 @@ export async function entries() {
     const posts = await fetchPosts();
 
     return posts.map(post => {
-        return { slug: post.meta.path + ".md" };
+        return { slug: post.path };
     });
 }
 
 export async function load() {
-    const posts = await fetchPosts();
-
-    posts.forEach(post => new Post(post));
+    try {
+        const posts = await fetchPosts();
+        posts.forEach(post => new Post(post));
+    } catch {
+        throw redirect(307, "/");
+    }
 }

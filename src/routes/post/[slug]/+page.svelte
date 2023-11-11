@@ -10,6 +10,8 @@
     import Taskbar from "$lib/Taskbar.svelte";
     import Emacs from "$lib/Emacs.svelte";
 
+    export let data;
+
     onMount(() => {
         Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
 
