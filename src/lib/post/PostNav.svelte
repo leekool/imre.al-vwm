@@ -78,7 +78,7 @@
         const emacs = $windowStore.find(window => window.options.type === "emacs");
         if (emacs) emacs.options.focusEle = inputEl;
 
-        inputEl.focus();
+        if (!Window.isMobile) inputEl.focus();
     });
 </script>
 

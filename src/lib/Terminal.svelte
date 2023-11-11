@@ -148,7 +148,7 @@
     };
 
     onMount(() => {
-        input.focus();
+        if (!Window.isMobile) input.focus();
 
         for (let window of $windowStore) {
             if (window.options.type === "terminal") {
