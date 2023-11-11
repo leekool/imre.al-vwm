@@ -285,4 +285,10 @@
     :global(a):visited {
         color: #db538e;
     }
+
+    @media screen and (max-width: 700px) {
+        .post-cat {
+            display: none;
+        }
+    }
 </style>
