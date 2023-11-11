@@ -20,21 +20,27 @@
 
 <Desktop />
 
-<WindowComp name="imre.al" slot={Emacs} />
-
 <WindowComp 
-    name="terminal"
+    name="imre.al" 
+    slot={Emacs} 
     options={{
-        type: "terminal",
-        minimised: true,
-        focused: false
+        maximised: true
     }}
-    position={{
-        topPercent: 50,
-        leftPercent: 60
-    }}
-    slot={Terminal}
 />
+
+<!-- <WindowComp  -->
+<!--     name="terminal" -->
+<!--     options={{ -->
+<!--         type: "terminal", -->
+<!--         minimised: true, -->
+<!--         focused: false -->
+<!--     }} -->
+<!--     position={{ -->
+<!--         topPercent: 50, -->
+<!--         leftPercent: 60 -->
+<!--     }} -->
+<!--     slot={Terminal} -->
+<!-- /> -->
 
 <Taskbar />
 
