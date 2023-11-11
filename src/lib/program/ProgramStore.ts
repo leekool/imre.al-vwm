@@ -1,21 +1,33 @@
 import { writable, get } from "svelte/store";
-import { Options } from "$lib/window/WindowStore";
+import { Options, Position } from "$lib/window/WindowStore";
 
 import Terminal from "$lib/Terminal.svelte";
+import Emacs from "$lib/Emacs.svelte";
+
+interface ProgramOptions {
+    name: string,
+    slot: any,
+    options?: Partial<Options>,
+    position?: Partial<Position>
+}
 
 export class Program {
     name: string;
-    component: any;
+    slot: any;
     options: Options;
+    position: Position;
 
     static store = writable<Program[]>([]);
 
-    constructor(name: string, component: any, options?: Partial<Options>) {
+    // constructor(name: string, component: any, options?: Partial<Options>) {
+    constructor({ name, slot, options, position }: ProgramOptions) {
         this.options = new Options();
         Object.assign(this.options, options);
 
-        this.component = component;
+        this.slot = slot;
         this.name = name;
+
+        this.position = new Position(position?.topPercent || 50, position?.leftPercent || 50);
 
         Program.store.update((store) => {
             const programExists = store.some(item => item.name === this.name);
@@ -24,11 +36,24 @@ export class Program {
     }
 }
 
-const terminal = {
+const terminal = new Program({
+    name: "terminal",
+    slot: Terminal,
     options: {
-        type: "terminal",
-        minimised: true,
-        focused: false
+        type: "terminal"
     },
-    component: Terminal
-}
+    position: {
+        topPercent: 50,
+        leftPercent: 60
+    }
+});
+
+const emacs = new Program({
+    name: "imre.al",
+    slot: Emacs,
+    options: {
+        type: "emacs"
+    }
+});
+
+export const programStore = Program.store; 
