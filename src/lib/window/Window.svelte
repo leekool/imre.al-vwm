@@ -259,4 +259,11 @@
         width: 100%;
         height: 34px;
     }
+
+    @media screen and (max-width: 700px) {
+        .window-emacs {
+            -ms-transform: translate(-50%, -52.5%);
+            transform: translate(-50%, -52.5%);
+        }
+    }
 </style>
