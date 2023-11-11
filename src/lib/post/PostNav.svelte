@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { Post, postStore } from "./PostStore";
-    import { windowStore } from "$lib/window/WindowStore";
+    import { Window, windowStore } from "$lib/window/WindowStore";
     // import { Router, Link } from "svelte-routing";
 
     let findText: string = "Find file: ";
@@ -30,7 +30,7 @@
             return Post.selectedPost = null;
         }
 
-        inputEl.textContent = post.file;
+        changeTextContent(post.file);
         window.history.replaceState(history.state, "", post.path);
         Post.selectedPost = post;
     };
@@ -60,6 +60,16 @@
         const input = inputEl.textContent;
 
         filteredPosts = $postStore.filter((post) => post.file.toLowerCase().match(input));
+    }
+
+    // when changing textContent, need to move cursor to end on desktop
+    const changeTextContent = (text: string) => {
+        inputEl.textContent = text; 
+
+        if (!Window.isMobile) {
+            document.execCommand("selectAll", false);
+            document.getSelection()?.collapseToEnd();
+        }
     }
 
     onMount(() => {
