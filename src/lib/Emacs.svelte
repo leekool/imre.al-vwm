@@ -1,7 +1,7 @@
 <script lang="ts">
     import PostNav from "$lib/post/PostNav.svelte";
-    import PostContent from "./post/Post.svelte";
-    import { Post, postStore } from "./post/PostStore";
+    import PostContent from "$lib/post/Post.svelte";
+    import { Post, postStore } from "$lib/post/PostStore";
 
     // const lineCount = (): number[] => {
     //     const lineCount = content.match(/\n/g);

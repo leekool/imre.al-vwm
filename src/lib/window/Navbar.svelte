@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Window, windowStore } from "./WindowStore";
+    import { Window, windowStore } from "$lib/window/WindowStore";
 
     export let window_: Window;
 </script>

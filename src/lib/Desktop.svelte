@@ -1,12 +1,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { windowStore, Window } from "./window/WindowStore";
+    import { windowStore, Window } from "$lib/window/WindowStore";
     import { assets } from "$app/paths";
     import _ from "lodash";
 
-    import WindowComponent from "./window/Window.svelte";
-    import Emacs from "../lib/Emacs.svelte";
-    import Terminal from "../lib/Terminal.svelte";
+    import WindowComponent from "$lib/window/Window.svelte";
+    import Emacs from "$lib/Emacs.svelte";
+    import Terminal from "$lib/Terminal.svelte";
 
     export let desktopIcons = $windowStore;
 

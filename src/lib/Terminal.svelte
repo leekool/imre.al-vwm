@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
-    import { windowStore, Window } from "./window/WindowStore";
+    import { windowStore, Window } from "$lib/window/WindowStore";
     import _ from "lodash";
 
     let input: HTMLSpanElement;

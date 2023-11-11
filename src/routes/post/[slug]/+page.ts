@@ -1,5 +1,4 @@
 import { redirect } from "@sveltejs/kit";
-
 const fetchPosts = async () => {
     const allPostFiles = import.meta.glob("../*.md");
     const iterablePostFiles = Object.entries(allPostFiles);
@@ -7,9 +6,6 @@ const fetchPosts = async () => {
     const allPosts = await Promise.all(
         iterablePostFiles.map(async ([path, resolver]) => {
             const data: any = await resolver();
-
-            // const absPath = new URL(path, import.meta.url).pathname;
-            // const stats: any = await fsPromises.stat(absPath);
 
             return {
                 meta: data.metadata,
@@ -47,6 +43,3 @@ export async function entries() {
         return { slug: post.meta.path + ".md" };
     });
 }
-
-
-export const prerender = true;

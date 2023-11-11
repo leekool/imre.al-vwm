@@ -1,6 +1,6 @@
 <script lang="ts">
     import { assets } from "$app/paths";
-    import { windowStore } from "./window/WindowStore";
+    import { windowStore } from "$lib/window/WindowStore";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

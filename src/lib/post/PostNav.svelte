@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { Post, postStore } from "./PostStore";
+    import { Post, postStore } from "$lib/post/PostStore";
     import { Window, windowStore } from "$lib/window/WindowStore";
     // import { Router, Link } from "svelte-routing";
 

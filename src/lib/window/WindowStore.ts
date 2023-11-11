@@ -1,4 +1,5 @@
 import { writable, get } from "svelte/store";
+import type WindowComponent from "$lib/window/Window.svelte";
 import _ from "lodash";
 
 let count: number = 0;
@@ -44,7 +45,7 @@ export class Window {
     static focusList: number[] = [];
     static isMobile = false;
 
-    constructor(name: string, component: any, options?: Partial<Options>, position?: Partial<Position>) {
+    constructor(name: string, component: WindowComponent, options?: Partial<Options>, position?: Partial<Position>) {
         this.options = new Options();
         Object.assign(this.options, options);
 

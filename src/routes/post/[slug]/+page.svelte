@@ -66,8 +66,8 @@
     }
 
     .tags {
-        font-family: "Berkeley Mono", monospace;
-        font-size: 0.8rem;
+        /* font-family: "Berkeley Mono", monospace; */
+        /* font-size: 0.8rem; */
         color: #5c6166;
     }
 

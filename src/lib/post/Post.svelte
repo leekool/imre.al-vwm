@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Post, postStore } from "./PostStore";
+    import { Post, postStore } from "$lib/post/PostStore";
 
     $: $postStore, Post.selectedPost = Post.selectedPost;
 </script>
@@ -58,8 +58,8 @@
     }
 
     .tags {
-        font-family: "Berkeley Mono", monospace;
-        font-size: 0.8rem;
+        /* font-family: "Berkeley Mono", monospace; */
+        /* font-size: 0.8rem; */
         color: #5c6166;
     }
 
