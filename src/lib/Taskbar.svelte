@@ -105,7 +105,7 @@
 
     .inactive {
         color: #222020;
-        background-color: #cdc6b6;
+        background-color: transparent;
         background-image: none;
         box-shadow: none;
     }
