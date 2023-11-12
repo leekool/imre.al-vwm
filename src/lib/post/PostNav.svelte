@@ -72,11 +72,18 @@
         }
     }
 
+    // focus inputEl and move cursor to end
+    const focusInput = () => {
+        inputEl.focus();
+        document.execCommand("selectAll", false);
+        document.getSelection()?.collapseToEnd();
+    }
+
     onMount(() => {
         const emacs = $windowStore.find(window => window.options.type === "emacs");
         if (emacs) emacs.options.focusEle = inputEl;
 
-        if (!Window.isMobile) inputEl.focus();
+        if (!Window.isMobile) focusInput();
     });
 </script>
 
@@ -85,7 +92,7 @@
     <!-- <Router> -->
         <div 
             class="find-bar"
-            on:click={() => inputEl.focus()}
+            on:click={() => focusInput()}
         >
             <span class="post-count">{postCount}</span>
             <span style="margin-left: 20px; margin-right: 6px;">

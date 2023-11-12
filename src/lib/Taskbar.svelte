@@ -93,6 +93,7 @@
 
     .active {
         color: #fffefe;
+        background-color: #696c62;
         background-image: url("/images/iconman-tile.svg");
         background-size: 6%;
         box-shadow: -1px -1px #92998b inset, 1px 1px #5c6057 inset;
@@ -104,6 +105,7 @@
 
     .inactive {
         color: #222020;
+        background-color: #cdc6b6;
         background-image: none;
         box-shadow: none;
     }
