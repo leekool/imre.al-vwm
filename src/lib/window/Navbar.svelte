@@ -101,6 +101,7 @@
         justify-content: space-between;
         user-select: none;
         box-shadow: 0 -1px 0 0 #5c6057 inset;
+        background-color: #696c62;
         background-image: url("/images/navbar-tile.svg");
         background-repeat: repeat;
         padding-bottom: 1px;

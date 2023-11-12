@@ -51,6 +51,7 @@
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
         color: #222020;
+        background-color: #cdc6b6;
         background-image: url("/images/footer-tile.svg");
         background-repeat: repeat;
         border-top: 1px solid #222020;
