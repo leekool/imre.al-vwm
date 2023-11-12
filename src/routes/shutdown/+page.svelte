@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { windowStore } from "$lib/window/WindowStore";
     import { onMount } from "svelte";
 
     interface Command {
@@ -29,6 +30,7 @@
             return this.commandList;
         }
     }
+
     const commands: Command[] = [
         {pre: 'Stopped target', item: 'Remote File System'},
         {pre: 'Stopping', item: 'Network Manager', ok: false},
@@ -106,11 +108,11 @@
     };
 
     onMount(async () => {
+        $windowStore.forEach(w => w.kill()); // close all windows
+
         commandList = new CommandList();
         commandList.newCommand(commands);
         commandList = commandList.getCommands();
-
-        console.log(commandList);
 
         const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
