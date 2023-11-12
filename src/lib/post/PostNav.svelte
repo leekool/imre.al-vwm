@@ -268,6 +268,7 @@
         outline: none;
         caret-color: transparent;
         -webkit-line-clamp: 1;
+        max-height: 20px;
     }
 
     .caret {

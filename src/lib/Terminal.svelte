@@ -251,7 +251,7 @@
     .cli-line {
         display: flex;
         align-items: center;
-        width: 0px;
+        width: 0;
         min-width: 100%;
         font-size: 15px;
         white-space: nowrap;

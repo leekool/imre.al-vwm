@@ -73,7 +73,7 @@ export class Window {
 
         if (this.options.minimised) {
             const index = Window.focusList.indexOf(this.id);
-            Window.focusList.splice(index, 1);
+            Window.focusList.splice(index, 1); // remove from focusList
         }
 
         this.options.minimised ? this.dropFocus() : this.getFocus();

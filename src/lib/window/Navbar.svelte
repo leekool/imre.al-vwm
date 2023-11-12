@@ -10,7 +10,7 @@
 
     <div class="navbar-divider" style="width: 6px;" />
 
-    <!-- info button -->
+    <!-- info button (unused right now) -->
     {#if window_.options.navbar.info}
         <div class="navbar-btn-base">
             <div
