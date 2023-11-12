@@ -5,15 +5,19 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-{#await tick()}
-    <div class="taskbar">
-        <div class="iconman">
-            <div class="iconman-button active" />
-        </div>
-    </div>
-{:then}
-    <div class="taskbar">
-        <div class="iconman">
+<div class="taskbar">
+    <div class="iconman">
+        <!-- at the moment imre.al is always the default open window, this fills the $windowStore rendering gap -->
+        <!-- until i can figure out a quicker way to load it -->
+        {#await tick()}
+            <div class="iconman-button active">
+                <img
+                    src={`${assets}/images/icons/imre.al-icon-small.png`}
+                    alt="imre.al"
+                />
+                <span>imre.al</span>
+            </div>
+        {:then}
             {#each $windowStore as window}
                 <div
                     class="iconman-button active"
@@ -30,9 +34,9 @@
                     <span>{window.name}</span>
                 </div>
             {/each}
-        </div>
+        {/await}
     </div>
-{/await}
+</div>
 
 <style>
     .taskbar {
