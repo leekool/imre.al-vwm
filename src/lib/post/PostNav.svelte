@@ -4,7 +4,6 @@
     import { Window, windowStore } from "$lib/window/WindowStore";
     // import { Router, Link } from "svelte-routing";
 
-    let findText: string = "Find file: ";
     let inputEl: HTMLSpanElement;
     let filteredPosts: Post[] = [];
 
@@ -74,8 +73,6 @@
     }
 
     onMount(() => {
-        if (window.matchMedia("(max-width: 480px)").matches) findText = "Find: ";
-
         const emacs = $windowStore.find(window => window.options.type === "emacs");
         if (emacs) emacs.options.focusEle = inputEl;
 
@@ -92,7 +89,7 @@
         >
             <span class="post-count">{postCount}</span>
             <span style="margin-left: 20px; margin-right: 6px;">
-                {findText}
+                Find file:
             </span>
             <span style="color: #b0b2b1;">~/imre.al/</span>
             <span 

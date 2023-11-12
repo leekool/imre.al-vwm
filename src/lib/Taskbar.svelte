@@ -1,26 +1,38 @@
 <script lang="ts">
     import { assets } from "$app/paths";
     import { windowStore } from "$lib/window/WindowStore";
+    import { tick } from "svelte";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="taskbar">
-    <div class="iconman">
-        {#each $windowStore as window}
-            <div
-                class="iconman-button"
-                class:active={window.options.focused}
-                on:click={() => {
-                    window.taskbarClk();
-                    window = window; // tells svelte object changed
-                }}
-            >
-                <img src={`${assets}/images/icons/${window.name}-icon-small.png`} alt={window.name} />
-                <span>{window.name}</span>
-            </div>
-        {/each}
+{#await tick()}
+    <div class="taskbar">
+        <div class="iconman">
+            <div class="iconman-button active" />
+        </div>
     </div>
-</div>
+{:then}
+    <div class="taskbar">
+        <div class="iconman">
+            {#each $windowStore as window}
+                <div
+                    class="iconman-button active"
+                    class:inactive={!window.options.focused}
+                    on:click={() => {
+                        window.taskbarClk();
+                        window = window; // tells svelte object changed
+                    }}
+                >
+                    <img
+                        src={`${assets}/images/icons/${window.name}-icon-small.png`}
+                        alt={window.name}
+                    />
+                    <span>{window.name}</span>
+                </div>
+            {/each}
+        </div>
+    </div>
+{/await}
 
 <style>
     .taskbar {
@@ -74,12 +86,6 @@
         image-rendering: pixelated;
     }
 
-    /* .inactive { */
-    /*     color: #000; */
-    /*     background-image: none; */
-    /*     box-shadow: none; */
-    /* } */
-
     .active {
         color: #fffefe;
         background-image: url("/images/iconman-tile.svg");
@@ -89,6 +95,12 @@
 
     .active:hover {
         text-shadow: 1px 0 #f6f6f6;
+    }
+
+    .inactive {
+        color: #222020;
+        background-image: none;
+        box-shadow: none;
     }
 
     @media screen and (max-width: 700px) {

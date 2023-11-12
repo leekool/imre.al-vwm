@@ -16,6 +16,7 @@
     //     const wordCount = content.match(/\n| /g);
     //     return wordCount ? wordCount.length : 1;
     // };
+
     let navVisible = true;
 
     const toggleNav = () => {

@@ -10,16 +10,15 @@
     import Taskbar from "$lib/Taskbar.svelte";
     import Emacs from "$lib/Emacs.svelte";
 
-    export let data;
+    // get selectedPost
+    const pathPost = $postStore.find(post => `/post/${post.path}/` === $page.url.pathname) ?? null;
+
+    Post.selectedPost = pathPost;
+    $postStore = $postStore; // trigger change detection
+    // -----
 
     onMount(() => {
         Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
-
-        const pathPost = $postStore.find(post => `/post/${post.path}/` === $page.url.pathname);
-        if (!pathPost) return; 
-
-        Post.selectedPost = pathPost;
-        $postStore = $postStore; // trigger change detection
     });
 </script>
 
@@ -33,7 +32,7 @@
     name="imre.al" 
     slot={Emacs} 
     options={{
-        maximised: true
+        maximised: true,
     }}
 />
 

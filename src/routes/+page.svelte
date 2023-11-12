@@ -2,7 +2,7 @@
     import Desktop from "$lib/Desktop.svelte";
     import WindowComp from "$lib/window/Window.svelte";
     import Taskbar from "$lib/Taskbar.svelte";
-    import { Window } from "$lib/window/WindowStore";
+    import { Window, windowStore } from "$lib/window/WindowStore";
 
     import Emacs from "$lib/Emacs.svelte";
     import Terminal from "$lib/Terminal.svelte";
