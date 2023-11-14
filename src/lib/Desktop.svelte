@@ -1,13 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { windowStore, Window } from "$lib/window/WindowStore";
     import { assets } from "$app/paths";
     import _ from "lodash";
-    import { Program, programStore } from "./program/ProgramStore";
 
+    import { windowStore, Window } from "$lib/window/WindowStore";
+    import { Program, programStore } from "./program/ProgramStore";
     import WindowComponent from "$lib/window/Window.svelte";
-    import Emacs from "$lib/Emacs.svelte";
-    import Terminal from "$lib/Terminal.svelte";
 
     // export let desktopIcons = $windowStore;
     export let desktopIcons = $programStore;
@@ -50,37 +48,11 @@
         }
     }
 
-    // const updateIcons = (): void => {
-    //     const updatedIcons: Window[] = desktopIcons.map(icon => {
-    //         const match = $windowStore.find(window => window.name === icon.name);
-    //
-    //         return match ? ({ ...icon, ...match } as Window) : icon;
-    //     });
-    //
-    //     updatedIcons.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically by name
-    //
-    //     desktopIcons = updatedIcons;
-    // }
-
     const openWindow = (w: Program) => {
-        // updateIcons();
-
         // find the highest level div ("contents") and create a child div as the target
         const contentDiv = document.querySelector("div[style='display: contents']")!;
         const target = document.createElement("div"); 
         contentDiv.appendChild(target);
-
-        // const getSlot = (type: string) => {
-        //     switch (type) {
-        //         case "emacs": return Emacs;
-        //         case "terminal": return Terminal
-        //     }
-        // }
-
-        // new WindowComponent({
-        //     target,
-        //     props: { name: w.name, options: w.options, position: w.position, slot: getSlot(w.options.type) }
-        // });
 
         new WindowComponent({
             target,
@@ -154,6 +126,8 @@
 
     .desktop-icon img {
         max-width: 80%;
+        /* height: 72px; */
+        /* image-rendering: pixelated; */
     }
 
     .desktop-icon span {

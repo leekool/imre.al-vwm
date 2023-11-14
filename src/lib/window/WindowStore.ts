@@ -23,7 +23,7 @@ export class Options {
     minimised = false;
     maximised = false;
     highlight = false;
-    type = "emacs";
+    type = "emacs"; // this is redundant at the moment
     navbar = {
         maximise: true,
         minimise: true,

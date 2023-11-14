@@ -55,4 +55,12 @@ const emacs = new Program({
     }
 });
 
+// const about = new Program({
+//     name: "about",
+//     slot: null,
+//     options: {
+//         type: "about"
+//     }
+// });
+
 export const programStore = Program.store; 
