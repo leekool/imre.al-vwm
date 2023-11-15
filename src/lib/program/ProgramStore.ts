@@ -3,6 +3,7 @@ import { Options, Position } from "$lib/window/WindowStore";
 
 import Terminal from "$lib/Terminal.svelte";
 import Emacs from "$lib/Emacs.svelte";
+import About from "$lib/About.svelte";
 
 interface ProgramOptions {
     name: string,
@@ -19,7 +20,6 @@ export class Program {
 
     static store = writable<Program[]>([]);
 
-    // constructor(name: string, component: any, options?: Partial<Options>) {
     constructor({ name, slot, options, position }: ProgramOptions) {
         this.options = new Options();
         Object.assign(this.options, options);
@@ -57,7 +57,7 @@ const emacs = new Program({
 
 // const about = new Program({
 //     name: "about",
-//     slot: null,
+//     slot: About,
 //     options: {
 //         type: "about"
 //     }
