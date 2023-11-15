@@ -17,10 +17,6 @@ virtual desktop angular project based on my fvwm config - windows can focus, min
 [[screenshot_mobile.png]]
 
 ** todo:
-- rewrite in svelte based on [[https://github.com/leekool/layout_generator][layout_generator]]
-  - window movement
-  - window IDs
-  - window options
-- start button hover css
+- remake desktop icons 72x72px
 - terminal wallpaper command
 - refactor post line count
