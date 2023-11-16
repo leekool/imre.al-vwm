@@ -8,7 +8,7 @@
 <div class="taskbar">
     <div class="iconman">
         <!-- at the moment imre.al is always the default open window, this fills the $windowStore rendering gap -->
-        <!-- until i can figure out a quicker way to load it -->
+        <!-- until i can figure out a better/faster way to load it -->
         {#await tick()}
             <div class="iconman-button active">
                 <img
@@ -24,7 +24,7 @@
                     class:inactive={!window.options.focused}
                     on:click={() => {
                         window.taskbarClk();
-                        window = window; // tells svelte object changed
+                        window = window; // change detection
                     }}
                 >
                     <img
@@ -100,7 +100,7 @@
     }
 
     .active:hover {
-        text-shadow: 1px 0 #f6f6f6;
+        /* font-weight: 600; */
     }
 
     .inactive {
