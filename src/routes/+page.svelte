@@ -8,6 +8,7 @@
     import Terminal from "$lib/Terminal.svelte";
 
     import { onMount } from "svelte";
+    import About from "$lib/About.svelte";
 
     onMount(() => {
         Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
@@ -27,6 +28,11 @@
         maximised: true
     }}
 />
+
+<!-- <WindowComp -->
+<!--     name="about" -->
+<!--     slot={About} -->
+<!-- />     -->
 
 <!-- <WindowComp  -->
 <!--     name="terminal" -->
