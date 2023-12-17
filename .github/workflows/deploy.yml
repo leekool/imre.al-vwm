@@ -1,0 +1,56 @@
+name: deploy
+
+on:
+  push:  
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+
+      - name: install dependencies
+        working-directory: /
+        run: npm install
+
+      - name: build
+        working-directory: /
+        run: npm run build
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-folder
+          path: ./build
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-folder
+          path: ./build
+        
+      - name: copy build to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: ./build/*
+          target: ${{ secrets.FRONT_DIR }}
+          rm: true
+          strip_components: 2
