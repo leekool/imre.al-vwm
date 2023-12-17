@@ -16,11 +16,11 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: install dependencies
-        working-directory: /
+        working-directory: ./
         run: npm install
 
       - name: build
-        working-directory: /
+        working-directory: ./
         run: npm run build
 
       - name: upload artifact
