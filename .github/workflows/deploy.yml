@@ -50,7 +50,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: ./build/*
+          source: ./build
           target: ${{ secrets.FRONT_DIR }}
           rm: true
           strip_components: 2
