@@ -1,6 +1,6 @@
 * imre.al
 ** [[https://imre.al]]
-virtual desktop angular project based on my fvwm config - windows can focus, minimise, maximise and close
+virtual desktop svelte project based on my fvwm config - windows can focus, minimise, maximise and close
 
 ** windows
 *** imre.al
