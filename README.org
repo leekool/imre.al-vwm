@@ -13,8 +13,8 @@ virtual desktop angular project based on my fvwm config - windows can focus, min
 - pwd
 - shutdown
 
-[[screenshot_desktop.png]]
-[[screenshot_mobile.png]]
+[[docs/screenshot_desktop.png]]
+[[docs/screenshot_mobile.png]]
 
 ** todo:
 - remake desktop icons 72x72px
