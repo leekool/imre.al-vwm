@@ -4,7 +4,7 @@ virtual desktop svelte project based on my fvwm config - windows can focus, mini
 
 ** windows
 *** imre.al
-- based on doom emacs
+- ui based on doom emacs
 *** terminal
 ***** commands:
 - clear
