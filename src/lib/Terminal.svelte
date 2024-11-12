@@ -56,6 +56,10 @@
                 this.output = "/home/you";
             },
         },
+        // {
+        //     name: "pc",
+        //
+        // },
     ];
 
     const validCommand = (input: string): boolean => {
@@ -69,8 +73,9 @@
                 arrInput.length <= 1 ||
                 !x.validArgs ||
                 x.validArgs().includes(args)
-            )
+            ) {
                 return true;
+            }
         }
 
         return false;
@@ -97,7 +102,7 @@
         input.focus();
 
         input.textContent = inputCommands[inputCommands.length - 1].name;
-    }
+    };
 
     const onEnter = (input: HTMLSpanElement) => {
         // prevent contenteditable adding <div> on chrome
@@ -157,13 +162,13 @@
         }
 
         // commands to open/focus each window
-        $windowStore.forEach(window => {
+        $windowStore.forEach((window) => {
             commands.push({
                 name: window.name,
                 run: () => {
                     window.getFocus();
                     $windowStore = $windowStore;
-                }
+                },
             });
         });
     });
